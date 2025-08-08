@@ -8,9 +8,9 @@ permalink: /looks-interesting/
 
 # Выглядит интересно
 
-### [YouTube][Dinesh Mistry] Kubernetes CI/CD Pipeline Using Jenkins | DevOps Tutorial/Project [Eng, 2023]
+<br/>
 
-https://www.youtube.com/watch?v=q4g7KJdFSn0
+### [[YouTube][Dinesh Mistry] Kubernetes CI/CD Pipeline Using Jenkins | DevOps Tutorial/Project [Eng, 2023]](https://www.youtube.com/watch?v=q4g7KJdFSn0)
 
 <br/>
 
