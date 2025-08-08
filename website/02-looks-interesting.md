@@ -14,8 +14,10 @@ https://www.youtube.com/watch?v=q4g7KJdFSn0
 
 <br/>
 
+```
 ★ Documentation - https://docs.dman.cloud/tutorial-documentation/
 ★ Application Repository - https://github.com/dmancloud/complete-prodcution-e2e-pipeline
+```
 
 <br/>
 
