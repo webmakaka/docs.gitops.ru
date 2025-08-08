@@ -228,7 +228,7 @@ http://192.168.49.2.nip.io/
 
 Можно попробовать вместо kibana-cluster-ip настроить externalName
 
-https://github.com/webmakaka/gitops.ru/blob/febabfe6f2f6559f2319feed5760063a82ac4fc6/website/02-courses/01-containers/01-kubernetes/01-tools/03-logging/01-efk/01-logging-in-kubernetes-with-efk-stack/04-other.md
+https://github.com/webmakaka/docs.gitops.ru/blob/febabfe6f2f6559f2319feed5760063a82ac4fc6/website/02-courses/01-containers/01-kubernetes/01-tools/03-logging/01-efk/01-logging-in-kubernetes-with-efk-stack/04-other.md
 
 <br/>
 

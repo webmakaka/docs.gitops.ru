@@ -8,4 +8,4 @@ permalink: /devops/containers/kubernetes/minikube/svc/load-balancer/
 
 # Создание службы LoadBalancer
 
-### [Перенесено сюда](//gitops.ru/containers/kubernetes/svc/load-balancer/)
+### [Перенесено сюда](//docs.gitops.ru/containers/kubernetes/svc/load-balancer/)

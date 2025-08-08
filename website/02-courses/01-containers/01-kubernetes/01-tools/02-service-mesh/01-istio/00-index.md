@@ -14,9 +14,9 @@ permalink: /courses/containers/kubernetes/service-mesh/istio/
 
 <br/>
 
-### [Подготовка окружения для тестов Istio в minikube](//gitops.ru/containers/kubernetes/tools/service-mesh/istio/setup/)
+### [Подготовка окружения для тестов Istio в minikube](//docs.gitops.ru/containers/kubernetes/tools/service-mesh/istio/setup/)
 
-### [Запуск демонстрационного приложения Istio - bookinfo](//gitops.ru/containers/kubernetes/tools/service-mesh/istio/bookinfo/)
+### [Запуск демонстрационного приложения Istio - bookinfo](//docs.gitops.ru/containers/kubernetes/tools/service-mesh/istio/bookinfo/)
 
 ### [Istio Request Routing](/courses/containers/kubernetes/service-mesh/istio/request-routing/)
 

@@ -5,5 +5,5 @@ permalink: robots.txt
 
 User-agent: *
 Allow: /
-Host: https://gitops.ru
-Sitemap: https://gitops.ru/sitemap.xml
+Host: https://docs.gitops.ru
+Sitemap: https://docs.gitops.ru/sitemap.xml

@@ -1,0 +1,21 @@
+[Unit]
+Description=docs.gitops.ru
+
+Requires=docker.service
+After=docker.service
+
+[Service]
+
+Restart=always
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill docs.gitops.ru
+ExecStartPre=-/usr/bin/docker rm docs.gitops.ru
+ExecStartPre=-/usr/bin/docker pull marley/docs.gitops.ru:latest
+ExecStart=/bin/sh -c '/usr/bin/docker run --name docs.gitops.ru   \
+ -p 4006:80                        \
+ marley/docs.gitops.ru'
+ExecStop=-/usr/bin/docker kill docs.gitops.ru
+ExecStop=-/usr/bin/docker rm docs.gitops.ru
+
+[Install]
+WantedBy=multi-user.target

@@ -19,7 +19,7 @@ https://www.qwiklabs.com/focuses/5156?parent=catalog
 
 <br/>
 
-### [Install Terraform](//gitops.ru/terraform/setup//)
+### [Install Terraform](//docs.gitops.ru/terraform/setup//)
 
 <br>
 

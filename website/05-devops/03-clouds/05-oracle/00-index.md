@@ -8,4 +8,4 @@ permalink: /devops/clouds/oracle/
 
 # Oracle Clouds
 
-Перенесено [сюда](//gitops.ru/clouds/oracle/)
+Перенесено [сюда](//docs.gitops.ru/clouds/oracle/)

@@ -8,4 +8,4 @@ permalink: /devops/containers/docker/setup/centos/7/
 
 # Инсталляция Docker в CentOS 7.3
 
-Перенесено <a href="//gitops.ru/containers/docker/setup/centos/7/">сюда</a>
+Перенесено <a href="//docs.gitops.ru/containers/docker/setup/centos/7/">сюда</a>

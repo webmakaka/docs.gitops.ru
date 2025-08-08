@@ -14,4 +14,4 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Build the Docker container image
-        run: docker build ./ -f ./Dockerfile -t marley/gitops.ru:latest
+        run: docker build ./ -f ./Dockerfile -t marley/docs.gitops.ru:latest

@@ -24,7 +24,7 @@ https://medium.com/@sathishvj/qwiklabs-free-codes-gcp-and-aws-e40f3855ffdb
 
 ### Microsoft Azure
 
-### [Oracle Clouds](//gitops.ru/clouds/oracle/)
+### [Oracle Clouds](//docs.gitops.ru/clouds/oracle/)
 
 ### [Digital Ocean (DO)](/devops/clouds/do/)
 

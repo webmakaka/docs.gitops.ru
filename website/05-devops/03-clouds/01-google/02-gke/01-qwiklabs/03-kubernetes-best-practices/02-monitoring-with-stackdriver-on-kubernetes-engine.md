@@ -31,7 +31,7 @@ This lab will create a Kubernetes Engine cluster that has a sample application d
 
 <br/>
 
-### [Install Terraform](//gitops.ru/terraform/setup//)
+### [Install Terraform](//docs.gitops.ru/terraform/setup//)
 
 <br/>
 

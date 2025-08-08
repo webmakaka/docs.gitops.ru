@@ -1,12 +1,12 @@
 # Site settings
-title: gitops.ru на русском языке
+title: docs.gitops.ru на русском языке
 
 description: Собираем материалы по развертыванию приложений с помощью самых современных инструментова автоматизации
 
 keywords: GitOps, DevOps, SRE, Clouds, Linux, Docker, Kubernetes, Git, FluxCD, ArgoCD
 
 baseurl: '' # the subpath of your site, e.g. /blog/
-url: 'https://gitops.ru' # the base hostname & protocol for your site
+url: 'https://docs.gitops.ru' # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown

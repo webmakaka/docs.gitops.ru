@@ -8,4 +8,4 @@ permalink: /devops/containers/docker/setup/ubuntu/
 
 # Инсталляция / Upgrade Docker в Ubuntu 20.04.1
 
-Перенесено <a href="//gitops.ru/containers/docker/setup/ubuntu/">сюда</a>
+Перенесено <a href="//docs.gitops.ru/containers/docker/setup/ubuntu/">сюда</a>
