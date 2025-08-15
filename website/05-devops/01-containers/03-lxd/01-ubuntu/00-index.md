@@ -11,7 +11,7 @@ permalink: /devops/containers/lxd/ubuntu/
 <br/>
 
 Делаю!  
-27.10.2022
+2025.08.15
 
 <br/>
 
@@ -19,7 +19,7 @@ permalink: /devops/containers/lxd/ubuntu/
 
 ```
 $ sudo apt update && sudo apt upgrade -y
-$ sudo apt install -y lxc lxd
+$ sudo snap install lxd
 $ sudo systemctl enable snap.lxd.daemon && systemctl start snap.lxd.daemon
 
 $ systemctl status snap.lxd.daemon
@@ -38,12 +38,11 @@ $ logout
 ```
 $ lxc version
 If this is your first time running LXD on this machine, you should also run: lxd init
-To start your first container, try: lxc launch ubuntu:20.04
-Or for a virtual machine: lxc launch ubuntu:20.04 --vm
+To start your first container, try: lxc launch ubuntu:24.04
+Or for a virtual machine: lxc launch ubuntu:24.04 --vm
 
-Client version: 4.0.9
-Server version: 4.0.9
-
+Client version: 5.21.3 LTS
+Server version: 5.21.3 LTS
 ```
 
 <br/>
@@ -76,6 +75,21 @@ Would you like LXD to be available over the network? (yes/no) [default=no]:
 Would you like stale cached images to be updated automatically? (yes/no) [default=yes]
 Would you like a YAML "lxd init" preseed to be printed? (yes/no) [default=no]:
 ```
+
+
+<br/>
+
+### Jenkins
+
+```
+$ lxc launch ubuntu:24.04 jenkins-lxc
+```
+
+
+
+
+
+
 
 <br/>
 
