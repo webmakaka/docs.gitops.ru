@@ -18,25 +18,56 @@ https://www.vagrantup.com/downloads.html
 
 <br/>
 
-### Инсталляция Vagrant
+### Инсталляция Vagrant из репо ubuntu
 
-    $ cd /tmp
-    $ wget https://releases.hashicorp.com/vagrant/2.2.18/vagrant_2.2.18_x86_64.deb
+```
+$ sudo apt install -y vagrant
+```
 
-    $ sudo dpkg -i vagrant_2.2.18_x86_64.deb
+<br/>
 
-    $ vagrant -v
-    Vagrant 2.2.18
+```
+$ vagrant -v
+Vagrant 2.2.19
+```
+
+<br/>
+
+### Инсталляция Vagrant с сайта
+
+<br/>
+
+
+На 2025.08.15 вариант нерабочий!
+
+
+Делаю  
+2021.09.21
+
+```
+$ cd /tmp
+$ wget https://releases.hashicorp.com/vagrant/2.2.18/vagrant_2.2.18_x86_64.deb
+
+$ sudo dpkg -i vagrant_2.2.18_x86_64.deb
+
+$ vagrant -v
+Vagrant 2.2.18
+```
 
 <br/>
 
 ### Работа с plugin в Vagrant
 
-    $ vagrant plugin update
-    $ vagrant plugin list
+```
+$ vagrant plugin update
+$ vagrant plugin list
+```
 
 <br/>
 
 ### Удалить Vagrant
 
-    $ sudo apt remove -y vagrant
+
+```
+$ sudo apt remove -y vagrant
+```
