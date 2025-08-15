@@ -8,8 +8,11 @@ permalink: /tools/virtual/virtualbox/setup/ubuntu/
 
 # Инсталляция VirtualBox 7.X в командной строке в Ubuntu 22.04
 
+
+<br/>
+
 Делаю:  
-2023.11.25
+2025.08.15
 
 <br/>
 
@@ -23,13 +26,7 @@ $ cat oracle_vbox_2016.asc | gpg --dearmor | sudo tee /usr/share/keyrings/virtua
 <br/>
 
 ```
-$ sudo vi /etc/apt/sources.list.d/virtualbox.list
-```
-
-<br/>
-
-```
-deb [arch=amd64 signed-by=/usr/share/keyrings/virtualbox.gpg] https://download.virtualbox.org/virtualbox/debian jammy contrib
+$ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/virtualbox.gpg] https://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 ```
 
 <br/>
@@ -47,21 +44,21 @@ $ apt-cache search virtualbox*
 <br/>
 
 ```
-// Последняя 7.0 ее и ставлю
-$ sudo apt install -y virtualbox-7.0
+// Последняя 7.2 ее и ставлю
+$ sudo apt install -y virtualbox-7.2
 ```
 
 <br/>
 
 ```
 $ vboxmanage --version
-7.0.12r159484
+7.2.0r170228
 ```
 
 <br/>
 
 ```
-$ ^D
+$ CTRL^D
 ```
 
 <br/>
@@ -73,11 +70,9 @@ $ sudo usermod -aG vboxusers ${USER}
 
 <br/>
 
-в группе vboxusers должен появиться этот пользователь
-
 ```
+// В группе vboxusers должен появиться этот пользователь
 $ cat /etc/group | grep vboxusers
-vboxusers:x:138:marley
 ```
 
 <br/>
