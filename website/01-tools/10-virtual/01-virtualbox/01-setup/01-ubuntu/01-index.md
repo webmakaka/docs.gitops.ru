@@ -46,6 +46,8 @@ $ apt-cache search virtualbox*
 ```
 // Последняя 7.2 ее и ставлю
 $ sudo apt install -y virtualbox-7.2
+
+// P.S. vagrant, что в оф репах убутны, требует версию 6.1
 ```
 
 <br/>

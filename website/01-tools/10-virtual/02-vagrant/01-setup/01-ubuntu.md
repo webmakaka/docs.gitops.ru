@@ -8,17 +8,28 @@ permalink: /tools/virtual/vagrant/setup/ubuntu/
 
 # Инсталляция Vargant в Ubuntu 20.04.1
 
-Делаю  
-21.09.2021
 
 <br/>
 
 DOWNLOAD VAGRANT:  
 https://www.vagrantup.com/downloads.html
 
+
+
+
+
+
 <br/>
 
 ### Инсталляция Vagrant из репо ubuntu
+
+
+<br/>
+
+Делаю  
+2025.08.15
+
+<br/>
 
 ```
 $ sudo apt install -y vagrant

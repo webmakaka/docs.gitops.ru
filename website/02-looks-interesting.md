@@ -19,6 +19,17 @@ permalink: /looks-interesting/
 ★ Application Repository - https://github.com/dmancloud/complete-prodcution-e2e-pipeline
 ```
 
+<!-- <br/>
+
+```
+$ mkdir -p ~/projects//devops
+$ cd ~/projects//devops
+$ mkdir jenkins
+$ cd jenkins/
+``` -->
+
+
+
 <br/>
 
 ### [HashiCorp Live: Developer's Guide [ENG, 2025]]
