@@ -24,4 +24,4 @@ permalink: /devops/containers/
 
 ### Управление контейнерами
 
-[Kubernetes](/devops/containers/kubernetes/)
+[Kubernetes](//docs.k8s.ru/devops/containers/kubernetes/)

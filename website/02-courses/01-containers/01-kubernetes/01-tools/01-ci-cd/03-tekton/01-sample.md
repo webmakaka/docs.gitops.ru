@@ -3,7 +3,7 @@ layout: page
 title: TekTon
 description: TekTon
 keywords: linux, kubernetes, CI/CD, TekTon
-permalink: /devops/containers/kubernetes/ci-cd/tekton/sample/
+permalink: //docs.k8s.ru/devops/containers/kubernetes/ci-cd/tekton/sample/
 ---
 
 # TekTon
