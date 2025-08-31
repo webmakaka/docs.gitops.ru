@@ -10,13 +10,13 @@ permalink: /samples/ci-cd/gitlab/kubernetes/prepare-gitlab-host-to-work-with-min
 
 <br/>
 
-**[Upd: Можно сделать проще с использованием nginx](/tools/containers/kubernetes/minikube/setup/remote-connection-docker/)**
+**[Upd: Можно сделать проще с использованием nginx](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/remote-connection-docker/)**
 
 <br/>
 
 Есть ошущение, что так работать не будет. Или нужно ковырять virtualbox и firewall глубже. Поэтому, наверное, лучше посмотреть вот ...
 
-**[сюда](/tools/containers/kubernetes/minikube/setup/remote-connection-virtualbox/)**
+**[сюда](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/remote-connection-virtualbox/)**
 
 <br/>
 

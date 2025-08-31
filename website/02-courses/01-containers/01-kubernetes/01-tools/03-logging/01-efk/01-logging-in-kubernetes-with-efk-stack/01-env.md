@@ -15,10 +15,10 @@ permalink: /courses/containers/kubernetes/tools/logging/efk/logging-in-kubernete
 
 <br/>
 
-1. Инсталляция [MiniKube](/tools/containers/kubernetes/minikube/setup/)
+1. Инсталляция [MiniKube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
 
 **Испольновалась версия KUBERNETES_VERSION=v1.29.3**
 
-2. Инсталляция [Kubectl](/tools/containers/kubernetes/utils/kubectl/)
+2. Инсталляция [Kubectl](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
-3. Инсталляция [Elastic Search, Kibana, Fluentd](/tools/containers/kubernetes/utils/logging/elastic/setup/)
+3. Инсталляция [Elastic Search, Kibana, Fluentd](//docs.k8s.ru/tools/containers/kubernetes/utils/logging/elastic/setup/)

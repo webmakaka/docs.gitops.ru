@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=laMwuG8r7Tw
 
 <br/>
 
-[Инсталляция Linkerd](/tools/containers/kubernetes/utils/service-mesh/linkerd/setup/)
+[Инсталляция Linkerd](//docs.k8s.ru/tools/containers/kubernetes/utils/service-mesh/linkerd/setup/)
 
 <br/>
 

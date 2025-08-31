@@ -18,7 +18,7 @@ permalink: /tools/containers/
 
 ### Kubernetes
 
-[Docker](/tools/containers/kubernetes/)
+[Docker](//docs.k8s.ru/tools/containers/kubernetes/)
 
 <br/>
 

@@ -27,13 +27,13 @@ $ gcloud cloud-shell ssh
 
 <br/>
 
-1. Инсталляция [MiniKube](/tools/containers/kubernetes/minikube/setup/) (Ingress и остальное можно не устанавливать)
+1. Инсталляция [MiniKube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/) (Ingress и остальное можно не устанавливать)
 
 **Испольновалась версия KUBERNETES_VERSION=v1.22.2**
 
-2. Инсталляция [Kubectl](/tools/containers/kubernetes/utils/kubectl/)
+2. Инсталляция [Kubectl](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
-3. Инсталляция [Skaffold](/tools/containers/kubernetes/utils/scaffold/)
+3. Инсталляция [Skaffold](//docs.k8s.ru/tools/containers/kubernetes/utils/scaffold/)
 
 4. Инсталляция [JDK17](//javadev.org/devtools/jdk/setup/linux/)
 

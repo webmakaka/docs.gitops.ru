@@ -23,7 +23,7 @@ permalink: /tools/clouds/google/google-cloud-shell/get-access-ngrok/
 
 <br/>
 
-Если нужно для kubernetes, см. [сюда](/tools/containers/kubernetes/minikube/ngrok-ingress-controller/).
+Если нужно для kubernetes, см. [сюда](//docs.k8s.ru//docs.k8s.ru/tools/containers/kubernetes/minikube/ngrok-ingress-controller/).
 
 <br/>
 

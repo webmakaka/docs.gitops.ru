@@ -282,7 +282,7 @@ $ flux push artifact oci://ghcr.io/wildmakaka/bb-app:7.7.0-$(git rev-parse --sho
 
 <br/>
 
-[Устанавливаю helm](/tools/containers/kubernetes/utils/helm/setup/)
+[Устанавливаю helm](//docs.k8s.ru/tools/containers/kubernetes/utils/helm/setup/)
 
 <br/>
 

@@ -357,7 +357,7 @@ jenkins-ingress-service   <none>   192.168.49.2.nip.io   192.168.49.2   80      
 
 <br/>
 
-### [Моя дока](/tools/containers/kubernetes/minikube/ngrok-ingress-controller/)
+### [Моя дока](//docs.k8s.ru//docs.k8s.ru/tools/containers/kubernetes/minikube/ngrok-ingress-controller/)
 
 <br/>
 

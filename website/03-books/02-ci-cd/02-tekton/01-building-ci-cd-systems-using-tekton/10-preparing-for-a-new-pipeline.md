@@ -19,7 +19,7 @@ permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/preparing-for
 
 <br/>
 
-[Поднимаем новый minikube](/tools/containers/kubernetes/minikube/setup/)
+[Поднимаем новый minikube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
 
 <br/>
 

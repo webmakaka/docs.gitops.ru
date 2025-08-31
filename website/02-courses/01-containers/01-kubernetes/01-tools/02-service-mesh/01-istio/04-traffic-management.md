@@ -8,7 +8,7 @@ permalink: /courses/containers/kubernetes/service-mesh/istio/traffic-management/
 
 # Istio Traffic Management
 
-Поднята виртуальная машина с minikube <a href="/tools/containers/kubernetes/utils/service-mesh/istio/setup/">следующим образом</a>.
+Поднята виртуальная машина с minikube <a href="//docs.k8s.ru/tools/containers/kubernetes/utils/service-mesh/istio/setup/">следующим образом</a>.
 
 <br/>
 

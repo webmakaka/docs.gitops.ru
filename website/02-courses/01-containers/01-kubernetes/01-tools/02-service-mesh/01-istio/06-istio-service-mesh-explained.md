@@ -19,7 +19,7 @@ permalink: /courses/containers/kubernetes/service-mesh/istio/istio-service-mesh-
 
 <br/>
 
-Поднимаю как <a href="/tools/containers/kubernetes/utils/service-mesh/istio/setup/">здесь</a>
+Поднимаю как <a href="//docs.k8s.ru/tools/containers/kubernetes/utils/service-mesh/istio/setup/">здесь</a>
 
 <br/>
 

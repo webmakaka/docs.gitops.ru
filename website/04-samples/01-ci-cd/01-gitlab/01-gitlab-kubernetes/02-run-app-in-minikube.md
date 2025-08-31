@@ -19,7 +19,7 @@ Docker version 20.10.0, build 7287ab3
 
 <br/>
 
-### [Minikube installation](/tools/containers/kubernetes/minikube/setup/)
+### [Minikube installation](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
 
 Последний раз делалось на:
 
@@ -30,7 +30,7 @@ minikube version: v1.16.0
 
 <br/>
 
-### [Kubectl installation](/tools/containers/kubernetes/utils/kubectl/)
+### [Kubectl installation](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
 <br/>
 
@@ -38,7 +38,7 @@ minikube version: v1.16.0
 
 **Здесь используется драйвер driver virtualbox**
 
-Если использовать docker или kvm, можно посмотреть [здесь](/tools/containers/kubernetes/minikube/setup/remote-connection-docker/)
+Если использовать docker или kvm, можно посмотреть [здесь](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/remote-connection-docker/)
 
 <br/>
 
