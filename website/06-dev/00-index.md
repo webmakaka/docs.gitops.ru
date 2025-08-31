@@ -16,6 +16,6 @@ permalink: /dev/
 
 ### [Ruby on Rails](/dev/ruby-on-rails/)
 
-### [Node.JS](//jsdev.org/env/nodejs/)
+### [Node.JS](//jsdev.org/devtools/nodejs/setup/)
 
 ### [JAVA](//javadev.org/devtools/jdk/setup/)
