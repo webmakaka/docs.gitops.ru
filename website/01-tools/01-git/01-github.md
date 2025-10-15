@@ -92,7 +92,7 @@ $ eval "$(ssh-agent -s)"
 <br/>
 
 ```
-// Добавить ключ
+// Добавляем private key
 $ ssh-add ~/.ssh/webmakaka
 
 // Проверка, что ключ добавлен
@@ -103,7 +103,14 @@ $ ssh-add -l -E md5
 
 ```
 // Посмотреть public key
-$ cat webmakaka.pub
+$ cat ~/.ssh/webmakaka.pub
+```
+
+<br/>
+
+```
+// Скопировать public key в буфер
+$ cat ~/.ssh/webmakaka.pub | xclip -selection clipboard
 ```
 
 <br/>
@@ -123,6 +130,10 @@ $ ssh -T git@github.com
 // При необходимости использовать токен
 $ GIT_SSH_COMMAND='ssh -i ~/.ssh/webmakaka -o IdentitiesOnly=yes' ssh -T git@github.com
 ```
+
+<br/>
+
+MD5 должны совпадать в UI и в ssh-add
 
 <br/>
 
