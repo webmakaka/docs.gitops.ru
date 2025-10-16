@@ -233,12 +233,12 @@ $ docker rm -f <container_id>
 
 ```
 // Остановить все контейнеры:
-# docker stop $(docker ps -a -q)
+$ docker stop $(docker ps -a -q)
 ```
 
 ```
 // Удалить все контейнеры:
-# docker rm $(docker ps -a -q)
+$ docker rm $(docker ps -a -q)
 ```
 
 ```
