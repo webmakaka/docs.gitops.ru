@@ -263,7 +263,7 @@ $ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
 <br/>
 
-### Более новый способ удаления всех оъектов
+### Удаление всех созданных ресурсов Docker
 
 <br/>
 
@@ -283,6 +283,17 @@ $ {
 
 ```
 $ docker system info
+```
+
+<br/>
+
+### Посмотреть содержимое
+
+<br/>
+
+```
+$ docker inspect mariadb | less
+$ docker image history mariadb
 ```
 
 <br/>
