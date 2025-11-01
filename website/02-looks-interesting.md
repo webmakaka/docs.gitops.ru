@@ -28,8 +28,6 @@ $ mkdir jenkins
 $ cd jenkins/
 ``` -->
 
-
-
 <br/>
 
 ### [HashiCorp Live: Developer's Guide [ENG, 2025]]
@@ -101,26 +99,6 @@ https://github.com/beneiltis/-2024-meetup-local-dev/tree/main
 ### Crossplane
 
 [[YouTube] Getting Started with Crossplane [ENG, 2024]](https://www.youtube.com/watch?v=bBpE0rfE-JM)
-
-<br/>
-
-### kubearmor
-
-https://kubearmor.io/
-
-<br/>
-
-### kubespray
-
-https://github.com/kubernetes-sigs/kubespray
-
-<br/>
-
-### Kubescape 3.0
-
-[[YouTube] Kubescape - Kubernetes security platform [ENG, 2024]](https://www.youtube.com/watch?v=8NlEgjhE-mg)
-
-[[YouTube] Introducing Kubescape 3.0 [ENG, 2023]](https://www.youtube.com/watch?v=5ZT--gyxVlg)
 
 <br/>
 
