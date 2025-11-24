@@ -1,8 +1,8 @@
 ---
 layout: page
-title: GitOps Cookbook - Building a Container Using Shipwright and kaniko in Kubernetes
-description: GitOps Cookbook - Building a Container Using Shipwright and kaniko in Kubernetes
-keywords: GitOps Cookbook, Building a Container Using Shipwright and kaniko in Kubernetes
+title: GitOps Cookbook - Building a Container Using Shipwright and Kaniko in Kubernetes
+description: Вам нужно создать docker image с помощью kubernetes
+keywords: GitOps Cookbook, Tekton, Shipwright, Kaniko in Kubernetes
 permalink: /books/gitops/gitops-cookbook/containers/
 ---
 
@@ -12,12 +12,26 @@ permalink: /books/gitops/gitops-cookbook/containers/
 
 <br/>
 
-## 03.5 - Building a Container Using Shipwright and kaniko in Kubernetes
+## 03.5 - Building a Container Using Shipwright and Kaniko in Kubernetes
+
+<br/>
+
+**Задача:**  
+Вам нужно создать docker image с помощью kubernetes
 
 <br/>
 
 **Делаю:**  
-25.05.2023
+2025.11.25
+
+<br/>
+
+[Использовал kind](//docs.k8s.ru/tools/containers/kubernetes/kind/)
+
+<br/>
+
+// Shipwright Installation
+https://shipwright.io/docs/getting-started/installation/
 
 <br/>
 
@@ -26,29 +40,61 @@ permalink: /books/gitops/gitops-cookbook/containers/
 <br/>
 
 ```
-$ kubectl apply -f \
-    https://github.com/shipwright-io/build/releases/download/v0.11.0/release.yaml
-```
+$ kubectl apply -f https://github.com/shipwright-io/build/releases/latest/download/release.yaml --server-side=true
 
-<br/>
-
-```
-$ kubectl get pods -n shipwright-build
-NAME                                          READY   STATUS    RESTARTS   AGE
-shipwright-build-controller-86547f98d-4wz8b   1/1     Running   0          59s
-```
-
-<br/>
-
-```
-$ kubectl apply -f \
-    https://github.com/shipwright-io/build/releases/download/v0.11.0/sample-strategies.yaml
+$ kubectl apply -f https://github.com/shipwright-io/build/releases/latest/download/sample-strategies.yaml
 ```
 
 <br/>
 
 ```
 $ kubectl get cbs
+NAME                              AGE
+buildah-shipwright-managed-push   8s
+buildah-strategy-managed-push     8s
+buildkit                          8s
+buildpacks-v3                     8s
+buildpacks-v3-heroku              8s
+kaniko                            8s
+ko                                8s
+multiarch-native-buildah          8s
+source-to-image                   8s
+source-to-image-redhat            8s
+
+```
+
+<br/>
+
+```
+$ kubectl get crd | grep shipwright
+buildruns.shipwright.io                    2025-11-24T21:34:32Z
+builds.shipwright.io                       2025-11-24T21:34:32Z
+buildstrategies.shipwright.io              2025-11-24T21:34:32Z
+clusterbuildstrategies.shipwright.io       2025-11-24T21:34:32Z
+```
+
+<br/>
+
+```
+$ kubectl get crd buildruns.shipwright.io
+NAME                      CREATED AT
+buildruns.shipwright.io   2025-11-24T21:34:32Z
+```
+
+<br/>
+
+```
+$ kubectl get pods -n shipwright-build
+NAME                                           READY   STATUS              RESTARTS   AGE
+shipwright-build-controller-7f44f9f94d-swk6k   1/1     Running             0          2m3s
+shipwright-build-webhook-77c859b87f-7tfw2      0/1     ContainerCreating   0          2m3s
+```
+
+<br/>
+
+```
+// Подебажить, если нужно
+$ k events -n shipwright-build
 ```
 
 <br/>
@@ -70,6 +116,7 @@ $ {
 <br/>
 
 ```
+// Создаем секрет с пародлями для hub.docker.com
 $ kubectl create secret docker-registry push-secret \
     --docker-server=${REGISTRY_SERVER} \
     --docker-username=${REGISTRY_USER} \
@@ -88,23 +135,48 @@ push-secret   kubernetes.io/dockerconfigjson   1      8s
 
 <br/>
 
+```
+// Если нужно обновить api
+$ kubectl api-resources | grep Build
+```
+
+<br/>
+
+```
+# Посмотреть схему Build для v1beta1
+$ kubectl explain build.shipwright.io --api-version=shipwright.io/v1beta1
+
+# Посмотреть специфичные поля
+$ kubectl explain build.shipwright.io.spec --api-version=shipwright.io/v1beta1
+$ kubectl explain build.shipwright.io.spec.source --api-version=shipwright.io/v1beta1
+$ kubectl explain build.shipwright.io.spec.output --api-version=shipwright.io/v1beta1
+```
+
+<br/>
+
+**Форкаю:**  
+https://github.com/shipwright-io/sample-nodejs
+
+<br/>
+
 ```yaml
 $ cat << EOF | kubectl apply -f -
-apiVersion: shipwright.io/v1alpha1
+apiVersion: shipwright.io/v1beta1
 kind: Build
 metadata:
   name: kaniko-nodejs-build
 spec:
   source:
-    url: https://github.com/shipwright-io/sample-nodejs
+    type: Git
+    git:
+      url: https://github.com/wildmakaka/sample-nodejs
     contextDir: docker-build
   strategy:
     name: kaniko
     kind: ClusterBuildStrategy
   output:
     image: webmakaka/sample-nodejs:latest
-    credentials:
-      name: push-secret
+    pushSecret: push-secret
 EOF
 ```
 
@@ -120,12 +192,12 @@ kaniko-nodejs-build   True         Succeeded   ClusterBuildStrategy   kaniko    
 
 ```yaml
 $ cat << EOF | kubectl create -f -
-apiVersion: shipwright.io/v1alpha1
+apiVersion: shipwright.io/v1beta1
 kind: BuildRun
 metadata:
   generateName: kaniko-nodejs-buildrun-
 spec:
-  buildRef:
+  build:
     name: kaniko-nodejs-build
 EOF
 ```
@@ -133,20 +205,32 @@ EOF
 <br/>
 
 ```
+$ kubectl get pods
 NAME                                     READY   STATUS      RESTARTS   AGE
-kaniko-nodejs-buildrun-qj8wh-7xk8s-pod   0/3     Completed   0          2m23s
+kaniko-nodejs-buildrun-hjrkn-5wstd-pod   0/3     Completed   0          2m23s
 ```
 
 <br/>
 
 ```
-$ kubectl logs -f kaniko-nodejs-buildrun-qgnct-nw46r-pod -c step-build-and-push
+// Дебаг
+$ kubectl logs -f kaniko-nodejs-buildrun-xp5n5-2mfsx-pod -c step-source-default
+$ kubectl logs -f kaniko-nodejs-buildrun-xp5n5-2mfsx-pod -c step-build-and-push
 ```
 
 <br/>
 
 ```
-$ kubectl get buildruns
-NAME                           SUCCEEDED   REASON   STARTTIME   COMPLETIONTIME
-kaniko-nodejs-buildrun-qj8wh   True        Succeeded   22m         20m
+// Ждем результат
+$ kubectl get buildruns -w
+NAME                           SUCCEEDED   REASON      STARTTIME   COMPLETIONTIME
+kaniko-nodejs-buildrun-hjrkn   True        Succeeded   3m6s        52s
+```
+
+<br/>
+
+**Вот здесь появился image:**
+
+```
+https://hub.docker.com/r/webmakaka/sample-nodejs
 ```
