@@ -16,13 +16,13 @@ permalink: /books/gitops/gitops-cookbook/containers/
 
 <br/>
 
-**Задача:**  
-Вам нужно создать docker image с помощью kubernetes
+**Делаю:**  
+2025.11.25
 
 <br/>
 
-**Делаю:**  
-2025.11.25
+**Задача:**  
+Вам нужно создать docker image с помощью kubernetes
 
 <br/>
 
@@ -93,8 +93,42 @@ shipwright-build-webhook-77c859b87f-7tfw2      0/1     ContainerCreating   0    
 <br/>
 
 ```
-// Подебажить, если нужно
-$ k events -n shipwright-build
+// Подебажить, если нужно. А тут такое!
+$ kubectl events -n shipwright-build
+LAST SEEN               TYPE      REASON        OBJECT                                          MESSAGE
+5m50s (x87 over 166m)   Warning   FailedMount   Pod/shipwright-build-webhook-77c859b87f-7tfw2   MountVolume.SetUp failed for volume "webhook-certs" : secret "shipwright-build-webhook-cert" not found
+```
+
+<br/>
+
+```
+// Создайте временный self-signed сертификат
+$ openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out webhook.crt -keyout webhook.key -subj "/CN=shipwright-build-webhook.shipwright-build.svc"
+
+// Создайте secret
+$ kubectl create secret tls shipwright-build-webhook-cert -n shipwright-build --cert=webhook.crt --key=webhook.key
+
+
+// Удаляем pod
+$ kubectl delete pod shipwright-build-webhook-77c859b87f-7tfw2 -n shipwright-build
+```
+
+<br/>
+
+```
+// Поиск сертификата
+$ kubectl get secrets -n shipwright-build | grep -E "(webhook|cert|tls)"
+shipwright-build-webhook-cert   kubernetes.io/tls   2      4m58s
+
+```
+
+<br/>
+
+```
+$ kubectl get pods -n shipwright-build
+NAME                                           READY   STATUS    RESTARTS   AGE
+shipwright-build-controller-7f44f9f94d-swk6k   1/1     Running   0          173m
+shipwright-build-webhook-77c859b87f-t5vzf      1/1     Running   0          3m
 ```
 
 <br/>
