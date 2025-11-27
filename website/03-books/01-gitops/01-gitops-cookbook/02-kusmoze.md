@@ -17,6 +17,7 @@ permalink: /books/gitops/gitops-cookbook/kustomize/
 
 <br/>
 
+**Репо проекта:**  
 https://github.com/gitops-cookbook/pacman-kikd-manifests
 
 <br/>
@@ -24,7 +25,6 @@ https://github.com/gitops-cookbook/pacman-kikd-manifests
 ```
 $ cd ~/tmp/
 $ git clone git@github.com:gitops-cookbook/pacman-kikd-manifests.git
-$ cd ~/tmp/pacman-kikd-manifests/k8s/
 ```
 
 <br/>
@@ -39,13 +39,19 @@ $ cd ~/tmp/pacman-kikd-manifests/k8s/
 <br/>
 
 ```
+$ cd ~/tmp/pacman-kikd-manifests/k8s/
+```
+
+<br/>
+
+```
 // Prints the result of the kustomization run, without sending the result to the
 cluster
-$ kustomize build .
+$ kubectl apply --dry-run=client -o yaml -k ./
 
 или
 
-$ kubectl apply --dry-run=client -o yaml -k ./
+$ kustomize build .
 ```
 
 <br/>

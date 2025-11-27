@@ -12,25 +12,30 @@ permalink: /books/gitops/gitops-cookbook/helm/
 
 <br/>
 
-```
-// scaffold the project
-$ helm create <name>
-```
-
-<br/>
-
+**Репо проекта:**  
 https://github.com/gitops-cookbook/helm-charts/tree/master/pacman
 
 <br/>
 
-```
-$ helm template .
-```
+### 5.1 Creating a Helm Project
+
+<br/>
+
+**Делаю:**  
+2025.11.27
+
+<br/>
+
+**Задача:**  
+Вы хотите создать простой Helm проект
 
 <br/>
 
 ```
-// override
+$ cd ~/tmp
+$ git clone git@github.com:gitops-cookbook/helm-charts.git
+$ cd helm-charts/pacman
+$ helm template .
 $ helm template --set replicaCount=3 .
 ```
 
@@ -44,6 +49,8 @@ $ helm install pacman .
 
 ```
 $ kubectl get pods
+NAME                      READY   STATUS    RESTARTS   AGE
+pacman-86454cc887-jdn62   1/1     Running   0          46s
 ```
 
 <br/>
@@ -57,6 +64,15 @@ $ helm history pacman
 ```
 $ helm uninstall pacman
 ```
+
+<br/>
+
+### 5.2 Reusing Statements Between Templates
+
+<br/>
+
+**Задача:**  
+Вы хотите повторно использовать шаблоны операторов в нескольких файлах.
 
 <br/>
 
@@ -94,6 +110,11 @@ $ helm template pacman -f newvalues.yaml .
 <br/>
 
 ### 5.4 Packaging and Distributing a Helm Chart
+
+<br/>
+
+**Задача:**  
+Вы хотите упаковать и распространять Helm Chart, чтобы другие пользователи могли его использовать
 
 <br/>
 
