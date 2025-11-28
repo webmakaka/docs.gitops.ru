@@ -71,17 +71,103 @@ $ helm uninstall pacman
 
 <br/>
 
+**Делаю:**  
+2025.11.29
+
+<br/>
+
 **Задача:**  
-Вы хотите повторно использовать шаблоны операторов в нескольких файлах.
+Вы хотите спользовать шаблоны и указывать в них значения
+
+<br/>
+
+```yaml
+$ cat > templates/_helpers.tpl << EOF
+{{- define "pacman.selectorLabels" -}}
+app.kubernetes.io/name: {{ .Chart.Name}}
+app.kubernetes.io/version: {{ .Chart.AppVersion}}
+{{- end }}
+EOF
+```
+
+<br/>
+
+Если в коде yaml прописать
+
+<br/>
+
+```
+{{- include "pacman.selectorLabels" . | nindent 6 }}
+```
+
+<br/>
+
+nindent - отсутп
+
+<br/>
+
+```
+$ helm template .
+```
+
+<br/>
+
+Появится содержимаое.
 
 <br/>
 
 ### 5.3 Updating a Container Image in Helm
 
+<br/>
+
+**Делаю:**  
+2025.11.29
+
+<br/>
+
+**Задача:**  
+Вы хотите обновить container image в deployment файле используя Helm и проапгрейдить запущенный instance
+
+<br/>
+
 ```
-values.yaml - update the version
-Chart.yaml - update the appVersion field
+$ git checkout .
+$ rm templates/_helpers.tpl
 ```
+
+<br/>
+
+```
+$ helm install pacman .
+NAME: pacman
+LAST DEPLOYED: Sat Nov 29 01:36:29 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+```
+
+```
+$ helm history pacman
+REVISION	UPDATED                 	STATUS  	CHART       	APP VERSION	DESCRIPTION
+1       	Sat Nov 29 01:36:29 2025	deployed	pacman-0.1.0	1.0.0      	Install complete
+```
+
+<br/>
+
+```
+$ vi values.yaml
+```
+
+Прописываем container tag to 1.1.0
+
+<br/>
+
+```
+$ vi Chart.yaml
+```
+
+Прописываем appVersion: "1.1.0"
 
 <br/>
 
@@ -93,6 +179,9 @@ $ helm upgrade pacman .
 
 ```
 $ helm history pacman
+REVISION	UPDATED                 	STATUS    	CHART       	APP VERSION	DESCRIPTION
+1       	Sat Nov 29 01:36:29 2025	superseded	pacman-0.1.0	1.0.0      	Install complete
+2       	Sat Nov 29 01:39:43 2025	deployed  	pacman-0.1.0	1.1.0      	Upgrade complete
 ```
 
 <br/>
@@ -104,7 +193,36 @@ $ helm rollback pacman 1
 <br/>
 
 ```
+$ helm history pacman
+REVISION	UPDATED                 	STATUS    	CHART       	APP VERSION	DESCRIPTION
+1       	Sat Nov 29 01:36:29 2025	superseded	pacman-0.1.0	1.0.0      	Install complete
+2       	Sat Nov 29 01:39:43 2025	superseded	pacman-0.1.0	1.1.0      	Upgrade complete
+3       	Sat Nov 29 01:40:33 2025	deployed  	pacman-0.1.0	1.0.0      	Rollback to 1
+```
+
+<br/>
+
+```yaml
+$ cat > newvalues.yaml << EOF
+image:
+  tag: "1.2.0"
+EOF
+```
+
+<br/>
+
+```
 $ helm template pacman -f newvalues.yaml .
+```
+
+<br/>
+
+Tag прописался из файла newvalues.yaml.
+
+<br/>
+
+```
+$ helm uninstall pacman
 ```
 
 <br/>
@@ -114,7 +232,7 @@ $ helm template pacman -f newvalues.yaml .
 <br/>
 
 **Задача:**  
-Вы хотите упаковать и распространять Helm Chart, чтобы другие пользователи могли его использовать
+Вы хотите создать свой Helm Chart и распространять его между пользователями
 
 <br/>
 
