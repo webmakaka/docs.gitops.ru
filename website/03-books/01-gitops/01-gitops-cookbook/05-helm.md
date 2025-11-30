@@ -231,6 +231,11 @@ $ helm uninstall pacman
 
 <br/>
 
+**Делаю в бесплатном облаке google-cloud-shell:**  
+2025.11.30
+
+<br/>
+
 **Задача:**  
 Вы хотите создать свой Helm Chart и распространять его между пользователями
 
@@ -238,15 +243,92 @@ $ helm uninstall pacman
 
 ```
 $ helm package .
+
+// Сгенерировать файл index.yaml
+$ helm repo index .
+```
+
+<br/>
+
+**С gpg подписью**
+
+<br/>
+
+```
+# Создать основную папку
+mkdir -p ~/.gnupg
+chmod 700 ~/.gnupg
+
+# Создать необходимые подкаталоги
+mkdir -p ~/.gnupg/private-keys-v1.d
+mkdir -p ~/.gnupg/crls.d
 ```
 
 <br/>
 
 ```
-$ helm package --sign --key 'me@example.com' \
---keyring /home/me/.gnupg/secring.gpg .
+# Убедиться что владелец правильный
+chown -R $USER:$USER ~/.gnupg
+```
 
-$ helm verify pacman-0.1.0.tgz
+<br/>
+
+```
+$ gpg --batch --generate-key << EOF
+Key-Type: RSA
+Key-Length: 4096
+Subkey-Type: RSA
+Subkey-Length: 4096
+Name-Real: marley
+Name-Email: marley@internet.ru
+Expire-Date: 0
+%commit
+EOF
+```
+
+<br/>
+
+```
+$ gpg --list-secret-keys
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+/home/marley/.gnupg/pubring.kbx
+-------------------------------
+sec   rsa4096 2025-11-30 [SCEA]
+      5546C6173CCC9C5B5E1CD4FE0547DC35D64C40F1
+uid           [ultimate] marley <marley@internet.ru>
+ssb   rsa4096 2025-11-30 [SEA]
+```
+
+<br/>
+
+```
+$ gpg --export-secret-keys > ~/.gnupg/secring.gpg
+$ chmod 600 ~/.gnupg/secring.gpg
+```
+
+<br/>
+
+```
+$ helm package --sign --key 'marley@internet.ru' \
+--keyring /home/${USER}/.gnupg/secring.gpg .
+```
+
+<br/>
+
+```
+$ cat pasha256:1.0.tgz.prov | grep sha256:
+  pacman-0.1.0.tgz: sha256:6f8820f8109e62c28f3dec5ef8605529e452edec2e02d67add646054238bfb6b
+```
+
+<br/>
+
+```
+$ helm verify pacman-0.1.0.tgz --keyring /home/${USER}/.gnupg/secring.gpg
+Signed by: marley <marley@internet.ru>
+Using Key With Fingerprint: 5546C6173CCC9C5B5E1CD4FE0547DC35D64C40F1
+Chart Hash Verified: sha256:6f8820f8109e62c28f3dec5ef8605529e452edec2e02d67add646054238bfb6b
 ```
 
 <br/>
@@ -255,12 +337,19 @@ $ helm verify pacman-0.1.0.tgz
 
 <br/>
 
-**Делаю:**  
-2024.11.10
+**Делаю в бесплатном облаке google-cloud-shell:**  
+2025.11.30
+
+<br/>
+
+**Задача:**  
+Вы хотите задеплоить Helm Chart хранящийся в репо
 
 <br/>
 
 ```
+// На дату 2025.11.30 не получается добавить, т.к. забанены всей страной
+// Удалось выполнить команды в бесплатном облаке google-cloud-shell
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
 
@@ -304,8 +393,9 @@ $ {
 <br/>
 
 ```
-// To connect to your database
-$ kubectl run my-db-postgresql-client --rm --tty -i --restart='Never' --namespace postgres --image docker.io/bitnami/postgresql:15.3.0-debian-11-r4 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
+// Подключиться к базе postgresql с помощью клиента psql
+// OK!
+$ kubectl run my-db-postgresql-client --rm --tty -i --restart='Never' --namespace postgres --image docker.io/bitnami/postgresql:latest --env="PGPASSWORD=$POSTGRES_PASSWORD" \
       --command -- psql --host my-db-postgresql -U user1 -d postgresdb1 -p 5432
 ```
 
@@ -313,6 +403,7 @@ $ kubectl run my-db-postgresql-client --rm --tty -i --restart='Never' --namespac
 
 ```
 // To connect to your database from outside the cluster
+// OK!
 $ kubectl port-forward --namespace postgres svc/my-db-postgresql 5432:5432 &
     PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U user1 -d postgresdb1 -p 5432
 ```
@@ -321,6 +412,8 @@ $ kubectl port-forward --namespace postgres svc/my-db-postgresql 5432:5432 &
 
 ```
 $ kubectl get statefulset -n postgres
+NAME               READY   AGE
+my-db-postgresql   1/1     2m54s
 ```
 
 <br/>
@@ -335,8 +428,13 @@ $ helm show values bitnami/postgresql
 
 <br/>
 
-**Делаю:**  
-26.05.2023
+**Делаю в бесплатном облаке google-cloud-shell:**  
+2025.11.30
+
+<br/>
+
+**Задача:**  
+Вы хотите задеплоить Helm Chart, с зависимостями от другого Helm Chart
 
 <br/>
 
@@ -434,7 +532,7 @@ appVersion: "1.0.0"
 dependencies:
   - name: postgresql
     repository: "https://charts.bitnami.com/bitnami"
-    version: 12.5.5
+    version: 18.1.13
 EOF
 ```
 
@@ -467,17 +565,16 @@ $ helm dependency update
 <br/>
 
 ```
+$ tree
 .
 ├── Chart.lock
-├── charts
-│   └── postgresql-12.5.5.tgz
 ├── Chart.yaml
+├── charts
+│   └── postgresql-18.1.13.tgz
 ├── templates
 │   ├── deployment.yaml
 │   └── service.yaml
 └── values.yaml
-
-2 directories, 6 files
 ```
 
 <br/>
@@ -501,6 +598,7 @@ music-db-postgresql-0     1/1     Running     0              4m12s
 <br/>
 
 ```
+// Можно пропустить
 // GET ADMIN_POSTGRES_PASSWORD
 $ {
   export ADMIN_POSTGRES_PASSWORD=$(kubectl get -n music secret music-db-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
@@ -511,14 +609,16 @@ $ {
 <br/>
 
 ```
+// Можно пропустить
 // To connect to your database as admin
-$ kubectl run my-db-postgresql-client --rm --tty -i --restart='Never' --namespace music --image docker.io/bitnami/postgresql:15.3.0-debian-11-r4 --env="PGPASSWORD=$ADMIN_POSTGRES_PASSWORD" \
+$ kubectl run my-db-postgresql-client --rm --tty -i --restart='Never' --namespace music --image docker.io/bitnami/postgresql:latest --env="PGPASSWORD=$ADMIN_POSTGRES_PASSWORD" \
       --command -- psql --host music-db-postgresql -U postgres -d postgres -p 5432
 ```
 
 <br/>
 
 ```
+// Можно пропустить
 // GET USER POSTGRES_PASSWORD
 $ {
   export USER_POSTGRES_PASSWORD=$(kubectl get -n music secret music-db-postgresql -o jsonpath="{.data.password}" | base64 -d)
@@ -529,14 +629,16 @@ $ {
 <br/>
 
 ```
+// Можно пропустить
 // To connect to your database as user1
-$ kubectl run my-db-postgresql-client --rm --tty -i --restart='Never' --namespace music --image docker.io/bitnami/postgresql:15.3.0-debian-11-r4 --env="PGPASSWORD=$USER_POSTGRES_PASSWORD" \
+$ kubectl run my-db-postgresql-client --rm --tty -i --restart='Never' --namespace music --image docker.io/bitnami/postgresql:latest --env="PGPASSWORD=$USER_POSTGRES_PASSWORD" \
       --command -- psql --host music-db-postgresql -U user1 -d postgresdb1 -p 5432
 ```
 
 <br/>
 
 ```
+// Можно пропустить
 // To connect to your database from outside the cluster
 $ kubectl port-forward --namespace music svc/music-db-postgresql 5432:5432 &
     PGPASSWORD="$USER_POSTGRES_PASSWORD" psql --host 127.0.0.1 -U user1 -d postgresdb1 -p 5432
@@ -545,6 +647,7 @@ $ kubectl port-forward --namespace music svc/music-db-postgresql 5432:5432 &
 <br/>
 
 ```
+// Можно пропустить
 $ kubectl get services -n music
 NAME                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 music                    ClusterIP   10.109.139.154   <none>        8080/TCP   83s
@@ -597,8 +700,13 @@ $ curl localhost:8080/song | jq
 
 <br/>
 
-**Делаю:**  
-27.05.2023
+**Делаю в бесплатном облаке google-cloud-shell:**  
+2025.11.30
+
+<br/>
+
+**Задача:**  
+Вы хотите обновить deployment при изменении ConfigMap
 
 <br/>
 
@@ -717,6 +825,19 @@ EOF
 <br/>
 
 ```
+$ tree .
+.
+├── Chart.yaml
+├── templates
+│   ├── configmap.yaml
+│   ├── deployment.yaml
+│   └── service.yaml
+└── values.yaml
+```
+
+<br/>
+
+```
 $ helm install greetings .
 ```
 
@@ -733,6 +854,8 @@ greetings-6df4d99d46-vzrj9   1/1     Running   0          29s
 ```
 $ kubectl port-forward service/greetings 8080:8080
 ```
+
+<br/>
 
 ```
 $ curl localhost:8080
@@ -773,6 +896,8 @@ $ helm upgrade greetings .
 $ kubectl port-forward service/greetings 8080:8080
 ```
 
+<br/>
+
 ```
 $ curl localhost:8080
 ```
@@ -785,7 +910,7 @@ Aloha Alexandra⏎
 
 <br/>
 
-There are no changes in the Deployment object, there is no restart of the pod;
+There are no changes in the Deployment object, there is no restart of the pod.
 
 <br/>
 

@@ -15,7 +15,7 @@ permalink: /tools/clouds/google/google-cloud-shell/setup/
 <br/>
 
 **Делаю:**  
-2025.10.21
+2025.11.30
 
 <br/>
 
@@ -37,10 +37,10 @@ $ source ~/.bashrc
 
 ```
 $ gcloud --version
-Google Cloud SDK 543.0.0
-bq 2.1.24
-bundled-python3-unix 3.12.9
-core 2025.10.10
+Google Cloud SDK 548.0.0
+bq 2.1.25
+bundled-python3-unix 3.13.7
+core 2025.11.17
 gcloud-crc32c 1.0.0
 gsutil 5.35
 ```
@@ -52,7 +52,7 @@ gsutil 5.35
 <br/>
 
 **Делаю:**  
-2025.10.21
+2025.11.30
 
 ```
 // 1 раз нужно залогиниться
