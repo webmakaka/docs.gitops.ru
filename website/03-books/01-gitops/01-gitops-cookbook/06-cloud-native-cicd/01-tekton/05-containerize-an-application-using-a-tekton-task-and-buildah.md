@@ -118,7 +118,7 @@ spec:
       description: the fully qualified image name
       default: ""
   steps:
-    - image: 'gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.21.0'
+    - image: 'ghcr.io/tektoncd/github.com/tektoncd/pipeline/cmd/git-init:v0.29.0'
       name: clone
       resources: {}
       script: |

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Task to Compile and Package an App from Git
-description: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Task to Compile and Package an App from Git
+description: Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton
 keywords: books, gitops, cloud-native-cicd, tekton, Create a Task to Compile and Package an App from Git
 permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-to-compile-and-package-an-app-from-git/
 ---
@@ -13,13 +13,25 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-
 <br/>
 
 Делаю:  
-2024.03.08
+2025.12.02
 
 <br/>
 
+**Задача:**  
+Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton
+
+<br/>
+
+```
+// pipeline/cmd/git-init
+// Последняя v0.37.0
+// С ней ошибка. Не стал разбираться.
+https://github.com/tektoncd/pipeline/pkgs/container/github.com%2Ftektoncd%2Fpipeline%2Fcmd%2Fgit-init
+```
+
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: build-app
@@ -46,9 +58,8 @@ spec:
       type: string
       default: "false"
   steps:
-    - image: 'gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.21.0'
+    - image: 'ghcr.io/tektoncd/github.com/tektoncd/pipeline/cmd/git-init:v0.29.0'
       name: clone
-      resources: {}
       script: |
           CHECKOUT_DIR="$(workspaces.source.path)/$(params.subdirectory)"
           cleandir() {
@@ -91,7 +102,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: TaskRun
 metadata:
   generateName: build-app-run-
@@ -133,18 +144,25 @@ build-app   36s
 ```
 $ tkn taskrun ls
 NAME                  STARTED          DURATION   STATUS
-build-app-run-f5ctk   3 minutes ago    1m38s      Succeeded
+build-app-run-hxtk2   3 minutes ago    1m38s      Succeeded
 ```
 
 <br/>
 
 ```
-$ tkn taskrun logs build-app-run-f5ctk -f
+tkn tr desc build-app-run-hxtk2
+```
+
+<br/>
+
+```
+$ tkn taskrun logs build-app-run-hxtk2 -f
 ***
 [build-sources] [INFO] ------------------------------------------------------------------------
 [build-sources] [INFO] BUILD SUCCESS
 [build-sources] [INFO] ------------------------------------------------------------------------
-[build-sources] [INFO] Total time:  02:35 min
-[build-sources] [INFO] Finished at: 2024-03-08T10:14:04Z
+[build-sources] [INFO] Total time:  01:31 min
+[build-sources] [INFO] Finished at: 2025-12-01T23:41:20Z
 [build-sources] [INFO] ------------------------------------------------------------------------
+
 ```

@@ -21,4 +21,4 @@ permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/installation-
 
 ### 2. Инсталляция [Kubectl](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
-### 3. Инсталляция [ Tekton CLI](//docs.k8s.ru/tools/containers/kubernetes/utils/ci-cd/tekton/)
+### 3. Инсталляция [ Tekton CLI](/tools/containers/kubernetes/utils/ci-cd/tekton/)

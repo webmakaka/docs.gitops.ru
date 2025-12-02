@@ -10,18 +10,26 @@ permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/stepping-into
 
 <br/>
 
-### [OK!] Building your first task
+### [OK!] Task1: Building your first task
 
 <br/>
 
 Делаю:  
-2024.03.08
+2025.12.02
+
+<br/>
+
+```
+$ kubectl api-resources | grep Task
+taskruns                            tr,trs                                 tekton.dev/v1                     true         TaskRun
+tasks                                                                      tekton.dev/v1                     true         Task
+```
 
 <br/>
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: hello
@@ -74,7 +82,7 @@ Waiting for logs to be available...
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: multiple-steps
@@ -99,6 +107,10 @@ EOF
 
 ```
 $ tkn task start multiple-steps --showlog
+
+[first] First step running
+
+[second] Second step running
 ```
 
 <br/>
@@ -109,7 +121,7 @@ $ tkn task start multiple-steps --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: script
@@ -130,6 +142,11 @@ EOF
 
 ```
 $ tkn task start script --showlog
+
+step-with-script] --- redhat.com ping statistics ---
+[step-with-script] 5 packets transmitted, 0 received, 100% packet loss, time 4079ms
+[step-with-script]
+[step-with-script] All done!
 ```
 
 <br/>
@@ -140,7 +157,7 @@ $ tkn task start script --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: script-node
@@ -157,6 +174,8 @@ EOF
 
 ```
 $ tkn task start script-node --showlog
+
+[unnamed-0] This is some JS code
 ```
 
 <br/>
@@ -167,7 +186,7 @@ $ tkn task start script-node --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: hello-param

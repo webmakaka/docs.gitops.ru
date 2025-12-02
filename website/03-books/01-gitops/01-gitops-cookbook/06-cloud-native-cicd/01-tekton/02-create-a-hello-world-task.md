@@ -12,4 +12,9 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-hello
 
 <br/>
 
+**Задача:**  
+Вы хотите начать использовать Tekton создавать и запускать задачи
+
+<br/>
+
 [Повтор Building your first task](/books/ci-cd/tekton/building-ci-cd-systems-using-tekton/stepping-into-tasks/)

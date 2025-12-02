@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Task to Compile and Package an App from Private Git
-description: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Task to Compile and Package an App from Private Git
+description: Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton и использовать приватный репо
 keywords: books, gitops, cloud-native-cicd, tekton, Create a Task to Compile and Package an App from Private Git
 permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-to-compile-and-package-an-app-from-private-git/
 ---
@@ -13,11 +13,12 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-
 <br/>
 
 Делаю:  
-2024.03.08
+2025.12.02
 
 <br/>
 
-Пересоздал minikube
+**Задача:**  
+Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton и использовать приватный репо
 
 <br/>
 
@@ -81,7 +82,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: build-app
@@ -108,9 +109,8 @@ spec:
       type: string
       default: "false"
   steps:
-    - image: 'gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.21.0'
+    - image: 'ghcr.io/tektoncd/github.com/tektoncd/pipeline/cmd/git-init:v0.29.0'
       name: clone
-      resources: {}
       script: |
           CHECKOUT_DIR="$(workspaces.source.path)/$(params.subdirectory)"
           cleandir() {
@@ -161,7 +161,7 @@ $ kubectl get tasks
 
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: TaskRun
 metadata:
   generateName: build-app-run-
@@ -196,20 +196,20 @@ EOF
 
 ```
 $ tkn taskrun ls
-NAME                  STARTED          DURATION   STATUS
-build-app-run-28gtk   54 seconds ago   48s        Succeeded
+NAME                  STARTED         DURATION   STATUS
+build-app-run-9jq2x   2 minutes ago   1m16s      Succeeded
 ```
 
 <br/>
 
 ```
-$ tkn taskrun logs build-app-run-28gtk -f
+$ tkn taskrun logs build-app-run-9jq2x -f
 [build-sources] [INFO] ------------------------------------------------------------------------
 [build-sources] [INFO] BUILD SUCCESS
 [build-sources] [INFO] ------------------------------------------------------------------------
-[build-sources] [INFO] Total time:  42.830 s
-[build-sources] [INFO] Finished at: 2024-03-08T11:03:27Z
-[build-sources] [INFO] ---------------------------------------------------------
+[build-sources] [INFO] Total time:  01:06 min
+[build-sources] [INFO] Finished at: 2025-12-02T00:39:35Z
+[build-sources] [INFO] ------------------------------------------------------------------------
 ```
 
 <br/>

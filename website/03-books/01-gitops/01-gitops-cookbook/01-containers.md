@@ -35,7 +35,7 @@ https://shipwright.io/docs/getting-started/installation/
 
 <br/>
 
-[Поставил Tekton](//docs.k8s.ru/tools/containers/kubernetes/utils/ci-cd/tekton/)
+[Поставил Tekton](/tools/containers/kubernetes/utils/ci-cd/tekton/)
 
 <br/>
 

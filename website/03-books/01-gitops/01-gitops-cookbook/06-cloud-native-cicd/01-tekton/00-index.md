@@ -12,7 +12,7 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/
 
 <br/>
 
-### [Поставил Tekton + Triggers](//docs.k8s.ru/tools/containers/kubernetes/utils/ci-cd/tekton/)
+### [Поставил Tekton + Triggers](/tools/containers/kubernetes/utils/ci-cd/tekton/)
 
 <br/>
 
