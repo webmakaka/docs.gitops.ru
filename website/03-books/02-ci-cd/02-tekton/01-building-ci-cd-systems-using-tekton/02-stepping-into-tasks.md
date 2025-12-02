@@ -20,6 +20,7 @@ permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/stepping-into
 <br/>
 
 ```
+// Смотрим актуальную версию API
 $ kubectl api-resources | grep Task
 taskruns                            tr,trs                                 tekton.dev/v1                     true         TaskRun
 tasks                                                                      tekton.dev/v1                     true         Task

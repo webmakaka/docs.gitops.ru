@@ -17,30 +17,7 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/deploy-an-appl
 <br/>
 
 Делаю:  
-2024.03.08
-
-<br/>
-
-```yaml
-$ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: kubectl
-spec:
-  params:
-    - name: SCRIPT
-      description: The kubectl CLI arguments to run
-      type: string
-      default: "kubectl help"
-  steps:
-    - name: oc
-      image: quay.io/openshift/origin-cli:latest
-      script: |
-        #!/usr/bin/env bash
-        $(params.SCRIPT)
-EOF
-```
+2025.12.02
 
 <br/>
 
@@ -115,13 +92,38 @@ EOF
 
 <br/>
 
+**Define a Task**
+
+```yaml
+$ cat << 'EOF' | kubectl create -f -
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: kubectl
+spec:
+  params:
+    - name: SCRIPT
+      description: The kubectl CLI arguments to run
+      type: string
+      default: "kubectl help"
+  steps:
+    - name: oc
+      image: quay.io/openshift/origin-cli:latest
+      script: |
+        #!/usr/bin/env bash
+        $(params.SCRIPT)
+EOF
+```
+
+<br/>
+
 **Define a TaskRun**
 
 <br/>
 
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: TaskRun
 metadata:
   name: kubectl-taskrun

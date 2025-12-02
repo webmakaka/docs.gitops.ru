@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Hello World Task
-description: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Hello World Task
+description: Начать использовать Tekton создать и запусктить задачи
 keywords: books, gitops, cloud-native-cicd, tekton, Create a Hello World Task
 permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-hello-world-task/
 ---
@@ -13,7 +13,7 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-hello
 <br/>
 
 **Задача:**  
-Вы хотите начать использовать Tekton создавать и запускать задачи
+Начать использовать Tekton создать и запусктить задачи
 
 <br/>
 

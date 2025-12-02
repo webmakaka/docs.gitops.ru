@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Task to Compile and Package an App from Private Git
-description: Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton и использовать приватный репо
+description: Скомпилировать и упаковать приложение из приватного репозитория git с помощью tekton в kubernetes
 keywords: books, gitops, cloud-native-cicd, tekton, Create a Task to Compile and Package an App from Private Git
 permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-to-compile-and-package-an-app-from-private-git/
 ---
@@ -18,7 +18,7 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-
 <br/>
 
 **Задача:**  
-Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton и использовать приватный репо
+Скомпилировать и упаковать приложение из приватного репозитория git с помощью tekton в kubernetes
 
 <br/>
 
@@ -214,9 +214,9 @@ $ tkn taskrun logs build-app-run-9jq2x -f
 
 <br/>
 
-### Запуск как в книге
-
 ```
+// Аналогичный запуск в командной строке
+// OK!
 $ tkn task start build-app \
 --serviceaccount='tekton-bot-sa' \
 --param url='https://github.com/wildmakaka/wildmakaka-tekton-greeter-private.git' \

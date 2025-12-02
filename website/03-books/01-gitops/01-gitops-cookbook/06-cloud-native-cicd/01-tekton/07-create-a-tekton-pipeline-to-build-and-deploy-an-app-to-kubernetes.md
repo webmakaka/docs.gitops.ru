@@ -144,7 +144,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: build-push-app
@@ -243,7 +243,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: kubectl
@@ -266,7 +266,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: tekton-greeter-pipeline
@@ -310,7 +310,7 @@ EOF
 
 ```yaml
 $ envsubst << 'EOF' | cat | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   generateName: tekton-greeter-pipeline-run-
@@ -433,7 +433,7 @@ app-source-pvc   Bound    pvc-c675c620-2268-43a3-835d-8a99743edf69   1Gi        
 
 ```yaml
 $ envsubst << 'EOF' | cat | kubectl create -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: tekton-greeter-pipeline-hub

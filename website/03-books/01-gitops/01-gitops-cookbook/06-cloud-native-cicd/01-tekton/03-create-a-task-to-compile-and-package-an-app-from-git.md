@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Task to Compile and Package an App from Git
-description: Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton
+description: Скомпилировать и упаковать приложение из публичного репозитория git с помощью tekton в kubernetes
 keywords: books, gitops, cloud-native-cicd, tekton, Create a Task to Compile and Package an App from Git
 permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-to-compile-and-package-an-app-from-git/
 ---
@@ -18,7 +18,7 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-
 <br/>
 
 **Задача:**  
-Вы хотите автоматизироваь компиляцию и упаковку приложения из git в kubernetes с помощью tekton
+Скомпилировать и упаковать приложение из публичного репозитория git с помощью tekton в kubernetes
 
 <br/>
 
