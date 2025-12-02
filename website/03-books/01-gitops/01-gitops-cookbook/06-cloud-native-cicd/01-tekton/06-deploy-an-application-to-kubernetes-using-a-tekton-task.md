@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Cloud Native CI/CD - Tekton - Deploy an Application to Kubernetes Using a Tekton Task
-description: GitOps Cookbook - Cloud Native CI/CD - Tekton - Deploy an Application to Kubernetes Using a Tekton Task
+description: Задеплоить ранее созданное приложение в контейнере с помощью tekton в kubernetes
 keywords: books, gitops, cloud-native-cicd, tekton, Deploy an Application to Kubernetes Using a Tekton Task
 permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/deploy-an-application-to-kubernetes-using-a-tekton-task/
 ---
@@ -21,7 +21,26 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/deploy-an-appl
 
 <br/>
 
+**Задача:**  
+Задеплоить ранее созданное приложение в контейнере с помощью tekton в kubernetes
+
+<br/>
+
+```yaml
+$ cat << 'EOF' | kubectl create -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tekton-deployer-sa
+secrets:
+  - name: container-registry-secret
+EOF
 ```
+
+<br/>
+
+```
+// Если не заработает, то создавал таким образом
 $ kubectl create serviceaccount tekton-deployer-sa
 ```
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Tekton Pipeline to Build and Deploy an App to Kubernetes
-description: GitOps Cookbook - Cloud Native CI/CD - Tekton - Create a Tekton Pipeline to Build and Deploy an App to Kubernetes
+description: Создать Pipeline для компиляции, упаковки и деплоя приложения с помощью tekton в kubernetes
 keywords: books, gitops, cloud-native-cicd, tekton, Create a Tekton Pipeline to Build and Deploy an App to Kubernetes
 permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-tekton-pipeline-to-build-and-deploy-an-app-to-kubernetes/
 ---
@@ -13,127 +13,28 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-tekto
 <br/>
 
 Делаю:  
-2024.03.08
+2025.12.02
 
 <br/>
 
-Пушим image в dockerhub
+**Задача:**  
+Создать Pipeline для компиляции, упаковки и деплоя приложения с помощью tekton в kubernetes
 
 <br/>
 
-```
-$ docker login
+Уже созданы на предыдущем шаге:
 
-***
-Login Succeeded
-```
-
-<br/>
-
-```
-REGISTRY_USER=<your own docker login>
-REGISTRY_PASSWORD=<your own docker password>
-```
+- Secret на hub.docker.com
+- ServiceAccount
+- Role
+- RoleBinding
 
 <br/>
 
 ```
-$ {
-    export REGISTRY_SERVER=https://index.docker.io/v1/
-    export REGISTRY_USER=webmakaka
-    export REGISTRY_PASSWORD=webmakaka-password
-
-    echo ${REGISTRY_SERVER}
-    echo ${REGISTRY_USER}
-    echo ${REGISTRY_PASSWORD}
-}
-```
-
-<br/>
-
-```
-$ kubectl create secret docker-registry container-registry-secret \
-    --docker-server=${REGISTRY_SERVER} \
-    --docker-username=${REGISTRY_USER} \
-    --docker-password=${REGISTRY_PASSWORD}
-```
-
-<br/>
-
-```yaml
-$ cat << 'EOF' | kubectl create -f -
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tekton-deployer-sa
-secrets:
-  - name: container-registry-secret
-EOF
-```
-
-<br/>
-
-**Define a Role named pipeline-role for the ServiceAccount**
-
-<br/>
-
-```yaml
-$ cat << 'EOF' | kubectl create -f -
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: task-role
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - pods
-      - services
-      - endpoints
-      - configmaps
-      - secrets
-    verbs:
-      - "*"
-  - apiGroups:
-      - apps
-    resources:
-      - deployments
-      - replicasets
-    verbs:
-      - "*"
-  - apiGroups:
-      - ""
-    resources:
-      - pods
-    verbs:
-      - get
-  - apiGroups:
-      - apps
-    resources:
-      - replicasets
-    verbs:
-      - get
-EOF
-```
-
-<br/>
-
-**Bind the Role to the ServiceAccount**
-
-```yaml
-$ cat << 'EOF' | kubectl create -f -
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: task-role-binding
-roleRef:
-  kind: Role
-  name: task-role
-  apiGroup: rbac.authorization.k8s.io
-subjects:
-  - kind: ServiceAccount
-    name: tekton-deployer-sa
-EOF
+// Удаляем созданные на прошлом шагу
+$ kubectl delete svc tekton-greeter
+$ kubectl delete deployment tekton-greeter
 ```
 
 <br/>
@@ -180,7 +81,6 @@ spec:
   steps:
     - image: 'ghcr.io/tektoncd/github.com/tektoncd/pipeline/cmd/git-init:v0.29.0'
       name: clone
-      resources: {}
       script: |
           CHECKOUT_DIR="$(workspaces.source.path)/$(params.subdirectory)"
           cleandir() {
@@ -309,13 +209,14 @@ EOF
 <br/>
 
 ```yaml
-$ envsubst << 'EOF' | cat | kubectl create -f -
+$ cat << 'EOF' | kubectl create -f -
 apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   generateName: tekton-greeter-pipeline-run-
 spec:
-  serviceAccountName: tekton-deployer-sa
+  taskRunTemplate:
+    serviceAccountName: tekton-deployer-sa
   params:
   - name: GIT_REPO
     value: https://github.com/gitops-cookbook/tekton-tutorial-greeter.git
@@ -339,7 +240,13 @@ EOF
 ```
 $ tkn pipelinerun ls
 NAME                                STARTED          DURATION   STATUS
-tekton-greeter-pipeline-run-8rf6v   2 minutes ago    1m59s      Succeeded
+tekton-greeter-pipeline-run-psl6s   2 minutes ago    1m59s      Succeeded
+```
+
+<br/>
+
+```
+$ tkn pipelinerun logs tekton-greeter-pipeline-run-psl6s -f
 ```
 
 <br/>
@@ -377,7 +284,11 @@ https://hub.docker.com/r/webmakaka/tekton-greeter
 
 <br/>
 
-Нужно удалить deploy
+```
+// Удаляем созданные на прошлом шагу
+$ kubectl delete svc tekton-greeter
+$ kubectl delete deployment tekton-greeter
+```
 
 <br/>
 
@@ -529,7 +440,46 @@ EOF
 
 <br/>
 
+```yaml
+$ cat << 'EOF' | kubectl create -f -
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: tekton-greeter-pipeline-hub-
+spec:
+  taskRunTemplate:
+    serviceAccountName: tekton-deployer-sa
+  params:
+  - name: GIT_REPO
+    value: https://github.com/gitops-cookbook/tekton-tutorial-greeter.git
+  - name: GIT_REF
+    value: "master"
+  - name: DESTINATION_IMAGE
+    value: webmakaka/tekton-greeter:latest
+  - name: CONTEXT_DIR
+    value: "quarkus"
+  - name: IMAGE_DOCKERFILE
+    value: "quarkus/Dockerfile"
+  - name: IMAGE_CONTEXT_DIR
+    value: "quarkus"
+  - name: SCRIPT
+    value: |
+      kubectl create deploy tekton-greeter --image=webmakaka/tekton-greeter:latest
+  pipelineRef:
+    name: tekton-greeter-pipeline-hub
+  workspaces:
+  - name: app-source
+    persistentVolumeClaim:
+      claimName: app-source-pvc
+  - emptyDir: {}
+    name: maven-settings
+EOF
 ```
+
+<br/>
+
+```
+// Аналогичный запуск в командной строке
 // OK!
 $ tkn pipeline start tekton-greeter-pipeline-hub \
     --serviceaccount='tekton-deployer-sa' \
@@ -557,7 +507,29 @@ tekton-greeter-pipeline-hub-run-42pdx   2 minutes ago    1m39s      Succeeded
 <br/>
 
 ```
-$ tkn pipelinerun logs tekton-greeter-pipeline-hub-run-vtc84
+$ tkn pipelinerun logs tekton-greeter-pipeline-hub-run-42pdx -f
+```
+
+<br/>
+
+```
+$ kubectl get deploy
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+tekton-greeter   1/1     1            1           73
+```
+
+<br/>
+
+```
+$ kubectl expose deploy/tekton-greeter --port 8080
+$ kubectl port-forward svc/tekton-greeter 8080:8080
+```
+
+<br/>
+
+```
+$ curl localhost:8080
+Meeow!! from Tekton 😺🚀⏎
 ```
 
 <br/>
@@ -572,26 +544,4 @@ $ kubectl --namespace tekton-pipelines port-forward svc/tekton-dashboard 8080:90
 
 ```
 $ localhost:8080 -> PipelineRuns
-```
-
-<br/>
-
-```
-$ kubectl get deploy
-NAME             READY   UP-TO-DATE   AVAILABLE   AGE
-tekton-greeter   1/1     1            1           73
-```
-
-<br/>
-
-```
-// $ kubectl expose deploy/tekton-greeter --port 8080
-$ kubectl port-forward svc/tekton-greeter 8080:8080
-```
-
-<br/>
-
-```
-$ curl localhost:8080
-Meeow!! from Tekton 😺🚀⏎
 ```
