@@ -66,7 +66,7 @@ EOF
 
 <br/>
 
-```
+```yaml
 $ cat << EOF | kubectl apply -f -
 apiVersion: tekton.dev/v1beta1
 kind: TaskRun

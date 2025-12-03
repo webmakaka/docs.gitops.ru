@@ -34,4 +34,4 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/
 
 ### [[FAIL!] 6.9 Update a Kubernetes Resource Using Kustomize and Push the Change to Git](/books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kubernetes-resource-using-kustomize-and-push-the-change-to-git/)
 
-### [[UNKNOWN!] 6.10 Update a Kubernetes Resource Using Helm and Create a Pull Request](/books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kubernetes-resource-using-helm-and-create-a-pull-request/)
+### [[OK!] 6.10 Update a Kubernetes Resource Using Helm and Create a Pull Request](/books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kubernetes-resource-using-helm-and-create-a-pull-request/)
