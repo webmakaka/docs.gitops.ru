@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Argo CD - Automatic Synchronization
-description: GitOps Cookbook - Argo CD - Automatic Synchronization
+description: С помощью Argo CD автоматически обновлять ресурсы при изменениях
 keywords: books, gitops, argo-cd, Automatic Synchronization
 permalink: /books/gitops/gitops-cookbook/argo-cd/automatic-synchronization/
 ---
@@ -13,7 +13,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/automatic-synchronization/
 <br/>
 
 Делаю:  
-2024.03.09
+2025.12.04
+
+<br/>
+
+**Задача:**
+С помощью Argo CD автоматически обновлять ресурсы при изменениях
 
 <br/>
 
@@ -43,13 +48,6 @@ EOF
 <br/>
 
 ```
-$ minikube --profile ${PROFILE} ip
-192.168.49.2
-```
-
-<br/>
-
-```
 $ kubectl patch svc bgd -n bgd -p '{"spec": {"type": "NodePort"}}'
 ```
 
@@ -57,15 +55,28 @@ $ kubectl patch svc bgd -n bgd -p '{"spec": {"type": "NodePort"}}'
 
 ```
 $ kubectl get services -n bgd
-NAME   TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
-bgd    NodePort   10.100.45.5   <none>        8080:30411/TCP   5m39s
+NAME   TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+bgd    NodePort   10.110.113.78   <none>        8080:32109/TCP   31s
+```
+
+<br/>
+
+```
+$ minikube --profile ${PROFILE} ip
+192.168.58.2
 ```
 
 <br/>
 
 ```
 // [OK!]
-http://192.168.49.2:31739
+http://192.168.58.2:32109
+```
+
+<br/>
+
+```
+$ argocd app set bgd-app --sync-policy manual
 ```
 
 <br/>
@@ -79,7 +90,7 @@ $ kubectl -n bgd patch deploy/bgd \
 
 ```
 // [OK!]
-http://192.168.49.2:31739
+http://192.168.58.2:32109
 ```
 
 <br/>

@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup/cli/
 <br/>
 
 Делаю:  
-2024.03.25
+2025.12.03
 
 <br/>
 
@@ -21,7 +21,14 @@ https://github.com/argoproj/argo-cd/releases/latest
 
 ```
 $ cd ~/tmp
-$ wget https://github.com/argoproj/argo-cd/releases/download/v2.14.3/argocd-linux-amd64
+$ wget https://github.com/argoproj/argo-cd/releases/download/v3.2.1/argocd-linux-amd64
 $ sudo mv argocd-linux-amd64 /usr/local/bin/argocd
 $ chmod +x /usr/local/bin/argocd
+```
+
+<br/>
+
+```
+$ argocd version
+argocd: v3.2.1+8c4ab63
 ```

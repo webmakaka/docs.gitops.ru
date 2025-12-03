@@ -12,10 +12,6 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/using-tekton-t
 
 <br/>
 
-https://tekton.dev/docs/getting-started/triggers/
-
-<br/>
-
 Делаю:  
 2025.12.02
 
@@ -23,6 +19,10 @@ https://tekton.dev/docs/getting-started/triggers/
 
 **Задача:**  
 Запуск Pipeline для компиляции, упаковки и деплоя приложения с помощью tekton в kubernetes при изменении в git
+
+<br/>
+
+https://tekton.dev/docs/getting-started/triggers/
 
 <br/>
 

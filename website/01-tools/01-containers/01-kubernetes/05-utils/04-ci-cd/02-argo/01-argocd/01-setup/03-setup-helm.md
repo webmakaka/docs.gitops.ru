@@ -3,7 +3,7 @@ layout: page
 title: Инсталляция ArgoCD с помощью Helm на Minikube
 description: Инсталляция ArgoCD с помощью Helm на Minikube
 keywords: devops, containers, kubernetes, ci-cd, argocd, setup, minikube, helm
-permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup-argocd-using-helm/
+permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup/helm/
 ---
 
 # Инсталляция ArgoCD с помощью Helm на Minikube
@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup-argocd-usi
 <br/>
 
 Делаю:  
-2023.05.09
+2025.12.03
 
 <br/>
 
@@ -24,13 +24,14 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup-argocd-usi
 ```
 $ export PROFILE=${USER}-minikube
 $ export INGRESS_HOST=$(minikube --profile ${PROFILE} ip)
-$ echo ${INGRESS_HOST}
+$ echo argocd.$INGRESS_HOST.nip.io
 ```
 
 <br/>
 
 ```
 $ cd ~/tmp
+$ mkdir argo
 $ vi argo/argocd-values.yaml
 ```
 
@@ -61,7 +62,7 @@ $ helm repo add argo \
 ```
 $ helm search repo argo/argo-cd
 NAME        	CHART VERSION	APP VERSION	DESCRIPTION
-argo/argo-cd	5.32.1       	v2.7.1     	A Helm chart for Argo CD, a declarative, GitOps...
+argo/argo-cd	9.1.5        	v3.2.1     	A Helm chart for Argo CD, a declarative, GitOps...
 ```
 
 <br/>
@@ -87,8 +88,20 @@ $ helm upgrade --install \
 
 ```
 $ kubectl get ingress -n argocd
+NAME            CLASS   HOSTS                ADDRESS        PORTS   AGE
+argocd-server   nginx   argocd.example.com   192.168.58.2   80      78s
+```
+
+<br/>
+
+Пришлось руками поправить ingress
+
+<br/>
+
+```
+$ kubectl get ingress -n argocd
 NAME            CLASS   HOSTS                        ADDRESS        PORTS   AGE
-argocd-server   nginx   argocd.192.168.49.2.nip.io   192.168.49.2   80      8m25s
+argocd-server   nginx   argocd.192.168.58.2.nip.io   192.168.58.2   80      8m45s
 ```
 
 <!-- <br/>
@@ -140,6 +153,7 @@ $ echo argocd.$INGRESS_HOST.nip.io
 ```
 
 ```
+// admin / ABCDEFGH123
 // OK!
-http://argocd.192.168.49.2.nip.io
+http://argocd.192.168.58.2.nip.io
 ```

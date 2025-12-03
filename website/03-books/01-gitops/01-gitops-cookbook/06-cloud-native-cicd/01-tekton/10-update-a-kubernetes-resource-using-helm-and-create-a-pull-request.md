@@ -17,8 +17,8 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kuber
 
 <br/>
 
-**Задача:**  
-You want to automate the deployment of Helm-packaged apps with a Tekton Pipeline.
+**Задача:**
+Обновить deployment приложения задеплоенного с помощью Helm с помощью Tekton Pipeline
 
 <br/>
 

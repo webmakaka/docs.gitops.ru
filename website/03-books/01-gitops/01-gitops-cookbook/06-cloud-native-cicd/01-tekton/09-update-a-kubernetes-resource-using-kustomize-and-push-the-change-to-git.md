@@ -17,8 +17,8 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kuber
 
 <br/>
 
-**Задача:**  
-You want to use Kustomize in your Tekton Pipelines in order to automate Kubernetes manifests updates.
+**Задача:**
+Запуск Tekton Pipelines для компиляции, упаковки, деплоя приложения и обновления kustomize манифестов с помощью в kubernetes
 
 <br/>
 
@@ -379,11 +379,50 @@ Error: pushing image "webmakaka/pacman-kikd:latest" to "docker://webmakaka/pacma
 
 ```
 // Помогло!
+// После перезагрузки сбрасываеются
+
 $ sysctl fs.inotify.max_user_instances
 fs.inotify.max_user_instances = 128
 
+$ sysctl fs.inotify.max_user_watches
+fs.inotify.max_user_watches = 65536
+
 $ sudo sysctl fs.inotify.max_user_instances=8192
 $ sudo sysctl fs.inotify.max_user_watches=524288
+```
+
+<br/>
+
+Запускаю pipeline
+
+```
+[git-update-deployment : git-clone] Cloning into 'git-update-digest-workdir'...
+
+[git-update-deployment : update-digest] ##########################
+[git-update-deployment : update-digest] ### kustomization.yaml ###
+[git-update-deployment : update-digest] ##########################
+[git-update-deployment : update-digest] apiVersion: kustomize.config.k8s.io/v1beta1
+[git-update-deployment : update-digest] kind: Kustomization
+[git-update-deployment : update-digest] resources:
+[git-update-deployment : update-digest] - ../../k8s/
+[git-update-deployment : update-digest] images:
+[git-update-deployment : update-digest] - digest: sha256:850c93d86123e1f284fd81d564c21aa6fa8355f95ff29baec0150dc43cc2372c
+[git-update-deployment : update-digest]   name: webmakaka/pacman-kikd
+[git-update-deployment : update-digest]   newTag: latest
+
+[git-update-deployment : git-commit] On branch main
+[git-update-deployment : git-commit] Your branch is up to date with 'origin/main'.
+[git-update-deployment : git-commit]
+[git-update-deployment : git-commit] Changes not staged for commit:
+[git-update-deployment : git-commit]   (use "git add <file>..." to update what will be committed)
+[git-update-deployment : git-commit]   (use "git restore <file>..." to discard changes in working directory)
+[git-update-deployment : git-commit] 	modified:   env/dev/kustomization.yaml
+[git-update-deployment : git-commit]
+[git-update-deployment : git-commit] no changes added to commit (use "git add" and/or "git commit -a")
+[git-update-deployment : git-commit] [main 9c50c1f] [ci] Image digest updated
+[git-update-deployment : git-commit]  1 file changed, 1 insertion(+), 1 deletion(-)
+[git-update-deployment : git-commit] To https://github.com/wildmakaka/pacman-kikd-manifests.git
+[git-update-deployment : git-commit]    5b1a2a4..9c50c1f  main -> main
 ```
 
 <br/>
