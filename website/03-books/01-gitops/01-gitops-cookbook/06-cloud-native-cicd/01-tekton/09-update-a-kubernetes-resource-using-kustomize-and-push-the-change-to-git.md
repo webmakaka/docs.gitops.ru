@@ -8,7 +8,7 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kuber
 
 <br/>
 
-# [Book] [FAIL!] GitOps Cookbook: 06. Cloud Native CI/CD: Tekton: 6.9 Update a Kubernetes Resource Using Kustomize and Push the Change to Git
+# [Book] [OK!] GitOps Cookbook: 06. Cloud Native CI/CD: Tekton: 6.9 Update a Kubernetes Resource Using Kustomize and Push the Change to Git
 
 <br/>
 
@@ -22,8 +22,30 @@ You want to use Kustomize in your Tekton Pipelines in order to automate Kubernet
 
 <br/>
 
+**Форкаю**:  
+https://github.com/gitops-cookbook/pacman-kikd.git
+
+<br/>
+
+В Dockerfile прописываю:
+
+```
+# COPY target/*-runner.jar /deployments/
+COPY target/pacman-kikd-*.jar /deployments/
+```
+
+<br/>
+
+В .dockerignore
+
+```
+!target/pacman-kikd-*.jar
+```
+
+<br/>
+
 ```yaml
-$ cat << 'EOF' | kubectl create -f -
+$ cat << 'EOF' | kubectl apply -f -
 apiVersion: tekton.dev/v1
 kind: Task
 metadata:
@@ -53,16 +75,17 @@ spec:
     - description: The commit SHA
       name: commit
   steps:
-    - image: 'docker.io/alpine/git:v2.26.2'
-      name: git-clone
-      script: >
+
+    - name: git-clone
+      image: 'docker.io/alpine/git:v2.26.2'
+      script: |
         rm -rf git-update-digest-workdir
-        git clone $(params.GIT_REPOSITORY) -b $(params.GIT_REF)
-        git-update-digest-workdir
+        git clone $(params.GIT_REPOSITORY) -b $(params.GIT_REF) --depth 1 --single-branch --no-tags git-update-digest-workdir
       workingDir: $(workspaces.workspace.path)
-    - image: 'quay.io/wpernath/kustomize-ubi:latest'
-      name: update-digest
-      script: >
+
+    - name: update-digest
+      image: 'quay.io/wpernath/kustomize-ubi:latest'
+      script: |
         cd git-update-digest-workdir/$(params.KUSTOMIZATION_PATH)
         kustomize edit set image $(params.NEW_IMAGE)@$(params.NEW_DIGEST)
         echo "##########################"
@@ -70,8 +93,9 @@ spec:
         echo "##########################"
         cat kustomization.yaml
       workingDir: $(workspaces.workspace.path)
-    - image: 'docker.io/alpine/git:v2.26.2'
-      name: git-commit
+
+    - name: git-commit
+      image: 'docker.io/alpine/git:v2.26.2'
       script: |
         cd git-update-digest-workdir
         git config user.email "tektonbot@redhat.com"
@@ -89,6 +113,7 @@ spec:
         # Make sure we don't add a trailing newline to the result!
         echo -n "$RESULT_SHA" > $(results.commit.path)
       workingDir: $(workspaces.workspace.path)
+
   workspaces:
   - description: The workspace consisting of maven project.
     name: workspace
@@ -124,6 +149,7 @@ spec:
       name: CONFIG_GIT_REVISION
       type: string
   tasks:
+
     - name: fetch-repo
       params:
       - name: url
@@ -137,6 +163,7 @@ spec:
       workspaces:
       - name: output
         workspace: app-source
+
     - name: build-app
       params:
       - name: GOALS
@@ -156,6 +183,7 @@ spec:
         workspace: maven-settings
       - name: source
         workspace: app-source
+
     - name: build-push-image
       params:
       - name: IMAGE
@@ -168,6 +196,7 @@ spec:
       workspaces:
       - name: source
         workspace: app-source
+
     - name: git-update-deployment
       params:
         - name: GIT_REPOSITORY
@@ -246,7 +275,7 @@ EOF
 
 ```
 $ kubectl patch serviceaccount tekton-bot-sa -p '{"secrets": [{"name": "git-secret"}]}'
-$ kubectl patch serviceaccount tekton-bot-sa -p '{"secrets": [{"name": "containerregistry-secret"}]}'
+$ kubectl patch serviceaccount tekton-bot-sa -p '{"secrets": [{"name": "container-registry-secret"}]}'
 ```
 
 <br/>
@@ -254,8 +283,6 @@ $ kubectl patch serviceaccount tekton-bot-sa -p '{"secrets": [{"name": "containe
 ```
 + ранее созавали PVC для Pipeline
 ```
-
-
 
 <br/>
 
@@ -325,3 +352,41 @@ maven-archiver               quarkus-artifact.properties
 ```
 $ kubectl delete pod pvc-inspector --force
 ```
+
+<br/>
+
+**Новая ошибка:**
+
+```
+Error: pushing image "webmakaka/pacman-kikd:latest" to "docker://webmakaka/pacman-kikd:latest": trying to reuse blob sha256:cb973d48271cfb4bad03e3ef5f9e1513164b6aff04e4180207657d5aa2b3cd6b at destination: checking whether a blob sha256:cb973d48271cfb4bad03e3ef5f9e1513164b6aff04e4180207657d5aa2b3cd6b exists in docker.io/webmakaka/pacman-kikd: requested access to the resource is denied
+```
+
+<br/>
+
+**Новая ошибка:**
+
+```
+[git-update-deployment : git-clone] failed to create fsnotify watcher: too many open files
+
+[git-update-deployment : update-digest] failed to create fsnotify watcher: too many open files
+
+[git-update-deployment : git-commit] failed to create fsnotify watcher: too many open files
+```
+
+<br/>
+
+**На хосте с ubuntu, на которой запускаю с помощью kind kubernetes:**
+
+```
+// Помогло!
+$ sysctl fs.inotify.max_user_instances
+fs.inotify.max_user_instances = 128
+
+$ sudo sysctl fs.inotify.max_user_instances=8192
+$ sudo sysctl fs.inotify.max_user_watches=524288
+```
+
+<br/>
+
+В репо обновился файл  
+https://github.com/wildmakaka/pacman-kikd-manifests/blob/main/env/dev/kustomization.yaml
