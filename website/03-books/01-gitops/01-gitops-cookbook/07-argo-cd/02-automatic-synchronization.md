@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/automatic-synchronization/
 
 <br/>
 
-**Задача:**
+**Задача:**  
 С помощью Argo CD автоматически обновлять ресурсы при изменениях
 
 <br/>
 
-Делаю:  
+**Делаю**:  
 2025.12.04
 
 <br/>

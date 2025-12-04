@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Advanced Topics - Encrypt Sensitive Data (Sealed Secrets)
-description: GitOps Cookbook - Advanced Topics - Encrypt Sensitive Data (Sealed Secrets)
+description: Зашифровать Secret в Git
 keywords: books, gitops, GitOps Cookbook - Advanced Topics, Encrypt Sensitive Data (Sealed Secrets)
 permalink: /books/gitops/gitops-cookbook/advanced-topics/sealed-secrets/
 ---
@@ -12,8 +12,13 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/sealed-secrets/
 
 <br/>
 
-Делаю:  
-2024.05.04
+**Задача:**  
+Зашифровать Secret в Git
+
+<br/>
+
+**Делаю:**  
+2025.12.04
 
 <br/>
 
@@ -23,8 +28,8 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/sealed-secrets/
 
 ```
 $ kubectl create secret generic pacman-secret \
---from-literal=user=pacman \
---from-literal=pass=pacman
+    --from-literal=user=pacman \
+    --from-literal=pass=pacman
 ```
 
 <br/>
@@ -46,12 +51,19 @@ $ cat pacman-sealedsecret.yaml
 
 <br/>
 
-Далее в книге обычный запуск для примера.
-Не пробовал. Поленился.
+Отправляю его в репо:
+
+<br/>
+
+```
+$ kubectl delete secret pacman-secret -n default -o yaml
+```
+
+<br/>
 
 ```
 $ argocd app create pacman \
---repo https://github.com/gitops-cookbook/pacman-kikd-manifests.git \
+--repo https://github.com/wildmakaka/pacman-kikd-manifests.git \
 --path 'k8s/sealedsecrets' \
 --dest-server https://kubernetes.default.svc \
 --dest-namespace default \
@@ -62,4 +74,20 @@ $ argocd app create pacman \
 
 ```
 $ argocd app list
+```
+
+<br/>
+
+```
+$ argocd app sync pacman
+```
+
+<br/>
+
+Пароли лежат в репо в зашифрованном виде, а на сервере в расшифрованном.
+
+<br/>
+
+```
+$ argocd app delete pacman
 ```

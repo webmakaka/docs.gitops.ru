@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/define-synchronization-windows/
 
 <br/>
 
-**Задача:**
+**Задача:**  
 С помощью Argo CD разрешать или запрещать синхронизацию в зависимости от времени
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.04
 
 <br/>

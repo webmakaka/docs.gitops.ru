@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/deploy-from-a-private-git-repos
 
 <br/>
 
-**Задача:**
+**Задача:**  
 С помощью Argo CD развернуть приложение из приватного репозитория
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.04
 
 <br/>

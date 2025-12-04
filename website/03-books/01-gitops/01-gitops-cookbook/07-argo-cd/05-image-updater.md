@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/image-updater/
 
 <br/>
 
-**Задача:**
+**Задача:**  
 С помощью Argo CD обновлять tag в манифестах, как только в registry появится новая версия
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.04
 
 <br/>

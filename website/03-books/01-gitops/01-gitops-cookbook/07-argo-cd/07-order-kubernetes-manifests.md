@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/order-kubernetes-manifests/
 
 <br/>
 
-**Задача:**
+**Задача:**  
 С помощью Argo CD задеплоить приложение из нескольких микросервисов
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.04
 
 <br/>

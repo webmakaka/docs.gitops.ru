@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/deploy-an-application-using-arg
 
 <br/>
 
-**Задача:**
+**Задача:**  
 С помощью Argo CD задеплоить приложение из git
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.03
 
 <br/>

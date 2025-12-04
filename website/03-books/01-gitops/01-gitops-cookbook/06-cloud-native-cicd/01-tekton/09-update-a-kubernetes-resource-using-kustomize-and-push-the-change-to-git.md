@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kuber
 
 <br/>
 
-**Задача:**
+**Задача:**  
 Запуск Tekton Pipelines для компиляции, упаковки, деплоя приложения и обновления kustomize манифестов с помощью в kubernetes
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.03
 
 <br/>

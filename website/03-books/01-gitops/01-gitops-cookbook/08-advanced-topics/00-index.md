@@ -12,11 +12,6 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/
 
 <br/>
 
-Делаю:  
-2024.04.07
-
-<br/>
-
 # [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.1 Encrypt Sensitive Data (Sealed Secrets)](/books/gitops/gitops-cookbook/advanced-topics/sealed-secrets/)
 
 <br/>

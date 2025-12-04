@@ -12,12 +12,12 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/helm-integration/
 
 <br/>
 
-**Задача:**
+**Задача:**  
 С помощью Argo CD задеплоить манифесты Helm
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.04
 
 <br/>
