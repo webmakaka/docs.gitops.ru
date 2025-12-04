@@ -12,13 +12,13 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/using-tekton-t
 
 <br/>
 
-Делаю:  
-2025.12.02
+**Задача:**  
+Запуск Pipeline для компиляции, упаковки и деплоя приложения с помощью tekton в kubernetes при изменении в git
 
 <br/>
 
-**Задача:**  
-Запуск Pipeline для компиляции, упаковки и деплоя приложения с помощью tekton в kubernetes при изменении в git
+Делаю:  
+2025.12.02
 
 <br/>
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Argo CD - Order Kubernetes Manifests
-description: GitOps Cookbook - Argo CD - Order Kubernetes Manifests
+description: С помощью Argo CD задеплоить приложение из нескольких микросервисов
 keywords: books, gitops, argo-cd, Order Kubernetes Manifests
 permalink: /books/gitops/gitops-cookbook/argo-cd/order-kubernetes-manifests/
 ---
@@ -12,8 +12,13 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/order-kubernetes-manifests/
 
 <br/>
 
+**Задача:**
+С помощью Argo CD задеплоить приложение из нескольких микросервисов
+
+<br/>
+
 Делаю:  
-2024.04.07
+2025.12.04
 
 <br/>
 

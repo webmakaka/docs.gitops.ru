@@ -12,13 +12,13 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/containerize-a
 
 <br/>
 
-Делаю:  
-2025.12.02
+**Задача:**  
+Скомпилировать, упаковать и контейнеризовать приложение с помощью tekton в kubernetes
 
 <br/>
 
-**Задача:**  
-Скомпилировать, упаковать и контейнеризовать приложение с помощью tekton в kubernetes
+Делаю:  
+2025.12.02
 
 <br/>
 

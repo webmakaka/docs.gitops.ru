@@ -12,13 +12,13 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/update-a-kuber
 
 <br/>
 
-Делаю:  
-2025.12.03
+**Задача:**
+Обновить deployment приложения задеплоенного с помощью Helm с помощью Tekton Pipeline
 
 <br/>
 
-**Задача:**
-Обновить deployment приложения задеплоенного с помощью Helm с помощью Tekton Pipeline
+Делаю:  
+2025.12.03
 
 <br/>
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Argo CD - Define Synchronization Windows
-description: GitOps Cookbook - Argo CD - Define Synchronization Windows
+description: С помощью Argo CD разрешать или запрещать синхронизацию в зависимости от времени
 keywords: books, gitops, argo-cd, Define Synchronization Windows
 permalink: /books/gitops/gitops-cookbook/argo-cd/define-synchronization-windows/
 ---
@@ -12,8 +12,13 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/define-synchronization-windows/
 
 <br/>
 
+**Задача:**
+С помощью Argo CD разрешать или запрещать синхронизацию в зависимости от времени
+
+<br/>
+
 Делаю:  
-2024.04.07
+2025.12.04
 
 <br/>
 

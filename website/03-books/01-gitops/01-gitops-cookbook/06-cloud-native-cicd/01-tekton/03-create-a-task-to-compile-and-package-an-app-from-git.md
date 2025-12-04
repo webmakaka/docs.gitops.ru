@@ -12,13 +12,13 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-task-
 
 <br/>
 
-Делаю:  
-2025.12.02
+**Задача:**  
+Скомпилировать и упаковать приложение из публичного репозитория git с помощью tekton в kubernetes
 
 <br/>
 
-**Задача:**  
-Скомпилировать и упаковать приложение из публичного репозитория git с помощью tekton в kubernetes
+Делаю:  
+2025.12.02
 
 <br/>
 

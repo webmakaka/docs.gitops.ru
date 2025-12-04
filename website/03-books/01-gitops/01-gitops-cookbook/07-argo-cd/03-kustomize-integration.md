@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Argo CD - Kustomize Integration
-description: GitOps Cookbook - Argo CD - Kustomize Integration
+description: С помощью Argo CD задеплоить манифесты kustomize
 keywords: books, gitops, argo-cd, Kustomize Integration
 permalink: /books/gitops/gitops-cookbook/argo-cd/kustomize-integration/
 ---
@@ -12,8 +12,13 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/kustomize-integration/
 
 <br/>
 
+**Задача:**
+С помощью Argo CD задеплоить манифесты Kustomize
+
+<br/>
+
 Делаю:  
-2024.03.24
+2025.12.04
 
 <br/>
 
@@ -49,14 +54,14 @@ $ kubectl patch svc bgd -n bgdk -p '{"spec": {"type": "NodePort"}}'
 ```
 $ kubectl get services -n bgdk
 NAME   TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-bgd    NodePort   10.105.199.181   <none>        8080:31257/TCP   3m11s
+bgd    NodePort   10.101.198.235   <none>        8080:32739/TCP   14s
 ```
 
 <br/>
 
 ```
 // [OK!]
-http://192.168.49.2:31257
+http://192.168.58.2:32739
 ```
 
 <br/>
@@ -75,11 +80,11 @@ $ argocd app sync bgdk-app
 
 ```
 // [OK!] Цвет обновился!
-http://192.168.49.2:31257
+http://192.168.58.2:31257
 ```
 
 <br/>
 
 ```
-$ argocd app delete bgdh-app
+$ argocd app delete bgdk-app
 ```

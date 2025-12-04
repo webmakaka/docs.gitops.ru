@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Argo CD - Helm Integration
-description: GitOps Cookbook - Argo CD - Helm Integration
+description: С помощью Argo CD задеплоить манифесты Helm
 keywords: books, gitops, argo-cd, Helm Integration
 permalink: /books/gitops/gitops-cookbook/argo-cd/helm-integration/
 ---
@@ -12,12 +12,17 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/helm-integration/
 
 <br/>
 
-Делаю:  
-2024.03.24
+**Задача:**
+С помощью Argo CD задеплоить манифесты Helm
 
 <br/>
 
-gitops-cookbook-sc/ch07/bgdh
+Делаю:  
+2025.12.04
+
+<br/>
+
+gitops-cookbook-sc/ch07/bgdh/values.yaml
 
 <br/>
 
@@ -71,15 +76,15 @@ $ kubectl patch svc bgdh-app -n bgdh -p '{"spec": {"type": "NodePort"}}'
 
 ```
 $ kubectl get services -n bgdh
-NAME       TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-bgdh-app   NodePort   10.103.112.150   <none>        8080:32256/TCP   6s
+NAME       TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+bgdh-app   NodePort   10.105.78.149   <none>        8080:31775/TCP   6s
 ```
 
 <br/>
 
 ```
 // [OK!]
-http://192.168.49.2:32256
+http://192.168.58.2:31775
 ```
 
 <br/>
@@ -110,7 +115,7 @@ $ argocd app sync bgdh-app
 
 ```
 // [OK!] Цвет обновился!
-http://192.168.49.2:32256
+http://192.168.58.2:31775
 ```
 
 <br/>

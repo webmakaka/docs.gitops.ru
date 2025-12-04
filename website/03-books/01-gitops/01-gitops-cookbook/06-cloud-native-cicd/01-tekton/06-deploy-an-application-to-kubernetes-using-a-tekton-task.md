@@ -12,17 +12,13 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/deploy-an-appl
 
 <br/>
 
-Запускаем шагом ранее созданный image в kubernetes
+**Задача:**  
+Задеплоить ранее созданное приложение в контейнере с помощью tekton в kubernetes
 
 <br/>
 
 Делаю:  
 2025.12.02
-
-<br/>
-
-**Задача:**  
-Задеплоить ранее созданное приложение в контейнере с помощью tekton в kubernetes
 
 <br/>
 

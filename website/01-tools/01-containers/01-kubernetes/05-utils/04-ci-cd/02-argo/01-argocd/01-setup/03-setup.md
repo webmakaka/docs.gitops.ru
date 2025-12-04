@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup/
 <br/>
 
 Делаю:  
-2025.03.02
+2025.12.04
 
 <br/>
 
@@ -57,14 +57,14 @@ $ kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
 ```
 $ kubectl get svc -n argocd
 NAME                                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
-argocd-applicationset-controller          ClusterIP   10.97.206.224    <none>        7000/TCP,8080/TCP            26m
-argocd-dex-server                         ClusterIP   10.104.246.7     <none>        5556/TCP,5557/TCP,5558/TCP   26m
-argocd-metrics                            ClusterIP   10.97.72.90      <none>        8082/TCP                     26m
-argocd-notifications-controller-metrics   ClusterIP   10.105.22.117    <none>        9001/TCP                     26m
-argocd-redis                              ClusterIP   10.104.174.108   <none>        6379/TCP                     26m
-argocd-repo-server                        ClusterIP   10.98.29.178     <none>        8081/TCP,8084/TCP            26m
-argocd-server                             NodePort    10.109.5.199     <none>        80:32763/TCP,443:31778/TCP   26m
-argocd-server-metrics                     ClusterIP   10.110.183.112   <none>        8083/TCP                     26m
+argocd-applicationset-controller          ClusterIP   10.99.83.81      <none>        7000/TCP,8080/TCP            7m55s
+argocd-dex-server                         ClusterIP   10.103.192.143   <none>        5556/TCP,5557/TCP,5558/TCP   7m55s
+argocd-metrics                            ClusterIP   10.104.108.121   <none>        8082/TCP                     7m55s
+argocd-notifications-controller-metrics   ClusterIP   10.106.179.252   <none>        9001/TCP                     7m55s
+argocd-redis                              ClusterIP   10.101.126.79    <none>        6379/TCP                     7m55s
+argocd-repo-server                        ClusterIP   10.100.42.60     <none>        8081/TCP,8084/TCP            7m55s
+argocd-server                             NodePort    10.101.177.219   <none>        80:30495/TCP,443:32729/TCP   7m55s
+argocd-server-metrics                     ClusterIP   10.103.94.201    <none>        8083/TCP                     7m55s
 ```
 
 <br/>
@@ -77,14 +77,20 @@ $ echo ${ARGOCD_PASSWORD}
 <br/>
 
 ```
-$ minikube --profile ${PROFILE} ip
-192.168.49.2
+$ MINIKUBE_IP=$(minikube --profile ${PROFILE} ip)
+$ echo $MINIKUBE_IP
 ```
 
 <br/>
 
 ```
-$ argocd login --insecure --grpc-web 192.168.49.2:32763 --username admin \
+$ ARGOCD_PORT=$(kubectl get svc argocd-server -n argocd -o jsonpath='{.spec.ports[?(@.port==80)].nodePort}')
+```
+
+<br/>
+
+```
+$ argocd login --insecure --grpc-web $MINIKUBE_IP:$ARGOCD_PORT --username admin \
     --password ${ARGOCD_PASSWORD}
 
 ***
@@ -96,24 +102,24 @@ Context '192.168.49.2:32763' updated
 
 ```
 $ argocd version
-argocd: v2.14.3+71fd4e5
-  BuildDate: 2025-02-28T19:21:52Z
-  GitCommit: 71fd4e501d0d688ab0d70cd649fbf5f909cff12b
+argocd: v3.2.1+8c4ab63
+  BuildDate: 2025-11-30T12:12:42Z
+  GitCommit: 8c4ab63a9c72b31d96c6360514cda6254e7e6629
   GitTreeState: clean
-  GoVersion: go1.23.3
+  GoVersion: go1.25.0
   Compiler: gc
   Platform: linux/amd64
-argocd-server: v2.14.3+71fd4e5
-  BuildDate: 2025-02-28T18:56:13Z
-  GitCommit: 71fd4e501d0d688ab0d70cd649fbf5f909cff12b
+argocd-server: v3.2.1+8c4ab63
+  BuildDate: 2025-11-30T11:48:14Z
+  GitCommit: 8c4ab63a9c72b31d96c6360514cda6254e7e6629
   GitTreeState: clean
-  GoVersion: go1.23.3
+  GoVersion: go1.25.0
   Compiler: gc
   Platform: linux/amd64
-  Kustomize Version: v5.4.3 2024-07-19T16:40:33Z
-  Helm Version: v3.16.3+gcfd0749
-  Kubectl Version: v0.31.0
-  Jsonnet Version: v0.20.0
+  Kustomize Version: v5.7.0 2025-06-28T07:00:07Z
+  Helm Version: v3.18.4+gd80839c
+  Kubectl Version: v0.34.0
+  Jsonnet Version: v0.21.0
 ```
 
 <br/>

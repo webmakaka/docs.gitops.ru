@@ -1,7 +1,7 @@
 ---
 layout: page
 title: GitOps Cookbook - Argo CD - Deploy from a Private Git Repository
-description: GitOps Cookbook - Argo CD - Deploy from a Private Git Repository
+description: С помощью Argo CD развернуть приложение из приватного репозитория
 keywords: books, gitops, argo-cd, Deploy from a Private Git Repository
 permalink: /books/gitops/gitops-cookbook/argo-cd/deploy-from-a-private-git-repository/
 ---
@@ -12,14 +12,19 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/deploy-from-a-private-git-repos
 
 <br/>
 
+**Задача:**
+С помощью Argo CD развернуть приложение из приватного репозитория
+
+<br/>
+
 Делаю:  
-2024.04.07
+2025.12.04
 
 <br/>
 
 1. Создаю private git repository https://github.com/wildmakaka/gitops-cookbook-sc-private.git
 
-2. Добавляю в него https://github.com/gitops-cookbook/gitops-cookbook-sc.git
+2. Добавляю в него содержимое https://github.com/gitops-cookbook/gitops-cookbook-sc.git
 
 <br/>
 
@@ -64,29 +69,6 @@ $ argocd app sync bgd-app
 <br/>
 
 ```
-$ kubectl get pods -n bgd
-NAME                 READY   STATUS    RESTARTS   AGE
-bgd-547cbdc7-ffcjh   1/1     Running   0          69s
-```
-
-<br/>
-
-```
-$ minikube --profile ${PROFILE} ip
-192.168.49.2
-```
-
-<br/>
-
-```
-$ kubectl get services -n bgd
-NAME   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
-bgd    ClusterIP   10.100.85.97   <none>        8080/TCP   92s
-```
-
-<br/>
-
-```
 $ kubectl patch svc bgd -n bgd -p '{"spec": {"type": "NodePort"}}'
 ```
 
@@ -95,12 +77,18 @@ $ kubectl patch svc bgd -n bgd -p '{"spec": {"type": "NodePort"}}'
 ```
 $ kubectl get services -n bgd
 NAME   TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
-bgd    NodePort   10.100.85.97   <none>        8080:31050/TCP   111s
+bgd    NodePort   10.99.218.85   <none>        8080:31443/TCP   26s
 ```
 
 <br/>
 
 ```
 // [OK!]
-http://192.168.49.2:31050
+http://192.168.58.2:31443
+```
+
+<br/>
+
+```
+$ argocd app delete bgd-app
 ```
