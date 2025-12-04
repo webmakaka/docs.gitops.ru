@@ -135,6 +135,16 @@ EOF
 <br/>
 
 ```
+$ argocd app sync bgdk-app
+```
+
+<br/>
+
+### (Можно пропустить) Посмотреть на задеплоенное приложение
+
+<br/>
+
+```
 $ kubectl patch svc bgd -n bgdk -p '{"spec": {"type": "NodePort"}}'
 ```
 
@@ -162,55 +172,13 @@ $ APP_NODE_PORT=$(kubectl get svc bgd -n bgdk -o jsonpath='{.spec.ports[?(@.port
 <br/>
 
 ```
-$ argocd app sync bgdk-app
-```
-
-<br/>
-
-```
 // [OK!]
 $ echo http://$MINIKUBE_IP:$APP_NODE_PORT
 ```
 
 <br/>
 
-```
-// Удаляю
-gitops-cookbook-sc/ch07/bgdui/bgdk/.argocd-source-bgdk-app.yaml
-```
-
-====================================
-
-<br/>
-
-```
-// Переименовываю
-gitops-cookbook-sc/ch07/bgdui/bgdk/.argocd-source-bgdk-app.yaml
-
-в
-
-gitops-cookbook-sc/ch07/bgdui/bgdk/argocd-source-bgdk-app.yaml
-```
-
-<br/>
-
-```
-$ docker tag webmakaka/bgd:1.0.0 webmakaka/bgd:12.0.0
-$ docker push webmakaka/bgd:1.1.0
-```
-
-<br/>
-
-Образ обновился.  
-Файл в репо сгенерился новый.
-
-<br/>
-
-```
-$ argocd app delete bgdk-app
-```
-
-=======================
+### Устанавливаю argocd-image-updater
 
 <br/>
 
@@ -222,17 +190,9 @@ https://argocd-image-updater.readthedocs.io/en/stable/basics/update-methods/
 
 <br/>
 
-```
-// Устанавливаю argocd-image-updater
-// Походу теперь его нужно ставит в отдельный namespace, раньше работало в namespace argocd
-$ kubectl create -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/config/install.yaml
-```
-
-=======================
+С версии v1.0.0 Image Updater перешел на использование отдельных ImageUpdater CRD, а не аннотаций в Application ресурсах.
 
 <br/>
-
-С версии v1.0.0 Image Updater перешел на использование отдельных ImageUpdater CRD, а не аннотаций в Application ресурсах.
 
 ```
 $ helm repo add argo https://argoproj.github.io/argo-helm
@@ -255,6 +215,14 @@ imageupdaters.argocd-image-updater.argoproj.io   2025-12-04T02:17:18Z
 
 <br/>
 
+### Запуск примера
+
+<br/>
+
+// Выполнение следующего манифеста должно прописать в файл gitops-cookbook-sc/ch07/bgdui/bgdk/.argocd-source-bgdk-app.yaml webmakaka/bgd:18.0.0
+
+<br/>
+
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
 apiVersion: argocd-image-updater.argoproj.io/v1alpha1
@@ -273,13 +241,50 @@ spec:
     - namePattern: bgdk-app
       images:
         - alias: bgd
-          imageName: webmakaka/bgd:17.0.0
-          commonUpdateSettings:
-            updateStrategy: semver
-            # Для семантического версионирования без фильтрации по regex
-            # Просто оставьте пустым или удалите allowTags
+          imageName: webmakaka/bgd:18.0.0
 EOF
 ```
+
+<br/>
+
+// Выполнение следующего манифеста должно прописать в файл gitops-cookbook-sc/ch07/bgdui/bgdk/.argocd-source-bgdk-app.yaml версию, которая появилась в registry
+
+<br/>
+
+```
+$ docker tag quay.io/rhdevelopers/bgd webmakaka/bgd:20.0.0
+$ docker push webmakaka/bgd:20.0.0
+```
+
+<br/>
+
+```yaml
+$ cat << 'EOF' | kubectl apply -f -
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: bgdk-image-updater
+  namespace: argocd
+spec:
+  namespace: argocd
+  commonUpdateSettings:
+    updateStrategy: semver
+  writeBackConfig:
+    method: git:secret:argocd/github-secret
+    gitConfig:
+      repository: https://github.com/wildmakaka/gitops-cookbook-sc.git
+      branch: main
+  applicationRefs:
+    - namePattern: bgdk-app
+      images:
+        - alias: bgd
+          imageName: webmakaka/bgd
+EOF
+```
+
+<br/>
+
+В результате в репо версия обновилась. Спустя 2 минут и на сервер приехала обновленна версия image.
 
 <br/>
 
@@ -291,42 +296,10 @@ $ kubectl get application bgdk-app -n argocd
 $ kubectl get imageupdater bgdk-image-updater -n argocd
 ```
 
-======================
-
 <br/>
 
 ```
-// Получать логи
+// Получить логи
 $ POD_NAME=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-image-updater -o name)
 $ kubectl logs -n argocd $POD_NAME --tail=20
-```
-
-<br/>
-
-```yaml
-$ cat << 'EOF' | kubectl create -f -
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: bgdk-app
-  namespace: argocd
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: webmakaka/bgd
-    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-secret
-    argocd-image-updater.argoproj.io/git-branch: main
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/wildmakaka/gitops-cookbook-sc.git
-    targetRevision: main
-    path: ch07/bgdui/bgdk
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: bgdk
-  syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
-        allowEmpty: true
-EOF
 ```
