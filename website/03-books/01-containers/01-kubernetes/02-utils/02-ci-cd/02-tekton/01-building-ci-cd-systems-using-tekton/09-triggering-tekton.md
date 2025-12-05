@@ -3,7 +3,7 @@ layout: page
 title: Building CI/CD Systems Using Tekton - Triggering Tekton
 description: Building CI/CD Systems Using Tekton - Triggering Tekton
 keywords: books, ci-cd, tekton, Triggering Tekton
-permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/triggering-tekton/
+permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/triggering-tekton/
 ---
 
 # [OK!] Chapter 11. Triggering Tekton

@@ -17,4 +17,4 @@ permalink: /books/gitops/gitops-cookbook/cloud-native-cicd/tekton/create-a-hello
 
 <br/>
 
-[Повтор Building your first task](/books/ci-cd/tekton/building-ci-cd-systems-using-tekton/stepping-into-tasks/)
+[Повтор Building your first task](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/stepping-into-tasks/)

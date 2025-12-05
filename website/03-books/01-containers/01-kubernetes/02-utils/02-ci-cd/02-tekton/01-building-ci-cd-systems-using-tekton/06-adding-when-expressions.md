@@ -3,7 +3,7 @@ layout: page
 title: Building CI/CD Systems Using Tekton - Adding when Expressions
 description: Building CI/CD Systems Using Tekton - Adding when Expressions
 keywords: books, ci-cd, tekton, Adding when Expressions
-permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/adding-when-expressions/
+permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/adding-when-expressions/
 ---
 
 # Chapter 8. Adding when Expressions

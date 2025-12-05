@@ -21,7 +21,7 @@ permalink: /
 <!-- <br/>
 <br/>
 
-### [[Book][Md Nahidul Kibria] Argo CD and Argo Workflows on Kubernetes: GitOps, workflow automation, and progressive delivery with Argo Rollouts [ENG, 2025]](/books/ci-cd/argo-cd/argo-cd-and-argo-workflows-on-kubernetes/)
+### [[Book][Md Nahidul Kibria] Argo CD and Argo Workflows on Kubernetes: GitOps, workflow automation, and progressive delivery with Argo Rollouts [ENG, 2025]](/books/containers/kubernetes/utils/ci-cd/argocd/argocd-up-and-running/)
 
 <br/>
 
@@ -41,11 +41,11 @@ permalink: /
 
 <br/>
 
-### [[Book][Joel Lord] Building CI/CD Systems Using Tekton: Develop flexible and powerful CI/CD pipelines using Tekton Pipelines and Triggers [ENG, 2021]](/books/ci-cd/tekton/building-ci-cd-systems-using-tekton/)
+### [[Book][Joel Lord] Building CI/CD Systems Using Tekton: Develop flexible and powerful CI/CD pipelines using Tekton Pipelines and Triggers [ENG, 2021]](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/)
 
 <br/>
 
-[![Building CI/CD Systems Using Tekton](/img/books/covers/building-ci-cd-systems-using-tekton.jpg 'Building CI/CD Systems Using Tekton'){: .center-image }](/books/ci-cd/tekton/building-ci-cd-systems-using-tekton/)
+[![Building CI/CD Systems Using Tekton](/img/books/covers/building-ci-cd-systems-using-tekton.jpg 'Building CI/CD Systems Using Tekton'){: .center-image }](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/)
 
 <br/>
 

@@ -3,7 +3,7 @@ layout: page
 title: Argo CD and Argo Workflows on Kubernetes
 description: Argo CD and Argo Workflows on Kubernetes
 keywords: books, ci-cd, argo cd
-permalink: /books/ci-cd/argo-cd/argo-cd-and-argo-workflows-on-kubernetes/understanding-argo-cd/
+permalink: /books/containers/kubernetes/utils/ci-cd/argocd/argocd-up-and-running/understanding-argo-cd/
 ---
 
 # [Book][Md Nahidul Kibria] Argo CD and Argo Workflows on Kubernetes: GitOps, workflow automation, and progressive delivery with Argo Rollouts [ENG, 2025]

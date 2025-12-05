@@ -3,7 +3,7 @@ layout: page
 title: Building CI/CD Systems Using Tekton - Getting Started with Triggers
 description: Building CI/CD Systems Using Tekton - Getting Started with Triggers
 keywords: books, ci-cd, tekton, Getting Started with Triggers
-permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/getting-started-with-triggers/
+permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/getting-started-with-triggers/
 ---
 
 # Chapter 10. Getting Started with Triggers

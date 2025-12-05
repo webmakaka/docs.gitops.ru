@@ -3,7 +3,7 @@ layout: page
 title: Building CI/CD Systems Using Tekton - Jumping into Pipelines
 description: Building CI/CD Systems Using Tekton - Jumping into Pipelines
 keywords: books, ci-cd, tekton, Jumping into Pipelines
-permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/jumping-into-pipelines/
+permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/jumping-into-pipelines/
 ---
 
 # Chapter 5. Jumping into Pipelines

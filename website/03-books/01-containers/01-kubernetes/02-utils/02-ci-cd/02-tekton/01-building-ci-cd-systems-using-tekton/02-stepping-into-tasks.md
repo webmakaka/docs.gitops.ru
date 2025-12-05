@@ -3,7 +3,7 @@ layout: page
 title: Building CI/CD Systems Using Tekton - Stepping into Tasks
 description: Building CI/CD Systems Using Tekton - Stepping into Tasks
 keywords: books, ci-cd, tekton, Stepping into Tasks
-permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/stepping-into-tasks/
+permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/stepping-into-tasks/
 ---
 
 # Chapter 4. Stepping into Tasks

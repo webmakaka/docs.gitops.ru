@@ -3,7 +3,7 @@ layout: page
 title: Building CI/CD Systems Using Tekton - Preparing for a New Pipeline
 description: Building CI/CD Systems Using Tekton - Preparing for a New Pipeline
 keywords: books, ci-cd, tekton, Preparing for a New Pipeline
-permalink: /books/ci-cd/tekton/building-ci-cd-systems-using-tekton/preparing-for-a-new-pipeline/
+permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/preparing-for-a-new-pipeline/
 ---
 
 # [OK!] Chapter 12. Preparing for a New Pipeline
