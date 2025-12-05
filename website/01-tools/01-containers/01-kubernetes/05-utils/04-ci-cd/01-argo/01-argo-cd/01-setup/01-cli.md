@@ -3,7 +3,7 @@ layout: page
 title: Инсталляция ArgoCD CLI
 description: Инсталляция ArgoCD CLI
 keywords: tools, containers, kubernetes, ci-cd, argocd, setup, cli, minikube
-permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup/cli/
+permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/cli/
 ---
 
 # Инсталляция ArgoCD CLI

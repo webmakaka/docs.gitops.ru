@@ -3,7 +3,7 @@ layout: page
 title: Инсталляция ArgoCD на Minikube
 description: Инсталляция ArgoCD на Minikube
 keywords: devops, containers, kubernetes, ci-cd, argocd, setup, minikube
-permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup/
+permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/
 ---
 
 # Инсталляция ArgoCD на Minikube
@@ -16,6 +16,10 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup/
 <br/>
 
 https://argo-cd.readthedocs.io/en/stable/getting_started/
+
+<br/>
+
+### [Установить Argo CD CLI](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/cli/)
 
 <br/>
 
@@ -37,14 +41,6 @@ argocd-redis-76748db5f4-w4rjg                       1/1     Running   0         
 argocd-repo-server-58c78bd74f-228dm                 1/1     Running   0          74s
 argocd-server-5fd847d6bc-28frv                      1/1     Running   0          74s
 ```
-
-<br/>
-
-### Подключиться в консоли
-
-<br/>
-
-### [Install Argo CD CLI](/tools/containers/kubernetes/utils/ci-cd/argo/argocd/setup/cli/)
 
 <br/>
 

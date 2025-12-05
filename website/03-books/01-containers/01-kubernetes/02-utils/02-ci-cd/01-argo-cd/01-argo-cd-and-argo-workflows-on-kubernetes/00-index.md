@@ -3,7 +3,7 @@ layout: page
 title: Argo CD - Up & Running
 description: Argo CD - Up & Running
 keywords: books, ci-cd, argocd, Argo CD - Up and Running - A Hands-On Guide to GitOps and Kubernetes
-permalink: /books/containers/kubernetes/utils/ci-cd/argocd/argocd-up-and-running/
+permalink: /books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/
 ---
 
 # [Book][Andrew Block, Christian Hernandez] Argo CD: Up and Running: A Hands-On Guide to GitOps and Kubernetes [ENG, 2025]
@@ -25,16 +25,16 @@ https://github.com/sabre1041/argocd-up-and-running-book
 
 <br/>
 
-**YouTube:**  
+**YouTube (где просто обсуждают):**  
 https://www.youtube.com/@CarlosSantanaDev/videos
 
 <!-- <br/>
 
 ### Chapter 1: About Argo Project
 
-### [Chapter 2: Understanding Argo CD](/books/containers/kubernetes/utils/ci-cd/argocd/argocd-up-and-running/understanding-argo-cd/)
+### [Chapter 2: Understanding Argo CD](/books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/understanding-argo-cd/)
 
-### [Chapter 3: Running Argo CD in Production](/books/containers/kubernetes/utils/ci-cd/argocd/argocd-up-and-running/running-argo-cd-in-production/)
+### [Chapter 3: Running Argo CD in Production](/books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/running-argo-cd-in-production/)
 
 ### Chapter 4: Argo CD Security Consideration
 

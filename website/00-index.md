@@ -21,7 +21,7 @@ permalink: /
 <!-- <br/>
 <br/>
 
-### [[Book][Md Nahidul Kibria] Argo CD and Argo Workflows on Kubernetes: GitOps, workflow automation, and progressive delivery with Argo Rollouts [ENG, 2025]](/books/containers/kubernetes/utils/ci-cd/argocd/argocd-up-and-running/)
+### [[Book][Md Nahidul Kibria] Argo CD and Argo Workflows on Kubernetes: GitOps, workflow automation, and progressive delivery with Argo Rollouts [ENG, 2025]](/books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/)
 
 <br/>
 

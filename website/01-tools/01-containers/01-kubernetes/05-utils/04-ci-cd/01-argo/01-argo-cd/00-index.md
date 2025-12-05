@@ -1,0 +1,13 @@
+---
+layout: page
+title: Kubernetes ArgoCD
+description: Kubernetes ArgoCD
+keywords: devops, contaiers, kubernetes, ci-cd, argocd
+permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/
+---
+
+# Kubernetes ArgoCD
+
+### [Инсталляция ArgoCD на Minikube](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/)
+
+### [Инсталляция ArgoCD с помощью Helm на Minikube](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/minikube/helm/)
