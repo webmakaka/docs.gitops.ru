@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/
 <br/>
 
 Делаю:  
-2025.12.05
+2025.12.09
 
 <br/>
 

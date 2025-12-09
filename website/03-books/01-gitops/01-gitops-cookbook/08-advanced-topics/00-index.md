@@ -14,7 +14,7 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/
 
 # [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.1 Encrypt Sensitive Data (Sealed Secrets)](/books/gitops/gitops-cookbook/advanced-topics/sealed-secrets/)
 
-# [[FAIL!] GitOps Cookbook: 08. Advanced Topics: 8.2 Encrypt Secrets with ArgoCD (ArgoCD + HashiCorp Vault + External Secret)](/books/gitops/gitops-cookbook/advanced-topics/vault-external-secret/)
+# [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.2 Encrypt Secrets with ArgoCD (ArgoCD + HashiCorp Vault + External Secret)](/books/gitops/gitops-cookbook/advanced-topics/vault-external-secret/)
 
 <br/>
 

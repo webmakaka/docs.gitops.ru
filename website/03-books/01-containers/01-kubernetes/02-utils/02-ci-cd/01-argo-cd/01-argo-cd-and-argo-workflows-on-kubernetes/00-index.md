@@ -28,26 +28,17 @@ https://github.com/sabre1041/argocd-up-and-running-book
 **YouTube (где просто обсуждают):**  
 https://www.youtube.com/@CarlosSantanaDev/videos
 
-<!-- <br/>
+<br/>
 
-### Chapter 1: About Argo Project
+```
+// Смотрим актуальную версию API
+$ kubectl api-resources | grep Application
+applications                        app,apps           argoproj.io/v1alpha1              true         Application
+applicationsets                     appset,appsets     argoproj.io/v1alpha1              true         ApplicationSet
+```
 
-### [Chapter 2: Understanding Argo CD](/books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/understanding-argo-cd/)
+<br/>
 
-### [Chapter 3: Running Argo CD in Production](/books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/running-argo-cd-in-production/)
+### [Chapter 3: Interacting with Argo CD](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm/)
 
-### Chapter 4: Argo CD Security Consideration
-
-### Chapter 5: Working with Argo Workflows
-
-### Chapter 6: Argo Workflows in Production
-
-### Chapter 7: Getting Started with Argo Events
-
-### Chapter 8: Getting Started with Argo Rollouts
-
-### Chapter 9: Understanding Argo Rollouts
-
-### Chapter 10: Combining Argo Events, Workflows, Pipelines, CD, and Rollouts
-
-### Chapter 11: Choosing Continuous Delivery Strategy -->
+### [Chapter 5: Synchronizing Applications](/books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/synchronizing-applications/)

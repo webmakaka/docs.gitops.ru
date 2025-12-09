@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm
 <br/>
 
 Делаю:  
-2025.12.06
+2025.12.09
 
 <br/>
 
@@ -146,14 +146,14 @@ $ cat > values-argocd-ingress.yaml <<EOF
 server:
   ingress:
     enabled: true
-    hostname: argocd.upandrunning.local
+    hostname: argocd.k8s.local
     ingressClassName: nginx
   extraArgs:
   - --insecure
 EOF
 ```
 
-<br/>
+<!-- <br/>
 
 ```yaml
 $ cat > values-argocd-ingress.yaml <<EOF
@@ -161,7 +161,7 @@ $ cat > values-argocd-ingress.yaml <<EOF
 server:
   ingress:
     enabled: true
-    hostname: argocd.upandrunning.local
+    hostname: argocd.k8s.local
     ingressClassName: nginx
     # Явно указываем использовать HTTP порт
     annotations:
@@ -173,7 +173,7 @@ server:
   extraArgs:
   - --insecure
 EOF
-```
+``` -->
 
 <br/>
 
@@ -200,22 +200,22 @@ argo-cd-argocd-server-678b78f468-j5dkb                      1/1     Running   0 
 
 ```
 $ kubectl get ingress -n argocd
-NAME                    CLASS   HOSTS                       ADDRESS        PORTS   AGE
-argo-cd-argocd-server   nginx   argocd.upandrunning.local   10.96.27.157   80      3m48s
+NAME                    CLASS   HOSTS              ADDRESS   PORTS   AGE
+argo-cd-argocd-server   nginx   argocd.k8s.local             80      2s
 ```
 
 <br/>
 
 ```
 // Добавить в hosts
-$ echo "127.0.0.1 argocd.upandrunning.local" | sudo tee -a /etc/hosts
+$ echo "127.0.0.1 argocd.k8s.local" | sudo tee -a /etc/hosts
 ```
 
 <br/>
 
 ```
 // OK!
-http://argocd.upandrunning.local
+http://argocd.k8s.local
 ```
 
 <br/>
@@ -233,7 +233,7 @@ $ argocd login \
     --username admin \
     --password $ARGOCD_PASSWORD \
     --grpc-web \
-    argocd.upandrunning.local
+    argocd.k8s.local
 ```
 
 <br/>
@@ -246,6 +246,16 @@ $ argocd account update-password \
 $ ARGOCD_PASSWORD=${ARGOCD_PASSWORD_NEW_PASSWORD}
 $ echo ${ARGOCD_PASSWORD}
 ```
+
+<br/>
+
+```
+$ k get nodes
+NAME                 STATUS   ROLES           AGE   VERSION
+kind-control-plane   Ready    control-plane   13m   v1.34.0
+```
+
+<br/>
 
 ```yaml
 // Удалить
