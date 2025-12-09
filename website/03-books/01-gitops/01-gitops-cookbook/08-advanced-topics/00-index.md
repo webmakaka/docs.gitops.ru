@@ -16,11 +16,11 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/
 
 # [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.2 Encrypt Secrets with ArgoCD (ArgoCD + HashiCorp Vault + External Secret)](/books/gitops/gitops-cookbook/advanced-topics/vault-external-secret/)
 
+# [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.3 Trigger the Deployment of an Application Automatically (Argo CD Webhooks)](/books/gitops/gitops-cookbook/advanced-topics/argo-cd-webhooks/)
+
 <br/>
 
 ```
-
-8.3 Trigger the Deployment of an Application Automatically (Argo CD Webhooks)
 8.4 Deploy to Multiple Clusters
 8.5 Deploy a Pull Request to a Cluster
 8.6 Use Advanced Deployment Techniques

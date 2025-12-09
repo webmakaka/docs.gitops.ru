@@ -32,22 +32,20 @@ $ echo argocd.$INGRESS_HOST.nip.io
 ```
 $ cd ~/tmp
 $ mkdir argo
-$ vi argo/argocd-values.yaml
 ```
 
 <br/>
 
-**argo/argocd-values.yaml**
-
-<br/>
-
 ```yaml
+$ cat > argo/argocd-values.yaml <<EOF
+---
 server:
   ingress:
     enabled: true
   extraArgs:
     - --insecure
 installCRDs: false
+EOF
 ```
 
 <br/>
