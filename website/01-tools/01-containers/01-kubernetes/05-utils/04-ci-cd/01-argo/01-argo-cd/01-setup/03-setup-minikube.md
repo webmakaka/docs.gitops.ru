@@ -156,3 +156,4 @@ https://localhost:8080/swagger-ui
 # Argocd cli command to get the argocd context
 $ argocd context
 ```
+

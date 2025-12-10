@@ -18,10 +18,11 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/
 
 # [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.3 Trigger the Deployment of an Application Automatically (Argo CD Webhooks)](/books/gitops/gitops-cookbook/advanced-topics/argo-cd-webhooks/)
 
+# [[UNKNOWN!] GitOps Cookbook: 08. Advanced Topics: 8.4 Deploy to Multiple Clusters](/books/gitops/gitops-cookbook/advanced-topics/deploy-to-multiple-clusters/)
+
 <br/>
 
 ```
-8.4 Deploy to Multiple Clusters
 8.5 Deploy a Pull Request to a Cluster
 8.6 Use Advanced Deployment Techniques
 ```

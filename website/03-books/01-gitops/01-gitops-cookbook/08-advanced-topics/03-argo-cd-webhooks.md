@@ -18,7 +18,15 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/vault-external-secret/
 <br/>
 
 **Делаю:**  
-2025.12.09
+2025.12.10
+
+<br/>
+
+```
+$ export PROFILE=${USER}-minikube
+$ export INGRESS_HOST=$(minikube --profile ${PROFILE} ip)
+$ echo gitea.$INGRESS_HOST.nip.io
+```
 
 <br/>
 
@@ -32,9 +40,21 @@ $ cd ~/tmp
 $ cat > gitea-values.yaml <<EOF
 gitea:
   config:
+    server:
+      DOMAIN: gitea.$INGRESS_HOST.nip.io
+      ROOT_URL: http://gitea.$INGRESS_HOST.nip.io
     webhook:
       ALLOWED_HOST_LIST: "*"
       SKIP_TLS_VERIFY: true
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: gitea.$INGRESS_HOST.nip.io
+      paths:
+        - path: /
+          pathType: Prefix
 EOF
 ```
 
@@ -42,8 +62,11 @@ EOF
 
 ```
 $ helm repo add gitea-charts https://dl.gitea.io/charts/
-$ helm install gitea gitea-charts/gitea  --namespace gitea --create-namespace \
--f gitea-values.yaml
+$ helm install gitea gitea-charts/gitea \
+  --namespace gitea \
+  --create-namespace \
+  -f gitea-values.yaml \
+  --wait
 ```
 
 <!-- <br/>
@@ -54,26 +77,34 @@ $ helm upgrade -i gitea gitea-charts/gitea --create-namespace \
 ``` -->
 
 ```
+// Проверка что прописано
 $ kubectl exec -n gitea deployment/gitea -- cat /data/gitea/conf/app.ini | grep -A2 -B2 "webhook"
-```
+[webhook]
+SKIP_TLS_VERIFY = true
+ALLOWED_HOST_LIST = *
 
 ```
+
+<br/>
+
+```
+// OK!
 $ kubectl exec -n gitea deployment/gitea -- curl -v http://argocd-server.argocd.svc.cluster.local
 ```
 
-<br/>
+<!-- <br/>
 
 ```
 $ kubectl --namespace default port-forward svc/gitea-http 3000:3000
-```
+``` -->
 
 <br/>
 
 ```
+//    http://gitea.192.168.49.2.nip.io/https://gitea.com/gitea/helm-gitea/src/branch/main/values.yaml#L367
 //    username: gitea_admin
 //    password: r8sA8CPHD9!bt6d
-// https://gitea.com/gitea/helm-gitea/src/branch/main/values.yaml#L367
-http://127.0.0.1:3000/
+http://gitea.192.168.49.2.nip.io/
 ```
 
 <br/>
@@ -90,7 +121,7 @@ https://github.com/gitops-cookbook/pacman-kikd-manifests
 
 ```
 $ argocd app create pacman-webhook \
---repo http://gitea-http.default.svc:3000/gitea_admin/pacman-kikd-manifests.git \
+--repo http://gitea.192.168.49.2.nip.io/gitea_admin/pacman-kikd-manifests.git \
 --dest-server https://kubernetes.default.svc \
 --dest-namespace default \
 --path k8s \
@@ -99,21 +130,105 @@ $ argocd app create pacman-webhook \
 
 <br/>
 
+REPO -> Settings -> Webhooks -> Add Webhook -> GitTea
+
+<br/>
+
 ```
 // В книге опечатка, д.б. webhook
 // Обращаюсь по ingress
-• Payload URL: http://argocd.192.168.58.2.nip.io/api/webhook
+• Payload URL: http://argocd.192.168.49.2.nip.io/api/webhook
 • Content type: application/json
 ```
 
 <br/>
 
 ```
-$ kubectl logs -n argocd -l app.kubernetes.io/name=argocd-server --tail=100 -f
-
-
-time="2025-12-09T18:39:00Z" level=info msg="Received push event repo: http://git.example.com/gitea_admin/pacman-kikd-manifests, revision: main, touchedHead: true"
-time="2025-12-09T18:41:54Z" level=info msg="invalidated cache for resource in namespace: argocd with the name: argocd-notifications-secret"
-time="2025-12-09T18:41:54Z" level=info msg="invalidated cache for resource in namespace: argocd with the name: argocd-notifications-cm"
+$ kubectl logs -n argocd -l app.kubernetes.io/name=argocd-server --tail=50 -f
+time="2025-12-10T00:03:55Z" level=info msg="Received push event repo: http://gitea.192.168.49.2.nip.io/gitea_admin/pacman-kikd-manifests, revision: main, touchedHead: true"
+time="2025-12-10T00:03:55Z" level=info msg="Requested app 'pacman-webhook' refresh"
 failed to create fsnotify watcher: too many open files
 ```
+
+<br/>
+
+```
+// FIX: failed to create fsnotify watcher: too many open files
+$ sudo sysctl fs.inotify.max_user_instances=8192
+$ sudo sysctl fs.inotify.max_user_watches=524288
+```
+
+<br/>
+
+```
+$ argocd app get pacman-webhook
+Name:               argocd/pacman-webhook
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default
+URL:                https://argocd.example.com/applications/pacman-webhook
+Source:
+- Repo:             http://gitea.192.168.49.2.nip.io/gitea_admin/pacman-kikd-manifests.git
+  Target:
+  Path:             k8s
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to  (298574a)
+Health Status:      Healthy
+
+GROUP  KIND        NAMESPACE  NAME         STATUS   HEALTH   HOOK  MESSAGE
+       Namespace   default    pacman       Running  Synced         namespace/pacman created
+       Service     pacman     pacman-kikd  Synced   Healthy        service/pacman-kikd created
+apps   Deployment  default    pacman-kikd  Synced   Healthy        deployment.apps/pacman-kikd created
+       Namespace              pacman       Synced
+```
+
+<br/>
+
+```
+$ argocd app diff pacman-webhook
+```
+
+<br/>
+
+```
+// Заметил неправильный URL для argocd
+$ kubectl patch cm argocd-cm -n argocd --type merge -p '{"data":{"url":"http://argocd.192.168.49.2.nip.io"}}'
+```
+
+<br/>
+
+```
+$ argocd app get pacman-webhook
+Name:               argocd/pacman-webhook
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default
+URL:                http://argocd.192.168.49.2.nip.io/applications/pacman-webhook
+Source:
+- Repo:             http://gitea.192.168.49.2.nip.io/gitea_admin/pacman-kikd-manifests.git
+  Target:
+  Path:             k8s
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated
+Sync Status:        Synced to  (298574a)
+Health Status:      Healthy
+
+GROUP  KIND        NAMESPACE  NAME         STATUS   HEALTH   HOOK  MESSAGE
+       Namespace   default    pacman       Running  Synced         namespace/pacman created
+       Service     pacman     pacman-kikd  Synced   Healthy        service/pacman-kikd created
+apps   Deployment  default    pacman-kikd  Synced   Healthy        deployment.apps/pacman-kikd created
+       Namespace              pacman       Synced
+```
+
+<br/>
+
+В репо в k8s/pacman-deployment.yaml меняю на:
+
+```
+image: quay.io/gitops-cookbook/pacman-kikd:1.2.0
+```
+
+<br/>
+
+И сразу запускается обновление pod.

@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/
 <br/>
 
 Делаю:  
-2025.12.09
+2025.12.10
 
 <br/>
 
@@ -31,13 +31,28 @@ $ echo argocd.$INGRESS_HOST.nip.io
 
 ```
 $ cd ~/tmp
-$ mkdir argo
 ```
 
 <br/>
 
 ```yaml
-$ cat > argo/argocd-values.yaml <<EOF
+$ cat > argocd-values.yaml <<EOF
+---
+server:
+  ingress:
+    enabled: true
+    hosts:
+      - argocd.$INGRESS_HOST.nip.io
+  extraArgs:
+    - --insecure
+installCRDs: false
+EOF
+```
+
+<!-- <br/>
+
+```yaml
+$ cat > argocd-values.yaml <<EOF
 ---
 server:
   ingress:
@@ -46,7 +61,7 @@ server:
     - --insecure
 installCRDs: false
 EOF
-```
+``` -->
 
 <br/>
 
@@ -68,46 +83,34 @@ argo/argo-cd	9.1.5        	v3.2.1     	A Helm chart for Argo CD, a declarative, 
 ```
 $ helm upgrade --install \
     argocd argo/argo-cd \
+    --version 9.1.5 \
     --namespace argocd \
     --create-namespace \
-    --set server.ingress.hosts="{argocd.$INGRESS_HOST.nip.io}" \
-    --values argo/argocd-values.yaml \
+    --set "server.ingress.hosts={argocd.$INGRESS_HOST.nip.io}" \
+    --values argocd-values.yaml \
     --wait
 ```
 
 <br/>
 
 ```
-// Можно добавить при желании версию
---version 2.8.0 \
-```
-
-<br/>
-
-```
-$ kubectl get ingress -n argocd
-NAME            CLASS   HOSTS                ADDRESS        PORTS   AGE
-argocd-server   nginx   argocd.example.com   192.168.58.2   80      78s
-```
-
-<br/>
-
-Пришлось руками поправить ingress
-
-<br/>
-
-```
 $ kubectl get ingress -n argocd
 NAME            CLASS   HOSTS                        ADDRESS        PORTS   AGE
-argocd-server   nginx   argocd.192.168.58.2.nip.io   192.168.58.2   80      8m45s
+argocd-server   nginx   argocd.192.168.49.2.nip.io   192.168.49.2   80      75s
 ```
 
-<!-- <br/>
+<br/>
 
 ```
-// Если понадобится обновить
-// $ helm upgrade argocd --set server.ingress.hosts="{argocd.$INGRESS_HOST.nip.io}" --namespace argocd argo/argo-cd
-``` -->
+// Патчим ingress, если что-то не то прописано
+$ kubectl patch ingress argocd-server -n argocd --type='json' -p='[
+  {
+    "op": "replace",
+    "path": "/spec/rules/0/host",
+    "value": "argocd.'"$INGRESS_HOST"'.nip.io"
+  }
+]'
+```
 
 <br/>
 
@@ -154,4 +157,35 @@ $ echo argocd.$INGRESS_HOST.nip.io
 // admin / ABCDEFGH123
 // OK!
 http://argocd.192.168.58.2.nip.io
+```
+
+<br/>
+
+```
+$ argocd version
+argocd: v3.2.1+8c4ab63
+  BuildDate: 2025-11-30T12:12:42Z
+  GitCommit: 8c4ab63a9c72b31d96c6360514cda6254e7e6629
+  GitTreeState: clean
+  GoVersion: go1.25.0
+  Compiler: gc
+  Platform: linux/amd64
+argocd-server: v2.0.0+f5119c0
+  BuildDate: 2021-04-07T06:00:33Z
+  GitCommit: f5119c06686399134b3f296d44445bcdbc778d42
+  GitTreeState: clean
+  GoVersion: go1.16
+  Compiler: gc
+  Platform: linux/amd64
+  Kustomize Version: v3.9.4 2021-02-09T19:22:10Z
+  Helm Version: v3.5.1+g32c2223
+  Kubectl Version: v0.20.4
+  Jsonnet Version: v0.17.0
+```
+
+<br/>
+
+```
+// Uninstall
+// $ helm uninstall argocd -n argocd
 ```
