@@ -232,3 +232,9 @@ image: quay.io/gitops-cookbook/pacman-kikd:1.2.0
 <br/>
 
 И сразу запускается обновление pod.
+
+<br/>
+
+```
+$ argocd app delete pacman-webhook
+```

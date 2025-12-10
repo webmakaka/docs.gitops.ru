@@ -20,10 +20,6 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/
 
 # [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.4 Deploy to Multiple Clusters](/books/gitops/gitops-cookbook/advanced-topics/deploy-to-multiple-clusters/)
 
-# [[UNKNOWN!] GitOps Cookbook: 08. Advanced Topics: 8.5 Deploy a Pull Request to a Cluster](/books/gitops/gitops-cookbook/advanced-topics/deploy-a-pull-request-to-a-cluster/)
+# [[OK!] GitOps Cookbook: 08. Advanced Topics: 8.5 Deploy a Pull Request to a Cluster](/books/gitops/gitops-cookbook/advanced-topics/deploy-a-pull-request-to-a-cluster/)
 
-<br/>
-
-```
-8.6 Use Advanced Deployment Techniques
-```
+# [[UNKNOWN!] GitOps Cookbook: 08. Advanced Topics: 8.6 Use Advanced Deployment Techniques](/books/gitops/gitops-cookbook/advanced-topics/use-advanced-deployment-techniques/)
