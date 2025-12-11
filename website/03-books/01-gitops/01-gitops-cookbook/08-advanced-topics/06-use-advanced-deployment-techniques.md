@@ -227,8 +227,6 @@ NAME                                     KIND        STATUS     AGE    INFO
 ```
 // Подтверждаем руками обновление
 $ kubectl argo rollouts promote bgd-rollouts
-$ kubectl argo rollouts promote bgd-rollouts
-$ kubectl argo rollouts promote bgd-rollouts
 ```
 
 <br/>
