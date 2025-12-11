@@ -15,16 +15,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 Делаю:  
-2025.12.02
-
-<br/>
-
-```
-// Смотрим актуальную версию API
-$ kubectl api-resources | grep Task
-taskruns                            tr,trs                                 tekton.dev/v1                     true         TaskRun
-tasks                                                                      tekton.dev/v1                     true         Task
-```
+2025.12.11
 
 <br/>
 
@@ -224,7 +215,7 @@ $ tkn task start hello-param --showlog -p who=Marley
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: groceries
@@ -259,7 +250,7 @@ $ tkn task start groceries --showlog -p grocery-items='1 2 3 4 5 6 7 8 9 10'
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: hello-param
@@ -287,29 +278,47 @@ $ tkn task start hello-param --showlog --use-param-defaults
 
 ### Sharing data
 
-(Не отработало). Или устарело или нужно настраивать PersistentVolumeClaim.
+Пример из книги устарел.  
+Обновленная версия.
 
 <br/>
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: shared-home
 spec:
+  volumes:
+    - name: shared-volume
+      emptyDir: {}
   steps:
     - name: write
       image: registry.access.redhat.com/ubi8/ubi-minimal
+      volumeMounts:
+        - name: shared-volume
+          mountPath: /shared
       script: |
-        cd ~
-        echo Getting ready to write to $(pwd)
-        echo "Secret Message" > /message.txt
+        echo "Writing to /shared/message.txt"
+        echo "Secret Message" > /shared/message.txt
+        echo "File created successfully"
+
     - name: read
       image: registry.access.redhat.com/ubi8/ubi-minimal
-      command:
-        - /bin/bash
-      args: ["-c", "cat /message.txt"]
+      volumeMounts:
+        - name: shared-volume
+          mountPath: /shared
+      script: |
+        echo "Reading from /shared/message.txt"
+        if [ -f /shared/message.txt ]; then
+          cat /shared/message.txt
+        else
+          echo "ERROR: File not found!"
+          echo "Available files in /shared:"
+          ls -la /shared/
+          exit 1
+        fi
 EOF
 ```
 
@@ -329,7 +338,7 @@ Results can be used in tasks to store the output from a task in a single file. U
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: using-results
@@ -378,7 +387,7 @@ data:
   info: "\e[34m"
   debug: "\e[32m"
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: configmap
@@ -414,7 +423,7 @@ $ tkn task start configmap --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: failing
@@ -435,7 +444,7 @@ $ tkn task start failing
 <br/>
 
 ```
-$ kubectl get tr failing-run-fcj95 -o yaml
+$ kubectl get tr failing-run-h42fw -o yaml
 ```
 
 <br/>
@@ -450,7 +459,7 @@ $ kubectl get tr failing-run-fcj95 -o yaml
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: more-than-hello
@@ -495,7 +504,7 @@ $ tkn task start more-than-hello --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: curl
@@ -551,7 +560,7 @@ metadata:
 data:
   nationality: gb
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: randomuser
@@ -560,36 +569,64 @@ spec:
     - name: nationality
       configMap:
         name: randomuser
+    - name: shared-volume
+      emptyDir: {}
   results:
     - name: config
       description: Configuration file for cURL
     - name: output
       description: Output from curl
   steps:
+
+    # Шаг 1: Создание конфигурационного файла
     - name: config
       image: registry.access.redhat.com/ubi8/ubi
       volumeMounts:
         - name: nationality
           mountPath: /var/nat
+        - name: shared-volume
+          mountPath: /shared
       script: |
-        echo "url=https://randomuser.me/api/?inc=name,nat&nat="$(cat /var/nat/nationality) > $(results.config.path)
+        #!/bin/bash
+        NAT=$(cat /var/nat/nationality)
+        echo "Creating config for nationality: ${NAT}"
+        echo "url=https://randomuser.me/api/?inc=name,nat&nat=${NAT}" > /shared/config.txt
+        echo "Config created at /shared/config.txt"
+        cat /shared/config.txt
+
+
+    # Шаг 2: Выполнение curl запроса
     - name: curl
       image: registry.access.redhat.com/ubi8/ubi
-      command:
-        - curl
-      args:
-        - -K
-        - $(results.config.path)
-        - -o
-        - $(results.output.path)
-    - name: output
-      image: stedolan/jq
+      volumeMounts:
+        - name: shared-volume
+          mountPath: /shared
       script: |
-        FIRST=$(cat $(results.output.path) | jq -r .results[0].name.first)
-        LAST=$(cat $(results.output.path) | jq -r .results[0].name.last)
-        NAT=$(cat $(results.output.path) | jq -r .results[0].nat)
-        echo "New random user created with nationality $NAT"
-        echo $FIRST $LAST
+        #!/bin/bash
+        echo "Executing curl with config from /shared/config.txt"
+        curl -K /shared/config.txt -o /shared/response.json
+        echo "Response saved to /shared/response.json"
+        echo "Response content:"
+        cat /shared/response.json
+
+    # Шаг 3: Обработка результата
+    - name: output
+      image: apteno/alpine-jq
+      volumeMounts:
+        - name: shared-volume
+          mountPath: /shared
+      script: |
+        #!/bin/sh
+        echo "Processing response from /shared/response.json"
+        cat /shared/response.json
+
+        FIRST=$(jq -r '.results[0].name.first' /shared/response.json)
+        LAST=$(jq -r '.results[0].name.last' /shared/response.json)
+        NAT=$(jq -r '.results[0].nat' /shared/response.json)
+
+        echo "New random user created with nationality ${NAT}"
+        echo "Name: ${FIRST} ${LAST} ${NAT}"
+
 EOF
 ```
 

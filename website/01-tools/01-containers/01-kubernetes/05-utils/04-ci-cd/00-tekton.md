@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/tekton/
 <br/>
 
 **Делаю:**  
-2025.11.25
+2025.12.11
 
 <br/>
 
@@ -50,6 +50,8 @@ sudo tar xvzf tkn_${LATEST_VERSION_SHORT}_$(uname -s)_$(uname -m).tar.gz -C /usr
 $ bash tekton-setup.sh
 ```
 
+<br/>
+
 ```
 $ tkn version
 Client version: 0.43.0
@@ -68,6 +70,30 @@ $ kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeli
 <br/>
 
 ```
+$ kubectl get crds
+NAME                                       CREATED AT
+customruns.tekton.dev                      2025-12-11T05:33:20Z
+pipelineruns.tekton.dev                    2025-12-11T05:33:20Z
+pipelines.tekton.dev                       2025-12-11T05:33:20Z
+resolutionrequests.resolution.tekton.dev   2025-12-11T05:33:21Z
+stepactions.tekton.dev                     2025-12-11T05:33:21Z
+taskruns.tekton.dev                        2025-12-11T05:33:21Z
+tasks.tekton.dev                           2025-12-11T05:33:21Z
+verificationpolicies.tekton.dev            2025-12-11T05:33:21Z
+```
+
+<br/>
+
+```
+// Смотрим актуальную версию API
+$ kubectl api-resources | grep Task
+taskruns                            tr,trs                                 tekton.dev/v1                     true         TaskRun
+tasks                                                                      tekton.dev/v1                     true         Task
+```
+
+<br/>
+
+```
 $ tkn version
 Client version: 0.43.0
 Pipeline version: v1.6.0
@@ -77,10 +103,10 @@ Pipeline version: v1.6.0
 
 ```
 $ kubectl get pods -n tekton-pipelines
-NAME                                         READY   STATUS    RESTARTS   AGE
-tekton-events-controller-7bb8d8b8cc-5j7q4    1/1     Running   0          30s
-tekton-pipelines-controller-f5b46dd7-rm565   1/1     Running   0          30s
-tekton-pipelines-webhook-6659bdfd6d-n8n5v    0/1     Running   0          30s
+NAME                                           READY   STATUS    RESTARTS   AGE
+tekton-events-controller-bcd5b75f7-4mlpk       1/1     Running   0          102s
+tekton-pipelines-controller-868956fb6c-f85tc   1/1     Running   0          103s
+tekton-pipelines-webhook-b974bd4b-928xf        1/1     Running   0          102s
 ```
 
 <br/>
@@ -89,21 +115,6 @@ tekton-pipelines-webhook-6659bdfd6d-n8n5v    0/1     Running   0          30s
 $ kubectl get pods -n tekton-pipelines-resolvers
 NAME                                                 READY   STATUS    RESTARTS   AGE
 tekton-pipelines-remote-resolvers-797b749dcc-pt6m6   1/1     Running   0          48s
-```
-
-<br/>
-
-```
-$ kubectl get crds
-NAME                                       CREATED AT
-customruns.tekton.dev                      2025-11-24T19:41:18Z
-pipelineruns.tekton.dev                    2025-11-24T19:41:18Z
-pipelines.tekton.dev                       2025-11-24T19:41:18Z
-resolutionrequests.resolution.tekton.dev   2025-11-24T19:41:18Z
-stepactions.tekton.dev                     2025-11-24T19:41:18Z
-taskruns.tekton.dev                        2025-11-24T19:41:19Z
-tasks.tekton.dev                           2025-11-24T19:41:18Z
-verificationpolicies.tekton.dev            2025-11-24T19:41:19Z
 ```
 
 <br/>
