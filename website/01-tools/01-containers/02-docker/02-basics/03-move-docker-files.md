@@ -3,7 +3,7 @@ layout: page
 title: Переместить файлы Docker в другой каталог
 description: Переместить файлы Docker в другой каталог
 keywords: devops, docker, Переместить файлы Docker в другой каталог
-permalink: /devops/containers/docker/basics/move-docker-files/
+permalink: /tools/containers/docker/basics/move-docker-files/
 ---
 
 # Переместить файлы Docker в другой каталог

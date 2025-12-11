@@ -3,7 +3,7 @@ layout: page
 title: Имидж и контейнер, в чем собственно разница?
 description: Имидж и контейнер, в чем собственно разница?
 keywords: devops, docker, Имидж и контейнер, в чем собственно разница?
-permalink: /devops/containers/docker/basics/images-and-containers/
+permalink: /tools/containers/docker/basics/images-and-containers/
 ---
 
 # Имидж и контейнер, в чем собственно разница?

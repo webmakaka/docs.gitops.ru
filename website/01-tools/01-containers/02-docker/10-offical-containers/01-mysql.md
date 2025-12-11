@@ -3,7 +3,7 @@ layout: page
 title: Работа с официальным mysql Docker контейнером
 description: Работа с официальным mysql Docker контейнером
 keywords: devops, docker, Работа с официальным mysql Docker контейнером
-permalink: /devops/containers/docker/official/containers/mysql/
+permalink: /tools/containers/docker/official/containers/mysql/
 ---
 
 # Работа с официальным mysql Docker контейнером

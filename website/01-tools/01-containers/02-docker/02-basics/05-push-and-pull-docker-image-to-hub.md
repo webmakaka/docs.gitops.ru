@@ -3,7 +3,7 @@ layout: page
 title: Отправить docker image на hub.docker.com
 description: Отправить docker image на hub.docker.com
 keywords: devops, docker, Отправить docker image на hub.docker.com
-permalink: /devops/containers/docker/basics/push-and-pull-docker-image-to-hub/
+permalink: /tools/containers/docker/basics/push-and-pull-docker-image-to-hub/
 ---
 
 # Отправить docker image на hub.docker.com

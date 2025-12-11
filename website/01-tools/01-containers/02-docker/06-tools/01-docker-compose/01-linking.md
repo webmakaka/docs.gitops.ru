@@ -3,7 +3,7 @@ layout: page
 title: Линковка Docker контейнеров с помощью Docker Compose
 description: Линковка Docker контейнеров с помощью Docker Compose
 keywords: devops, containers, docker, tools, docker-compose, linking
-permalink: /devops/containers/docker/tools/docker-compose/linking/
+permalink: /tools/containers/docker/tools/docker-compose/linking/
 ---
 
 # Линковка Docker контейнеров с помощью Docker Compose

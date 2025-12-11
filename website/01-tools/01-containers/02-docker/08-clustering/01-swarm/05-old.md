@@ -3,7 +3,7 @@ layout: page
 title: Какие-то старые записи по Docker Swarm (устаревшие, позде будут выпилены)
 description: Какие-то старые записи по Docker Swarm (устаревшие, позде будут выпилены)
 keywords: devops, docker, Какие-то старые записи по Docker Swarm (устаревшие, позде будут выпилены)
-permalink: /devops/containers/docker/clustering/swarm/old/
+permalink: /tools/containers/docker/clustering/swarm/old/
 ---
 
 # Какие-то старые записи по Docker Swarm (устаревшие, позде будут выпилены)

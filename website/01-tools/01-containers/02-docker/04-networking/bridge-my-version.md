@@ -3,7 +3,7 @@ layout: page
 title: Задание параметров сетевых интерфейсов docker в Ubuntu (IP, gateway, etc.)
 description: Задание параметров сетевых интерфейсов docker в Ubuntu (IP, gateway, etc.)
 keywords: devops, docker, Задание параметров сетевых интерфейсов docker в Ubuntu (IP, gateway, etc.)
-permalink: /devops/containers/docker/networking/ubuntu-bridge/bridge-my-version/
+permalink: /tools/containers/docker/networking/ubuntu-bridge/bridge-my-version/
 ---
 
 # Задание параметров сетевых интерфейсов docker в Ubuntu (IP, gateway, etc.)

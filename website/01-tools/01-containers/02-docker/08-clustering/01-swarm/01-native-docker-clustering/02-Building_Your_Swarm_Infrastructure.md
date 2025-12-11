@@ -3,7 +3,7 @@ layout: page
 title: Native Docker Clustering > building your swarm infrastructure
 description: Native Docker Clustering > building your swarm infrastructure
 keywords: devops, containers, docker, clustering, swarm, swarm infrastructure
-permalink: /devops/containers/docker/clustering/swarm/native-docker-clustering/building-your-swarm-infrastructure/
+permalink: /tools/containers/docker/clustering/swarm/native-docker-clustering/building-your-swarm-infrastructure/
 ---
 
 # Docker Swarm: Native Docker Clustering [2016, ENG] > Module 4: Building your Swarm Infrastructure

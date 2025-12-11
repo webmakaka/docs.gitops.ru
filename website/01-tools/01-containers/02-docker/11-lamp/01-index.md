@@ -3,7 +3,7 @@ layout: page
 title: Docker Lamp Server
 description: Docker Lamp Server
 keywords: devops, docker, Docker Lamp Server
-permalink: /devops/containers/docker/lamp/
+permalink: /tools/containers/docker/lamp/
 ---
 
 # Docker Lamp Server
@@ -96,11 +96,11 @@ https://punbb.info/
 
 <br/>
 
-![lamp server inside docker](/img/devops/containers/docker/lamp/docker-lamp-1.png 'lamp server inside docker'){: .center-image }
+![lamp server inside docker](/img/tools/containers/docker/lamp/docker-lamp-1.png 'lamp server inside docker'){: .center-image }
 
 <br/>
 
-![lamp server inside docker](/img/devops/containers/docker/lamp/docker-lamp-2.png 'lamp server inside docker'){: .center-image }
+![lamp server inside docker](/img/tools/containers/docker/lamp/docker-lamp-2.png 'lamp server inside docker'){: .center-image }
 
 <br/>
 
@@ -110,11 +110,11 @@ linuxcommunity.ru/webroot/style/Oxygen/oxygen.min.css
 
 ```css
 .brd {
-    padding: 1em 2em;
-    margin: 0 auto;
-    max-width: 1100px;
-    min-width: 700px;
-    width: 90%;
+  padding: 1em 2em;
+  margin: 0 auto;
+  max-width: 1100px;
+  min-width: 700px;
+  width: 90%;
 }
 ```
 
@@ -122,11 +122,11 @@ linuxcommunity.ru/webroot/style/Oxygen/oxygen.min.css
 
 ```css
 .brd {
-    padding: 1em 2em;
-    margin: 0 auto;
-    max-width: 2460px;
-    min-width: 700px;
-    width: 96%;
+  padding: 1em 2em;
+  margin: 0 auto;
+  max-width: 2460px;
+  min-width: 700px;
+  width: 96%;
 }
 ```
 

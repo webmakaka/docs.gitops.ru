@@ -3,7 +3,7 @@ layout: page
 title: Пример запуска прилоения в Docker одной командой
 description: Отправить docker image на hub.docker.com
 keywords: devops, docker, Пример запуска прилоения в Docker одной командой
-permalink: /devops/containers/docker/run/
+permalink: /tools/containers/docker/run/
 ---
 
 # Пример запуска прилоения в Docker одной командой

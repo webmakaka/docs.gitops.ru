@@ -3,7 +3,7 @@ layout: page
 title: Docker Swarm
 description: Docker Swarm
 keywords: devops, docker, Docker Swarm
-permalink: /devops/containers/docker/clustering/swarm/packt-publishing-docker-swarm/
+permalink: /tools/containers/docker/clustering/swarm/packt-publishing-docker-swarm/
 ---
 
 # [Packt Publishing] Docker Swarm [August 31, 2017]
@@ -191,9 +191,9 @@ http://192.168.99.102:8080/
 
 ### 09 - Docker Overlay Network
 
--   Overlay
--   Ingress
--   docker_gwbridge
+- Overlay
+- Ingress
+- docker_gwbridge
 
 <br/>
 

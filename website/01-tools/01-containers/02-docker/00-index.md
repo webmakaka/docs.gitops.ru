@@ -51,25 +51,25 @@ https://quay.io (какая-то лажа, похоже теперь тольк�
 
 ### Инсталляция Docker
 
-[Инсталляция Docker](/devops/containers/docker/setup/)
+[Инсталляция Docker](/tools/containers/docker/setup/)
 
-[Инсталляция Docker-Compose (для совместной работы контейнеров)](/devops/containers/docker/tools/docker-compose/)
+[Инсталляция Docker-Compose (для совместной работы контейнеров)](/tools/containers/docker/tools/docker-compose/)
 
-[Пример запуска прилоения в Docker одной командой](/devops/containers/docker/run/)
+[Пример запуска прилоения в Docker одной командой](/tools/containers/docker/run/)
 
 <br/>
 
 ### Базовые вещи
 
-[Имидж и контейнер, в чем собственно разница?](/devops/containers/docker/basics/images-and-containers/)
+[Имидж и контейнер, в чем собственно разница?](/tools/containers/docker/basics/images-and-containers/)
 
-[Основные команды Docker](/devops/containers/docker/basics/basic-commands/)
+[Основные команды Docker](/tools/containers/docker/basics/basic-commands/)
 
 <br/>
 
 ### Docker Tools
 
-[Docker Machine (для запуска контейнеров в virtualbox, обычно в windows или mac)](/devops/containers/docker/docker-machine/)
+[Docker Machine (для запуска контейнеров в virtualbox, обычно в windows или mac)](/tools/containers/docker/docker-machine/)
 
 <br/>
 
@@ -77,24 +77,24 @@ https://quay.io (какая-то лажа, похоже теперь тольк�
 
 https://docs.docker.com/engine/userguide/networking/
 
-[Настройка моста для работы с Docker в Ubuntu](/devops/containers/docker/networking/ubuntu-bridge/)  
-[Задание параметров сетевых интерфейсов docker в Ubuntu (IP, gateway, etc.)](/devops/containers/docker/networking/ubuntu-bridge/bridge-my-version/)
+[Настройка моста для работы с Docker в Ubuntu](/tools/containers/docker/networking/ubuntu-bridge/)  
+[Задание параметров сетевых интерфейсов docker в Ubuntu (IP, gateway, etc.)](/tools/containers/docker/networking/ubuntu-bridge/bridge-my-version/)
 
 <br/>
 
 ### Docker Linking Containers
 
-Лучше использовать <a href="/devops/containers/docker/tools/docker-compose/">docker-compose</a> для линковки контейнеров.
+Лучше использовать <a href="/tools/containers/docker/tools/docker-compose/">docker-compose</a> для линковки контейнеров.
 Для работы с docker-compose нужные версии docker >= 1.8.
 
-[Пример линковки контейнеров для их совместной работы](/devops/containers/docker/linking-containers/manual-linking/)
+[Пример линковки контейнеров для их совместной работы](/tools/containers/docker/linking-containers/manual-linking/)
 
 <br/>
 
 ### Docker Работа с image
 
-[Скопировать Docker Images на другой Host](/devops/containers/docker/basics/copying-images-to-other-hosts/)  
-[Скопировать image на hub.docker.com и забрать image с него](/devops/containers/docker/basics/push-and-pull-docker-image-to-hub/)
+[Скопировать Docker Images на другой Host](/tools/containers/docker/basics/copying-images-to-other-hosts/)  
+[Скопировать image на hub.docker.com и забрать image с него](/tools/containers/docker/basics/push-and-pull-docker-image-to-hub/)
 
 <br/>
 
@@ -102,9 +102,9 @@ https://docs.docker.com/engine/userguide/networking/
 
 [Пример запуска веб проекта в контейнерах Docker](https://github.com/webmakaka/Projects-in-Docker)
 
-[Lamp Server](/devops/containers/docker/lamp/)
+[Lamp Server](/tools/containers/docker/lamp/)
 
-[Работа с официальным mysql Docker контейнером](/devops/containers/docker/official/containers/mysql/)
+[Работа с официальным mysql Docker контейнером](/tools/containers/docker/official/containers/mysql/)
 
 [YouTube: Quick Wordpress Setup With Docker](https://www.youtube.com/watch?v=pYhLEV-sRpY)
 
@@ -116,19 +116,19 @@ https://docs.docker.com/engine/userguide/networking/
 
 ### Информация о запущенных контейнерах
 
-[Получить информацию о запущенных Docker контейнерах c помощью sysdig](/devops/containers/docker/sysdig/)
+[Получить информацию о запущенных Docker контейнерах c помощью sysdig](/tools/containers/docker/sysdig/)
 
 <br/>
 
 ### Docker практические задачи
 
-[Переместить файлы Docker](/devops/containers/docker/basics/move-docker-files/)
+[Переместить файлы Docker](/tools/containers/docker/basics/move-docker-files/)
 
 <br/>
 
 ### Dockerfile - скрипт для создания контейнера автоматически
 
-[здесь](/devops/containers/docker/dockerfile/)
+[здесь](/tools/containers/docker/dockerfile/)
 
 <br/>
 
@@ -140,7 +140,7 @@ https://docs.docker.com/engine/userguide/networking/
 
 ### Docker Clustering
 
-[Docker Swarm](/devops/containers/docker/clustering/swarm/)
+[Docker Swarm](/tools/containers/docker/clustering/swarm/)
 
 <br/>
 

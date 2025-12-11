@@ -3,7 +3,7 @@ layout: page
 title: Основные команды Docker
 description: Основные команды Docker
 keywords: devops, Основные команды Docker
-permalink: /devops/containers/docker/basics/basic-commands/
+permalink: /tools/containers/docker/basics/basic-commands/
 ---
 
 # Основные команды Docker

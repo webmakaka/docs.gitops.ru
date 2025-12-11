@@ -3,7 +3,7 @@ layout: page
 title: Docker Swarm - кластер с использованием docker-machine
 description: Docker Swarm - кластер с использованием docker-machine
 keywords: devops, docker, Docker Swarm - кластер с использованием docker-machine
-permalink: /devops/containers/docker/clustering/swarm/by-docker-machine/
+permalink: /tools/containers/docker/clustering/swarm/by-docker-machine/
 ---
 
 # Docker Swarm - кластер с использованием docker-machine (без сохранения данных после перезагрузки)

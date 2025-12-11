@@ -3,7 +3,7 @@ layout: page
 title: Docker Swarm первый взгляд
 description: Docker Swarm первый взгляд
 keywords: devops, docker, Docker Swarm первый взгляд
-permalink: /devops/containers/docker/clustering/swarm/first-look/
+permalink: /tools/containers/docker/clustering/swarm/first-look/
 ---
 
 # Docker Swarm первый взгляд

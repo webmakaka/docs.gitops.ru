@@ -3,7 +3,7 @@ layout: page
 title: Native Docker Clustering > Securing your Swarm Cluster
 description: Native Docker Clustering > Securing your Swarm Cluster
 keywords: devops, containers, docker, clustering, swarm, securing your swarm cluster
-permalink: /devops/containers/docker/clustering/swarm/native-docker-clustering/securing-your-swarm-cluster/
+permalink: /tools/containers/docker/clustering/swarm/native-docker-clustering/securing-your-swarm-cluster/
 ---
 
 # Docker Swarm: Native Docker Clustering [2016, ENG] > Module 5: Securing your Swarm Cluster

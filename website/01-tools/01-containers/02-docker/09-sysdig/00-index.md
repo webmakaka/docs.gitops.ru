@@ -3,7 +3,7 @@ layout: page
 title: Получить информацию о запущенных Docker контейнерах c помощью sysdig
 description: Получить информацию о запущенных Docker контейнерах c помощью sysdig
 keywords: devops, docker, Получить информацию о запущенных Docker контейнерах c помощью sysdig
-permalink: /devops/containers/docker/sysdig/
+permalink: /tools/containers/docker/sysdig/
 ---
 
 # Получить информацию о запущенных Docker контейнерах c помощью sysdig

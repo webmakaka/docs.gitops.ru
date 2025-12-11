@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Простенький Dockerfile для nodejs
-permalink: /devops/containers/docker/dockerfile/nodejs/nodejs-simple/
+permalink: /tools/containers/docker/dockerfile/nodejs/nodejs-simple/
 ---
 
 # Простенький Dockerfile для nodejs
@@ -23,7 +23,6 @@ Dockerfile
     EXPOSE $PORT
 
     ENTRYPOINT ["npm", "start"]
-
 
 <br/>
 

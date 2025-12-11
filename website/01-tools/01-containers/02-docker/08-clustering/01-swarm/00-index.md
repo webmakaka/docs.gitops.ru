@@ -3,7 +3,7 @@ layout: page
 title: Docker Swarm
 description: Docker Swarm
 keywords: devops, docker, Docker Swarm
-permalink: /devops/containers/docker/clustering/swarm/
+permalink: /tools/containers/docker/clustering/swarm/
 ---
 
 # Docker Swarm
@@ -20,9 +20,9 @@ https://docs.docker.com/engine/swarm/swarm-tutorial/
 
 **Альтернативы:**
 
--   Kubernetes
--   Mesosphere
--   Apache Mesos
+- Kubernetes
+- Mesosphere
+- Apache Mesos
 
 <br/>
 
@@ -32,34 +32,34 @@ https://docs.docker.com/engine/swarm/swarm-tutorial/
 
 ### Docker Swarm первый взгляд
 
-[здесь](/devops/containers/docker/clustering/swarm/first-look/)
+[здесь](/tools/containers/docker/clustering/swarm/first-look/)
 
 <br/>
 
 ### Docker Swarm - кластер с использованием docker-machine (без сохранения данных после перезагрузки)
 
-[здесь](/devops/containers/docker/clustering/swarm/by-docker-machine/)
+[здесь](/tools/containers/docker/clustering/swarm/by-docker-machine/)
 
 <br/>
 
 ### Docker Swarm - кластер с использованием виртуалок с ubuntu в vagrant (с сохранением данных после перезагрузки)
 
-[здесь](/devops/containers/docker/clustering/swarm/by-vagrant/)
+[здесь](/tools/containers/docker/clustering/swarm/by-vagrant/)
 
 <br/>
 
 ### [Packt Publishing] Docker Swarm [August 31, 2017] (Имеет смысл смотреть, чтобы понять как делать обновления контейнеров)
 
-[здесь](/devops/containers/docker/clustering/swarm/packt-publishing-docker-swarm/)
+[здесь](/tools/containers/docker/clustering/swarm/packt-publishing-docker-swarm/)
 
 <br/>
 
 ### Docker Swarm: Native Docker Clustering [2016, ENG] (не доделал вариант с security и забил)
 
-[здесь](/devops/containers/docker/clustering/swarm/packt-publishing-docker-swarm/)
+[здесь](/tools/containers/docker/clustering/swarm/packt-publishing-docker-swarm/)
 
 <br/>
 
 ### Какие-то старые записи по Docker Swarm (устаревшие, позде будут выпилены)
 
-[здесь](/devops/containers/docker/clustering/swarm/old/)
+[здесь](/tools/containers/docker/clustering/swarm/old/)

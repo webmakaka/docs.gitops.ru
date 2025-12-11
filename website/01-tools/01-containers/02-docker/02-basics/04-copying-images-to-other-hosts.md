@@ -3,7 +3,7 @@ layout: page
 title: Скопировать Docker Images на другой Host
 description: Скопировать Docker Images на другой Host
 keywords: devops, containers, docker, copy images, move outside
-permalink: /devops/containers/docker/basics/copying-images-to-other-hosts/
+permalink: /tools/containers/docker/basics/copying-images-to-other-hosts/
 ---
 
 # Скопировать Docker Images на другой Host

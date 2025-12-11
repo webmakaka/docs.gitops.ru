@@ -1,14 +1,13 @@
 ---
 layout: page
 title: Dockerfile из проекта angular.js v2 для создания контейнера для nodejs
-permalink: /devops/containers/docker/dockerfile/nodejs/
+permalink: /tools/containers/docker/dockerfile/nodejs/
 ---
 
 # Dockerfile из проекта angular.js v2 для создания контейнера для nodejs
 
 Dockerfile из проекта angular.js v2 для создания контейнера для nodejs
 https://github.com/angular/quickstart
-
 
     # To build and run with Docker:
     #

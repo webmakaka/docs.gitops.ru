@@ -3,7 +3,7 @@ layout: page
 title: Настройка моста для работы с Docker в Ubuntu
 description: Настройка моста для работы с Docker в Ubuntu
 keywords: devops, docker, Настройка моста для работы с Docker в Ubuntu
-permalink: /devops/containers/docker/networking/ubuntu-bridge/
+permalink: /tools/containers/docker/networking/ubuntu-bridge/
 ---
 
 # Настройка моста для работы с Docker в Ubuntu

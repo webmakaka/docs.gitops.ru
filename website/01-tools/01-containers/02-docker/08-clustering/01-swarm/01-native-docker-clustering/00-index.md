@@ -3,7 +3,7 @@ layout: page
 title: Docker Swarm > Native Docker Clustering [2016, ENG]
 description: Docker Swarm > Native Docker Clustering [2016, ENG]
 keywords: devops, containers, docker, clustering, swarm, native docker clustering
-permalink: /devops/containers/docker/clustering/swarm/native-docker-clustering/
+permalink: /tools/containers/docker/clustering/swarm/native-docker-clustering/
 ---
 
 # Docker Swarm: Native Docker Clustering [2016, ENG]
@@ -14,7 +14,7 @@ permalink: /devops/containers/docker/clustering/swarm/native-docker-clustering/
 
 <br/>
 
-![Native Docker Clustering](/img/devops/containers/docker/clustering/swarm/native-docker-clustering/pic1.png 'Native Docker Clustering'){: .center-image }
+![Native Docker Clustering](/img/tools/containers/docker/clustering/swarm/native-docker-clustering/pic1.png 'Native Docker Clustering'){: .center-image }
 
 <br/>
 
@@ -36,12 +36,12 @@ https://bitbucket.org/sysadm-ru/native-docker-clustering
 
 <ul>
     <li>
-        <a href="/devops/containers/docker/clustering/swarm/native-docker-clustering/configs/">Configs</a>
+        <a href="/tools/containers/docker/clustering/swarm/native-docker-clustering/configs/">Configs</a>
     </li>
     <li>
-        <a href="/devops/containers/docker/clustering/swarm/native-docker-clustering/building-your-swarm-infrastructure/">Module 4: Building your Swarm Infrastructure</a>
+        <a href="/tools/containers/docker/clustering/swarm/native-docker-clustering/building-your-swarm-infrastructure/">Module 4: Building your Swarm Infrastructure</a>
     </li>
     <li>
-        <a href="/devops/containers/docker/clustering/swarm/native-docker-clustering/securing-your-swarm-cluster/">Module 5: Securing your Swarm Cluster</a>
+        <a href="/tools/containers/docker/clustering/swarm/native-docker-clustering/securing-your-swarm-cluster/">Module 5: Securing your Swarm Cluster</a>
     </li>
 </ul>

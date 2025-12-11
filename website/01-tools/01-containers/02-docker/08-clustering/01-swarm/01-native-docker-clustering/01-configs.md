@@ -3,7 +3,7 @@ layout: page
 title: Docker Swarm > Native Docker Clustering > Configs
 description: Docker Swarm > Native Docker Clustering > Configs
 keywords: devops, containers, docker, clustering, swarm, native docker configs
-permalink: /devops/containers/docker/clustering/swarm/native-docker-clustering/configs/
+permalink: /tools/containers/docker/clustering/swarm/native-docker-clustering/configs/
 ---
 
 # Docker Swarm > Native Docker Clustering [2016, ENG] > Configs

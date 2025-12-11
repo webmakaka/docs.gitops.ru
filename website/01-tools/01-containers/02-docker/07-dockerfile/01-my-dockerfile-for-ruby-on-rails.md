@@ -3,7 +3,7 @@ layout: page
 title: Dockerfile для разработки ruby on rails приложений в centos 6
 description: Dockerfile для разработки ruby on rails приложений в centos 6
 keywords: devops, docker, Dockerfile для разработки ruby on rails приложений в centos 6
-permalink: /devops/containers/docker/dockerfile/my-dockerfile-for-ruby-on-rails/
+permalink: /tools/containers/docker/dockerfile/my-dockerfile-for-ruby-on-rails/
 ---
 
 # Dockerfile для разработки ruby on rails приложений в centos 6

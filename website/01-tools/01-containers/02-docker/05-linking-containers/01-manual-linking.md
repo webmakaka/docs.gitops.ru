@@ -3,7 +3,7 @@ layout: page
 title: Пример линковки контейнеров для их совместной работы
 description: Пример линковки контейнеров для их совместной работы
 keywords: devops, docker, Пример линковки контейнеров для их совместной работы
-permalink: /devops/containers/docker/linking-containers/manual-linking/
+permalink: /tools/containers/docker/linking-containers/manual-linking/
 ---
 
 # Пример линковки контейнеров для их совместной работы

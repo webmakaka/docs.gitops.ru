@@ -3,7 +3,7 @@ layout: page
 title: Docker Machine
 description: Docker Machine
 keywords: devops, docker, Docker Machine
-permalink: /devops/containers/docker/docker-machine/
+permalink: /tools/containers/docker/docker-machine/
 ---
 
 # Docker Machine

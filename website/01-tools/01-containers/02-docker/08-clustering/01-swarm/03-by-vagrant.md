@@ -3,7 +3,7 @@ layout: page
 title: Docker Swarm - кластер с использованием виртуалок с ubuntu в vagran
 description: Docker Swarm - кластер с использованием виртуалок с ubuntu в vagran
 keywords: devops, docker, Docker Swarm - кластер с использованием виртуалок с ubuntu в vagran
-permalink: /devops/containers/docker/clustering/swarm/by-vagrant/
+permalink: /tools/containers/docker/clustering/swarm/by-vagrant/
 ---
 
 # Docker Swarm - кластер с использованием виртуалок с ubuntu в vagrant (с сохранением данных после перезагрузки)
@@ -178,7 +178,7 @@ end
 
 ### На все виртуалки ставим docker
 
-<a href="/devops/containers/docker/setup/ubuntu/">вот как</a>
+<a href="/tools/containers/docker/setup/ubuntu/">вот как</a>
 
     $ vagrant ssh manager1
     $ vagrant ssh manager2
