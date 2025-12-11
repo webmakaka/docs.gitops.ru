@@ -19,7 +19,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm
 
 <br/>
 
-### [Установить Argo CD CLI](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/Kind/cli/)
+### [Установить Argo CD CLI](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/cli/)
 
 <br/>
 
