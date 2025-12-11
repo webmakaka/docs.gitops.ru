@@ -11,7 +11,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 Делаю:  
-31.08.2023
+2025.12.11
 
 <br/>
 
@@ -21,7 +21,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: first-task
@@ -32,7 +32,7 @@ spec:
         - /bin/bash
       args: ['-c', 'echo Hello from first task']
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: hello
@@ -58,7 +58,7 @@ $ tkn pipeline start hello --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: die-roll
@@ -83,7 +83,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: hello-dice-roll
@@ -114,7 +114,7 @@ first-task д.б. создана.
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: die-roll-param
@@ -144,7 +144,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: parametrized-dice-roll
@@ -181,7 +181,7 @@ Waiting for logs to be available...
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: parametrized-dice-roll
@@ -203,7 +203,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: parametrized-dice-roll
@@ -258,7 +258,7 @@ $ tkn pipeline start parametrized-dice-roll --use-param-defaults --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: logger
@@ -279,7 +279,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: task-reuse
@@ -311,9 +311,9 @@ $ tkn pipeline start task-reuse --showlog
 ```
 PipelineRun started: task-reuse-run-qtbbv
 Waiting for logs to be available...
-[say-hello : log] [31/07/2023 10:23:31] - Hello
+[say-hello : log] [11/12/2025 07:45:18] - Hello
 
-[log-something : log] [31/07/2023 10:23:32] - Something else being logged
+[log-something : log] [11/12/2025 07:45:20] - Something else being logged
 ```
 
 <br/>
@@ -324,7 +324,7 @@ Waiting for logs to be available...
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: sleep-and-log
@@ -364,7 +364,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: ordered-tasks
@@ -446,7 +446,7 @@ $ tkn pipeline start ordered-tasks --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: dice-roll-result
@@ -477,7 +477,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: results
@@ -522,13 +522,13 @@ $ tkn pipeline start results --showlog
 
 ```
 ? Value for param `sides` of type `string`? (Default is `6`) 6
-PipelineRun started: results-run-gnxch
+PipelineRun started: results-run-6xglq
 Waiting for logs to be available...
-[intro : log] [31/07/2023 10:26:00] - Preparing to roll the 6-sided dice
+[intro : log] [11/12/2025 07:48:58] - Preparing to roll the 4-sided dice
 
 [roll : generate-random-number] Dice rolled
 
-[result : log] [31/07/2023 10:26:13] - Result from dice roll was 5
+[result : log] [11/12/2025 07:49:11] - Result from dice roll was 2
 ```
 
 <br/>
@@ -617,7 +617,7 @@ Task logger должна быть создана.
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: clone-and-count
@@ -635,7 +635,7 @@ spec:
         git clone $(params.repo) .
         ls | wc -l > $(results.file-count.path)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: count-files
@@ -670,11 +670,14 @@ $ tkn pipeline start count-files --showlog
 
 ```
 ? Value for param `repo-to-analyze` of type `string`? https://github.com/PacktPublishing/Building-CI-CD-systems-using-Tekton
-PipelineRun started: count-files-run-k5fnr
-Waiting for logs to be available...
+```
+
+<br/>
+
+```
 [get-list : clone-and-ls] Cloning into '.'...
 
-[output-count : log] [31/07/2023 10:28:25] - Number of files in https://github.com/PacktPublishing/Building-CI-CD-systems-using-Tekton: 11
+[output-count : log] [11/12/2025 07:53:05] - Number of files in https://github.com/PacktPublishing/Building-CI-CD-systems-using-Tekton: 11
 ```
 
 <br/>
@@ -689,7 +692,7 @@ Task logger должна быть создана.
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: weather
@@ -723,7 +726,7 @@ spec:
       script: |
         echo "$(params.weather-data)" | awk '{print $3}' > $(results.temperature.path)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: weather
@@ -767,8 +770,11 @@ $ tkn pipeline start weather --showlog
 <br/>
 
 ```
-? Value for param `city` of type `string`? (Default is `Ottawa`) Ottawa
-PipelineRun started: weather-run-cv4sk
-Waiting for logs to be available...
-[current-temperature : log] [31/07/2023 10:30:02] - Current temperature in Ottawa is 🌡️+14°C
+? Value for param `city` of type `string`? (Default is `Ottawa`) Moscow
+```
+
+<br/>
+
+```
+[current-temperature : log] [11/12/2025 07:55:01] - Current temperature in Moscow is 🌡️+1°C
 ```
