@@ -105,7 +105,7 @@ Global=true
 
 Тоже самое, только на 80 порту а не на 3000
 
-![coreos cluster](/img/devops/containers/coreos/app7.png 'coreos cluster'){: .center-image }
+![coreos cluster](/img/tools/containers/coreos/app7.png 'coreos cluster'){: .center-image }
 
 Если нужно остановить и выгрузить все, что касается сервиса:
 

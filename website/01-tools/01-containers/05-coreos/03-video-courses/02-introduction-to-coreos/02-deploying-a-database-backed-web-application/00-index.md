@@ -8,11 +8,11 @@ permalink: /devops/containers/coreos/introduction-to-coreos/deploying-a-database
 
 # [O’Reilly Media / Infinite Skills] Introduction to CoreOS Training Video [2015, ENG] : Deploying A DatabaseBacked Web Application
 
-![cluster](/img/devops/containers/coreos/app3.png 'cluster'){: .center-image }
+![cluster](/img/tools/containers/coreos/app3.png 'cluster'){: .center-image }
 
 <br/>
 
-![cluster](/img/devops/containers/coreos/app4.png 'cluster'){: .center-image }
+![cluster](/img/tools/containers/coreos/app4.png 'cluster'){: .center-image }
 
 <br/>
 

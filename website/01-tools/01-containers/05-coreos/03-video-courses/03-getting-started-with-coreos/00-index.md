@@ -10,7 +10,7 @@ permalink: /devops/containers/coreos/getting-started-with-coreos/
 
 <br/>
 
-![fleetctl](/img/devops/containers/coreos/getting-started-with-coreos/pic4.png 'fleetctl'){: .center-image }
+![fleetctl](/img/tools/containers/coreos/getting-started-with-coreos/pic4.png 'fleetctl'){: .center-image }
 
 <br/>
 

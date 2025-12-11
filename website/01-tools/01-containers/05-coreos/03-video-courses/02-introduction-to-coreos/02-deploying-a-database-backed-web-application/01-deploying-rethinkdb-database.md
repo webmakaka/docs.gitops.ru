@@ -138,4 +138,4 @@ X-ConditionMachineOf=rethinkdb-announce@%i.service
 
 <br/>
 
-![coreos cluster](/img/devops/containers/coreos/app5.png 'coreos cluster'){: .center-image }
+![coreos cluster](/img/tools/containers/coreos/app5.png 'coreos cluster'){: .center-image }

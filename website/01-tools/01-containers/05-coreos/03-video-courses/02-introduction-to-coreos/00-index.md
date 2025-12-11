@@ -28,11 +28,11 @@ https://github.com/coreos/coreos-vagrant/
 
 <br/>
 
-![cluster](/img/devops/containers/coreos/app1.png 'cluster'){: .center-image }
+![cluster](/img/tools/containers/coreos/app1.png 'cluster'){: .center-image }
 
 <br/>
 
-![cluster](/img/devops/containers/coreos/app2.png 'cluster'){: .center-image }
+![cluster](/img/tools/containers/coreos/app2.png 'cluster'){: .center-image }
 
 <br/>
 

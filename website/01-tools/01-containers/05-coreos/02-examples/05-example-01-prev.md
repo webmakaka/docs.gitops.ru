@@ -189,7 +189,7 @@ $ ssh-add ~/.vagrant.d/insecure_private_key
 
 <br/>
 
-![coreos cluster example](/img/devops/containers/coreos/example/01/pic1.png 'coreos cluster example'){: .center-image }
+![coreos cluster example](/img/tools/containers/coreos/example/01/pic1.png 'coreos cluster example'){: .center-image }
 
 <br/>
 
@@ -387,7 +387,7 @@ $ ssh-add ~/.vagrant.d/insecure_private_key
 
 <br/>
 
-![coreos cluster example](/img/devops/containers/coreos/example/01/pic2.png 'coreos cluster example'){: .center-image }
+![coreos cluster example](/img/tools/containers/coreos/example/01/pic2.png 'coreos cluster example'){: .center-image }
 
 <br/>
 
@@ -554,4 +554,4 @@ $ ssh-add ~/.vagrant.d/insecure_private_key
 
 <br/>
 
-![coreos cluster example](/img/devops/containers/coreos/example/01/pic3.png 'coreos cluster example'){: .center-image }
+![coreos cluster example](/img/tools/containers/coreos/example/01/pic3.png 'coreos cluster example'){: .center-image }

@@ -153,7 +153,7 @@ http://172.17.8.101:8080/
 
 <br/>
 
-![Визуализация Docker Swarm](/img/devops/containers//docker/clustering/swarm/swarm-visualizer.png 'Визуализация Docker Swarm'){: .center-image }
+![Визуализация Docker Swarm](/img/tools/containers//docker/clustering/swarm/swarm-visualizer.png 'Визуализация Docker Swarm'){: .center-image }
 
 <br/>
 

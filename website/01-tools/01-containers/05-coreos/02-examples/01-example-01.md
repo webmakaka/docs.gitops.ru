@@ -4,15 +4,13 @@ title: Coreos Small cluster > Пример запуска coreos кластер�
 permalink: /devops/containers/coreos/example/01/
 ---
 
-
 # Coreos Small cluster > Пример запуска coreos кластера с контейнерами docker, приложением, базой данных и прокси сервером
 
-По материалам из видео курса:  
+По материалам из видео курса:
 
 **[O’Reilly Media / Infinite Skills] Introduction to CoreOS Training Video [2015, ENG]**
 
 Советы по улучшению, принимаются.
-
 
 <br/>
 
@@ -20,9 +18,7 @@ PS. Исходники с Dockerfile, можно взять здесь:
 
 https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
 
-
 Они могу понадобиться, если захочется собрать собственные контейнеры или просто посмотреть примеры.
-
 
 <br/>
 
@@ -45,8 +41,6 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
 
     [X-Fleet]
     X-Conflicts=rethinkdb-announce@*.service
-
-
 
 <br/>
 
@@ -82,7 +76,6 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
     [X-Fleet]
     X-ConditionMachineOf=rethinkdb-announce@%i.service
 
-
 <br/>
 
 **Что возвращается:**
@@ -99,8 +92,6 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
               tr "\n" " ")
     --join 172.17.8.107:29015 --join 172.17.8.101:29015
 
-
-
 <br/>
 
     $ fleetctl submit *
@@ -110,13 +101,10 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
     rethinkdb-announce@.service	3f7611a	inactive	inactive	-
     rethinkdb@.service		96c6e09	inactive	inactive	-
 
-
-
 <br/>
 
     $ fleetctl start rethinkdb@6 rethinkdb-announce@6
     $ fleetctl start rethinkdb@7 rethinkdb-announce@7
-
 
 <br/>
 
@@ -127,18 +115,15 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
     rethinkdb@6.service		010edf2c.../172.17.8.107	active	running
     rethinkdb@7.service		0f1619f3.../172.17.8.101	active	running
 
-
 <br/>
 
     $ curl 172.17.8.107:8080
 
 Все ок. получил контент от сервера баз данных.
 
-
 <br/>
 
-![coreos cluster example](/img/devops/containers/coreos/example/01/pic1.png "coreos cluster example"){: .center-image }
-
+![coreos cluster example](/img/tools/containers/coreos/example/01/pic1.png 'coreos cluster example'){: .center-image }
 
 <br/>
 
@@ -151,8 +136,6 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
     /services/rethinkdb/rethinkdb-7
     /services/rethinkdb/rethinkdb-6
 
-
-
 <br/>
 
 ### Web Сервера
@@ -163,13 +146,11 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
     $ etcdctl get /services/rethinkdb/rethinkdb-7
     172.17.8.101
 
-
 <br/>
 
     $ cd ~
 
 <br/>
-
 
     $ vi todo@.service
 
@@ -203,9 +184,7 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
     [X-Fleet]
     Conflicts=todo@*.service
 
-
 <br/>
-
 
 -e COREOS_PRIVATE_IPV4=${COREOS_PRIVATE_IPV4} - экспортирую переменную, чтобы она была доступна в контейнере.
 
@@ -215,11 +194,9 @@ https://github.com/sysadm-ru/coreos-docker-examples/tree/master/01
 
 <br/>
 
-
 **Какая-то проблема с движком сайта. Он не хочет печатать параметры --format. Предлагаю смотреть исходник на github**
 
 https://github.com/sysadm-ru/coreos-docker-examples/blob/master/01/coreos-nodejs-web-app/todo-sk%40.service
-
 
 {% highlight text %}
 
@@ -241,9 +218,9 @@ while true; do \
  port=$(docker inspect --format=\'{{(index (index .NetworkSettings.Ports \"3000/tcp\") 0).HostPort}}\' todo-%i); \
  curl -sf ${COREOS_PUBLIC_IPV4}:$port/ > /dev/null 2>&1; \
  if [ $? -eq 0 ]; then \
-   etcdctl set /services/todo/todo-%i ${COREOS_PUBLIC_IPV4}:$port --ttl 10; \
+ etcdctl set /services/todo/todo-%i ${COREOS_PUBLIC_IPV4}:$port --ttl 10; \
  else \
-   etcdctl rm /services/todo/todo-%i; \
+ etcdctl rm /services/todo/todo-%i; \
  fi; \
  sleep 5; \
  done'
@@ -257,7 +234,6 @@ MachineOf=todo@%i.service
 
 <br/>
 
-
 // Что выполняет следующая команда?
 
 {% highlight text %}
@@ -265,8 +241,6 @@ MachineOf=todo@%i.service
 $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 0).HostPort}}" todo-3
 
 {% endhighlight %}
-
-
 
 // Сначала нужно переключиться на сервер, где стартован сервис
 
@@ -282,11 +256,9 @@ $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 
 
 3000
 
-
 <br/>
 
     $ fleetctl submit todo*
-
 
 <br/>
 
@@ -300,8 +272,6 @@ $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 
     rethinkdb@7.service		96c6e09	launched	launched	0f1619f3.../172.17.8.101
     todo-sk@.service		e8b8fa1	inactive	inactive	-
     todo@.service			094d679	inactive	inactive	-
-
-
 
 <br/>
 
@@ -322,14 +292,11 @@ $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 
     todo@4.service			2320be18.../172.17.8.106	active	running
     todo@5.service			6c66d6fb.../172.17.8.102	active	running
 
-
-
 <br/>
 
     $ curl 172.17.8.103:3000
 
 Все ок. получил контент приложения от вебсервера.
-
 
 <br/>
 
@@ -346,30 +313,24 @@ $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 
     /services/todo/todo-4
     /services/todo/todo-5
 
-
 <br/>
 
-    $ etcdctl get /services/todo/todo-3          
+    $ etcdctl get /services/todo/todo-3
     172.17.8.103:3000
 
-    $ etcdctl get /services/todo/todo-4          
+    $ etcdctl get /services/todo/todo-4
     172.17.8.106:3000
 
-    $ etcdctl get /services/todo/todo-5          
+    $ etcdctl get /services/todo/todo-5
     172.17.8.102:3000
 
-
 <br/>
 
-
-![coreos cluster example](/img/devops/containers/coreos/example/01/pic2.png "coreos cluster example"){: .center-image }
-
+![coreos cluster example](/img/tools/containers/coreos/example/01/pic2.png 'coreos cluster example'){: .center-image }
 
 <br/>
-
 
 **На самом деле, с первого раза ничего не запустилось**
-
 
     // Переключиться на хост, где стартован сервис, можно следующей командой
 
@@ -380,7 +341,6 @@ $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 
 
     $ fleetctl journal -f --lines=100 todo@3
     $ fleetctl journal -f --lines=100 todo-sk@3
-
 
 <br/>
 
@@ -394,9 +354,7 @@ $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 
     $ fleetctl destroy todo@.service
     $ fleetctl destroy todo-sk@.service
 
-
 И далее повторять все с начала.
-
 
 <br/>
 
@@ -495,8 +453,6 @@ $ docker inspect --format="{{(index (index .NetworkSettings.Ports \"3000/tcp\") 
 
 Ок. Контент от вебсервера через proxy
 
-
 <br/>
 
-
-![coreos cluster example](/img/devops/containers/coreos/example/01/pic3.png "coreos cluster example"){: .center-image }
+![coreos cluster example](/img/tools/containers/coreos/example/01/pic3.png 'coreos cluster example'){: .center-image }

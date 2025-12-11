@@ -10,7 +10,7 @@ permalink: /tools/containers/docker/clustering/swarm/native-docker-clustering/se
 
 <br/>
 
-![Native Docker Clustering](/img/devops/containers//docker/clustering/swarm/native-docker-clustering/pic3.png 'Native Docker Clustering'){: .center-image }
+![Native Docker Clustering](/img/tools/containers//docker/clustering/swarm/native-docker-clustering/pic3.png 'Native Docker Clustering'){: .center-image }
 
 <br/>
 
