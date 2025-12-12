@@ -11,7 +11,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 Делаю:  
-31.08.2023
+2025.12.13
 
 <br/>
 
@@ -19,54 +19,15 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 <br/>
 
-[Поднимаем новый minikube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
-
-<br/>
-
-Настраиваем для работы.
-
-<br/>
-
-```
-$ kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
-$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
-$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
-$ kubectl apply -f https://raw.githubusercontent.com/tektoncd/triggers/main/examples/rbac.yaml
-```
-
-<br/>
-
-Finally, you need to make one last adjustment to your cluster to be able to deploy your applications automatically. You will need to give the appropriate role to your service account so that it can access the Kubernetes API and automatically update your application. You can use the following command to do so:
-
-<br/>
-
-```
-$ kubectl create clusterrolebinding \
-  serviceaccounts-cluster-admin \
-  --clusterrole=cluster-admin \
-  --group=system:serviceaccounts
-```
-
-<br/>
-
-```
-$ tkn version
-Client version: 0.31.0
-Pipeline version: v0.50.0
-Triggers version: v0.24.1
-```
-
-<br/>
-
 ### Exploring the source code
 
 <br/>
 
-https://github.com/PacktPublishing/tekton-book-app
+**Форкаем**
 
 <br/>
 
-**Форкаем**
+https://github.com/PacktPublishing/tekton-book-app
 
 <br/>
 
@@ -85,6 +46,8 @@ $ cd tekton-book-app
 
 ```
 $ npm install
+$ npm run lint
+$ npm run test
 $ npm start
 ```
 
@@ -94,14 +57,6 @@ $ npm start
 $ curl localhost:3000
 $ curl localhost:3000/add/12/10
 $ curl localhost:3000/substract/10/2
-```
-
-<br/>
-
-```
-$ cd ~/tmp/tekton-book-app/
-$ npm run lint
-$ npm run test
 ```
 
 <br/>
@@ -122,6 +77,10 @@ $ docker push ${DOCKER_USERNAME}/tekton-lab-app
 ### Deploying the application
 
 <br/>
+
+```
+$ echo ${DOCKER_USERNAME}
+```
 
 **Не забыть заменить <DOCKER_USERNAME> на свой.**
 
@@ -195,8 +154,8 @@ $ echo ${PROFILE}
 <br/>
 
 ```
-$ curl $(minikube --profile ${PROFILE} ip)
-{"message":"Hello","change":"что-то"}
+$ curl $(minikube --profile ${PROFILE} ip)/add/12/10 -jq
+{"result":22}
 ```
 
 <br/>
@@ -206,3 +165,44 @@ OK!
 <br/>
 
 Далее нудная процедура по изменению кода и обновлению всего и вся, чтобы показать нам как все это нудно делать руками.
+
+<!--
+
+<br/>
+
+[Поднимаем новый minikube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
+
+<br/>
+
+Настраиваем для работы.
+
+<br/>
+
+```
+$ kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
+$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/tektoncd/triggers/main/examples/rbac.yaml
+```
+
+<br/>
+
+Finally, you need to make one last adjustment to your cluster to be able to deploy your applications automatically. You will need to give the appropriate role to your service account so that it can access the Kubernetes API and automatically update your application. You can use the following command to do so:
+
+<br/>
+
+```
+$ kubectl create clusterrolebinding \
+  serviceaccounts-cluster-admin \
+  --clusterrole=cluster-admin \
+  --group=system:serviceaccounts
+```
+
+<br/>
+
+```
+$ tkn version
+Client version: 0.31.0
+Pipeline version: v0.50.0
+Triggers version: v0.24.1
+``` -->

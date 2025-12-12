@@ -119,32 +119,6 @@ tekton-pipelines-remote-resolvers-797b749dcc-pt6m6   1/1     Running   0        
 
 <br/>
 
-### [Дополнительно] Добавление Tekton Dashboard
-
-<br/>
-
-```
-$ kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release.yaml
-```
-
-<br/>
-
-**Подключиться к dashboard**
-
-<br/>
-
-```
-$ kubectl --namespace tekton-pipelines port-forward svc/tekton-dashboard 8080:9097
-```
-
-<br/>
-
-```
-$ localhost:8080
-```
-
-<br/>
-
 ### [Дополнительно] Инсталляция Tekton Triggers
 
 <br/>
@@ -180,6 +154,32 @@ tekton-pipelines-webhook-6659bdfd6d-n8n5v           1/1     Running   0         
 tekton-triggers-controller-6489447bd7-9q62v         1/1     Running   0          7m2s
 tekton-triggers-core-interceptors-99f845fb7-s6hzn   1/1     Running   0          6m49s
 tekton-triggers-webhook-7dcd7b4958-69xcc            1/1     Running   0          7m2s
+```
+
+<br/>
+
+### [Дополнительно] Добавление Tekton Dashboard
+
+<br/>
+
+```
+$ kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release.yaml
+```
+
+<br/>
+
+**Подключиться к dashboard**
+
+<br/>
+
+```
+$ kubectl --namespace tekton-pipelines port-forward svc/tekton-dashboard 8080:9097
+```
+
+<br/>
+
+```
+$ localhost:8080
 ```
 
 <br/>

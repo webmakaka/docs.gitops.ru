@@ -17,7 +17,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: logger
@@ -32,7 +32,7 @@ spec:
         DATE=$(date +%d/%m/%Y\ %T)
         echo [$DATE] - $(params.text)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: something-pushed
@@ -69,7 +69,7 @@ $ tkn pipeline start something-pushed --showlog
 <br/>
 
 ```
-[log-push : log] [31/07/2023 12:57:45] - A push happened in https://github.com/wildmakaka/tekton-book-app
+[log-push : log] [12/12/2025 21:41:08] - A push happened in https://github.com/wildmakaka/tekton-book-app
 ```
 
 <br/>
@@ -117,7 +117,7 @@ spec:
   - name: git-repository-url
     description: The git repository url
   resourcetemplates:
-  - apiVersion: tekton.dev/v1beta1
+  - apiVersion: tekton.dev/v1
     kind: PipelineRun
     metadata:
       generateName: something-pushed-
@@ -268,7 +268,6 @@ $ tkn pipelinerun ls
 NAME                         STARTED          DURATION     STATUS
 something-pushed-nsfzl       8 seconds ago    4 seconds    Succeeded
 something-pushed-run-6zfvs   10 minutes ago   14 seconds   Succeeded
-
 ```
 
 <br/>
