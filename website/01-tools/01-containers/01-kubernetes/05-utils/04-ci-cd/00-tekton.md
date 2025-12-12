@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/tekton/
 <br/>
 
 **Делаю:**  
-2025.12.11
+2025.12.12
 
 <br/>
 
@@ -70,16 +70,16 @@ $ kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeli
 <br/>
 
 ```
-$ kubectl get crds
+$ kubectl get crds | grep tekton
 NAME                                       CREATED AT
-customruns.tekton.dev                      2025-12-11T05:33:20Z
-pipelineruns.tekton.dev                    2025-12-11T05:33:20Z
-pipelines.tekton.dev                       2025-12-11T05:33:20Z
-resolutionrequests.resolution.tekton.dev   2025-12-11T05:33:21Z
-stepactions.tekton.dev                     2025-12-11T05:33:21Z
-taskruns.tekton.dev                        2025-12-11T05:33:21Z
-tasks.tekton.dev                           2025-12-11T05:33:21Z
-verificationpolicies.tekton.dev            2025-12-11T05:33:21Z
+customruns.tekton.dev                      2025-12-11T23:12:05Z
+pipelineruns.tekton.dev                    2025-12-11T23:12:05Z
+pipelines.tekton.dev                       2025-12-11T23:12:05Z
+resolutionrequests.resolution.tekton.dev   2025-12-11T23:12:05Z
+stepactions.tekton.dev                     2025-12-11T23:12:05Z
+taskruns.tekton.dev                        2025-12-11T23:12:06Z
+tasks.tekton.dev                           2025-12-11T23:12:05Z
+verificationpolicies.tekton.dev            2025-12-11T23:12:06Z
 ```
 
 <br/>
@@ -145,7 +145,7 @@ $ localhost:8080
 
 <br/>
 
-### [Дополнительно] Installing Tekton Triggers
+### [Дополнительно] Инсталляция Tekton Triggers
 
 <br/>
 

@@ -11,7 +11,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 Делаю:  
-31.08.2023
+2025.12.11
 
 <br/>
 
@@ -21,7 +21,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: invalid-image
@@ -39,7 +39,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: failing
@@ -66,7 +66,7 @@ $ tkn pipelinerun ls
 <br/>
 
 ```
-$ tkn pipelinerun logs failing-run-jldmw
+$ tkn pipelinerun logs failing-run-jp2nj
 ```
 
 <br/>
@@ -95,7 +95,7 @@ $ tkn pipelinerun cancel failing-run-jldmw
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: failing
@@ -116,7 +116,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: log-and-exit
@@ -147,7 +147,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: exitcodes
@@ -197,14 +197,20 @@ $ tkn pipeline start exitcodes --showlog
 <br/>
 
 ```
-$ tkn pipelinerun describe exitcodes-run-pdv5x
+$ kubectl get pipelinerun
 ```
 
 <br/>
 
 ```
-$ kubectl -n default logs exitcodes-run-pdv5x-unit-tests-h722m-
-pod-n5n77 -c step-exit
+$ tkn pipelinerun describe exitcodes-run-sl94w
+```
+
+<br/>
+
+```
+$ kubectl logs exitcodes-run-sl94w-unit-tests-pod -c step-exit
+Exiting with code 1
 ```
 
 <br/>
@@ -215,7 +221,7 @@ pod-n5n77 -c step-exit
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: cleanup
@@ -233,7 +239,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: exitcodes
@@ -292,7 +298,7 @@ $ tkn pipeline start exitcodes --showlog
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: fail-if-root
@@ -308,7 +314,7 @@ spec:
         fi
         exit 0
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: check-root
@@ -329,8 +335,9 @@ $ tkn pipeline start check-root --showlog
 <br/>
 
 ```
-PipelineRun started: check-root-run-g475m
+PipelineRun started: check-root-run-vqv8p
 Waiting for logs to be available...
+task is-root has failed: "step-fail-if-root" exited with code 1: Error
 [is-root : fail-if-root] User is root
 ```
 
@@ -340,9 +347,13 @@ Waiting for logs to be available...
 
 <br/>
 
+Task logger должна быть создана.
+
+<br/>
+
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: draw-card
@@ -359,7 +370,7 @@ spec:
         const cardValue = Math.floor(Math.random() * 10) + 1;
         fs.writeFileSync("$(results.card.path)", cardValue.toString());
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: check-result
@@ -383,7 +394,7 @@ spec:
         echo "You won"
         exit 0
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: make-your-bets
@@ -419,11 +430,14 @@ $ tkn pipeline start make-your-bets --showlog
 <br/>
 
 ```
-PipelineRun started: make-your-bets-run-kqmqk
-Waiting for logs to be available...
+$ kubectl get pipelinerun
+```
 
-[check : add-card] New hand value is 18
+<br/>
+
+```
+[check : add-card] New hand value is 20
 [check : add-card] You won
 
-[clean : log] [31/07/2023 12:01:18] - Cleaning up the table
+[clean : log] [12/12/2025 00:03:21] - Cleaning up the table
 ```

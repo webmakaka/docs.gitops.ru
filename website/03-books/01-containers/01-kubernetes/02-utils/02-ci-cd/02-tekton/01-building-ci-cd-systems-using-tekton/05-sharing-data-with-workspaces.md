@@ -11,7 +11,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 Делаю:  
-31.08.2023
+2025.12.11
 
 <br/>
 
@@ -33,7 +33,7 @@ Workspaces are shared volumes used to transfer data between the various steps of
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: clone-and-list
@@ -74,17 +74,16 @@ $ tkn task start clone-and-list -w name=source,emptyDir="" --showlog
 <br/>
 
 ```
-TaskRun started: clone-and-list-run-6j24m
+TaskRun started: clone-and-list-run-xj8fm
 Waiting for logs to be available...
 [clone] Cloning into './source'...
-[clone] POST git-upload-pack (175 bytes)
-[clone] POST git-upload-pack (667 bytes)
+[clone] POST git-upload-pack (181 bytes)
+[clone] POST git-upload-pack (673 bytes)
 
 [list] README.md
 [list] app
 [list] demo
 [list] installation
-
 ```
 
 <br/>
@@ -98,7 +97,7 @@ $ vi ~/tmp/clone-and-list-tr.yaml
 ```
 
 ```yaml
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: TaskRun
 metadata:
   generateName: git-clone-tr-
@@ -119,7 +118,7 @@ $ kubectl create -f ~/tmp/clone-and-list-tr.yaml
 <br/>
 
 ```
-$ tkn taskrun logs git-clone-tr-c22wd
+$ tkn tr logs -f git-clone-tr-xxlng
 ```
 
 <br/>
@@ -144,7 +143,7 @@ $ tkn taskrun logs git-clone-tr-c22wd
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: clone
@@ -166,7 +165,7 @@ spec:
         - '-c'
         - git clone -v $(params.repo) ./source
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: list
@@ -189,7 +188,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: clone-and-list
@@ -243,7 +242,6 @@ $ tkn pipeline start clone-and-list --showlog
 [list : list] ls: ./source: No such file or directory
 
 failed to get logs for task list : container step-list has failed  : [{"key":"StartedAt","value":"2023-07-31T12:05:12.310Z","type":3}]
-
 ```
 
 <br/>
@@ -327,7 +325,7 @@ Waiting for logs to be available...
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: cleanup
@@ -356,7 +354,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: clone-and-list
@@ -420,7 +418,7 @@ $ vi ~/tmp/pipelinerun.yaml
 <br/>
 
 ```yaml
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   generateName: clone-and-ls-pr-
@@ -442,7 +440,7 @@ $ kubectl create -f ~/tmp/pipelinerun.yaml
 <br/>
 
 ```
-$ tkn pr logs -f clone-and-ls-pr-hsqfz
+$ tkn pr logs -f clone-and-ls-pr-lp422
 ```
 
 ```
@@ -474,7 +472,7 @@ $ vi ~/tmp/pvc-template.yaml
 <br/>
 
 ```yaml
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   generateName: clone-and-ls-pr-
@@ -517,7 +515,7 @@ $ kubectl create -f ~/tmp/pvc-template.yaml
 <br/>
 
 ```
-$ tkn pr logs -f clone-and-ls-pr-xwsnd
+$ tkn pr logs -f clone-and-ls-pr-zktd2
 ```
 
 ```
@@ -551,7 +549,7 @@ Create a task that uses a workspace to share information across its two steps. T
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: write-read-workspace
@@ -607,7 +605,7 @@ Using the Deck of Cards API available at http://deckofcardsapi.com/, create a pi
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: deck-api-create
@@ -620,7 +618,7 @@ spec:
       script: |
         curl https://deckofcardsapi.com/api/deck/new/shuffle/ -o $(workspaces.deck.path)/deck-id.txt
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: deck-api-draw
@@ -646,7 +644,7 @@ spec:
           })
         });
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: pick-a-card
@@ -722,7 +720,7 @@ data:
   admin-welcome: Welcome master.
   user-welcome: Hello user.
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: get-role
@@ -743,7 +741,7 @@ spec:
           echo "user" > $(results.role.path)
         fi
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: role-based-greet
@@ -760,7 +758,7 @@ spec:
         ROLE=$(params.role)
         cat $(workspaces.messages.path)/$ROLE-welcome
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: admin-or-not

@@ -10,6 +10,11 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 <br/>
 
+Делаю:  
+2025.12.11
+
+<br/>
+
 ### Using when expressions with parameters
 
 <br/>
@@ -19,7 +24,7 @@ $ vi ~/tmp/logger.yaml
 ```
 
 ```yaml
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: logger
@@ -38,7 +43,7 @@ spec:
 <br/>
 
 ```
-$ kubectl create -f ~/tmp/logger.yaml
+$ kubectl apply -f ~/tmp/logger.yaml
 ```
 
 <br/>
@@ -50,7 +55,7 @@ $ vi ~/tmp/guess.yaml
 <br/>
 
 ```yaml
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: guess-game
@@ -105,7 +110,7 @@ $ vi ~/tmp/guess-notin.yaml
 <br/>
 
 ```yaml
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: guess-game-notin
@@ -164,7 +169,7 @@ $ vi ~/tmp/guess-result.yaml
 <br/>
 
 ```yaml
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: random-number-generator
@@ -180,7 +185,7 @@ spec:
         echo Random number picked, result is $NUMBER
         echo -n $NUMBER > $(results.random-number.path)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: guess-result
@@ -243,7 +248,7 @@ Build a pipeline that will take a username as a parameter. If the username is ad
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: logger
@@ -258,7 +263,7 @@ spec:
         DATE=$(date +%d/%m/%Y\ %T)
         echo [$DATE] - $(params.text)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: hello-admin
@@ -294,14 +299,10 @@ EOF
 
 ```
 $ tkn pipeline start hello-admin --showlog
-? Value for param `username` of type `string`? a3333333
-PipelineRun started: hello-admin-run-j8b6v
+? Value for param `username` of type `string`? marley
+PipelineRun started: hello-admin-run-z2fks
 Waiting for logs to be available...
-[hello-other : log] ++ date '+%d/%m/%Y %T'
-[hello-other : log] + DATE='24/10/2021 13:03:08'
-[hello-other : log] + echo '[24/10/2021' '13:03:08]' - Hello User
-[hello-other : log] [24/10/2021 13:03:08] - Hello User
-
+[hello-other : log] [12/12/2025 04:35:49] - Hello User
 ```
 
 <br/>
@@ -309,12 +310,9 @@ Waiting for logs to be available...
 ```
 $ tkn pipeline start hello-admin --showlog
 ? Value for param `username` of type `string`? admin
-PipelineRun started: hello-admin-run-8d7jv
+PipelineRun started: hello-admin-run-7mgm8
 Waiting for logs to be available...
-[hello-admin : log] ++ date '+%d/%m/%Y %T'
-[hello-admin : log] [24/10/2021 13:04:31] - Hello Admin
-[hello-admin : log] + DATE='24/10/2021 13:04:31'
-[hello-admin : log] + echo '[24/10/2021' '13:04:31]' - Hello Admin
+[hello-admin : log] [12/12/2025 04:36:29] - Hello Admin
 ```
 
 <br/>
@@ -329,7 +327,7 @@ In role-playing games using dice, rolling a 20 on a 20-sided dice is sometimes r
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: dice-roll-result
@@ -352,7 +350,7 @@ spec:
           console.log("Dice rolled");
         });
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: results
@@ -436,7 +434,7 @@ Even your servers deserve a break. Build a pipeline with a task that Tekton will
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: get-day
@@ -450,7 +448,7 @@ spec:
       script: |
         date +%w | tr -d '\n' > $(results.daynumber.path)
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: not-on-weekends
@@ -478,10 +476,10 @@ EOF
 
 ```
 $ tkn pipeline start not-on-weekends --showlog
-PipelineRun started: not-on-weekends-run-rpblg
+PipelineRun started: not-on-weekends-run-pfjn5
 Waiting for logs to be available...
-[getday : get-day] + date +%w
-[getday : get-day] + tr -d '\n'
+
+[work : log] [12/12/2025 04:41:49] - Working...
 ```
 
 <br/>

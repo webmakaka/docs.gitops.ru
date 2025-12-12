@@ -15,32 +15,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 <br/>
 
-### Installing Tekton Triggers
-
-<br/>
-
-```
-// install the trigger custom resource definitions (CRDs)
-$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
-
-// An interceptor is an object that contains the logic necessary to validate and filter webhooks coming from various sources.
-$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
-```
-
-<br/>
-
-```
-$ tkn version
-Client version: 0.21.0
-Pipeline version: v0.28.1
-Triggers version: v0.16.0
-```
-
-<br/>
-
-```
-$ kubectl apply -f https://raw.githubusercontent.com/tektoncd/triggers/main/examples/rbac.yaml
-```
+### [Инсталляция Tekton Triggers](/tools/containers/kubernetes/utils/ci-cd/tekton/)
 
 <br/>
 
