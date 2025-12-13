@@ -10,7 +10,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.13
 
 <br/>
@@ -28,6 +28,19 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 https://github.com/PacktPublishing/tekton-book-app
+
+<br/>
+
+Finally, you need to make one last adjustment to your cluster to be able to deploy your applications automatically. You will need to give the appropriate role to your service account so that it can access the Kubernetes API and automatically update your application. You can use the following command to do so:
+
+<br/>
+
+```
+$ kubectl create clusterrolebinding \
+  serviceaccounts-cluster-admin \
+  --clusterrole=cluster-admin \
+  --group=system:serviceaccounts
+```
 
 <br/>
 
@@ -185,18 +198,7 @@ $ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/lates
 $ kubectl apply -f https://raw.githubusercontent.com/tektoncd/triggers/main/examples/rbac.yaml
 ```
 
-<br/>
 
-Finally, you need to make one last adjustment to your cluster to be able to deploy your applications automatically. You will need to give the appropriate role to your service account so that it can access the Kubernetes API and automatically update your application. You can use the following command to do so:
-
-<br/>
-
-```
-$ kubectl create clusterrolebinding \
-  serviceaccounts-cluster-admin \
-  --clusterrole=cluster-admin \
-  --group=system:serviceaccounts
-```
 
 <br/>
 

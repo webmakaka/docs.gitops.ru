@@ -96,7 +96,7 @@ metadata:
 spec:
   params:
     - name: git-repository-url
-      value: $(body.repository.url)
+      value: $(body.repository.clone_url)
 EOF
 ```
 

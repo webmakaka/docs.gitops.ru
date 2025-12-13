@@ -54,7 +54,7 @@ files/downloads/9781801078214_ColorImages.pdf
 
 ## Section 3: Tekton Triggers
 
-### [OK!] [Chapter 10. Getting Started with Triggers](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/securing-authentication/)
+### [OK!] Chapter 10. Getting Started with Triggers
 
 ### [OK!] [Chapter 11. Triggering Tekton](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/triggering-tekton/)
 

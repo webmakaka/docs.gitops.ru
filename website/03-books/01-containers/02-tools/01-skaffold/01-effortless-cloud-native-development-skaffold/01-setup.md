@@ -33,7 +33,7 @@ $ gcloud cloud-shell ssh
 
 2. Инсталляция [Kubectl](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
-3. Инсталляция [Skaffold](//docs.k8s.ru/tools/containers/kubernetes/utils/scaffold/)
+3. Инсталляция [Skaffold](/tools/containers/kubernetes/utils/scaffold/)
 
 4. Инсталляция [JDK17](//javadev.org/devtools/jdk/setup/linux/)
 

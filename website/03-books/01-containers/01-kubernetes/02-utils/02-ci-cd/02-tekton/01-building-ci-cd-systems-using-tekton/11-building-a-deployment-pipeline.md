@@ -11,7 +11,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 **Делаю:**  
-31.08.2023
+2025.12.13
 
 <br/>
 
@@ -21,7 +21,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 ```
 // Использую
-$ LATEST_KUBERNETES_VERSION=v1.27.4
+$ LATEST_KUBERNETES_VERSION=v1.32.2
 ```
 
 <br/>
@@ -43,10 +43,33 @@ Let's think about what operations are needed every time you perform a commit on 
 
 https://hub.tekton.dev/
 
+<br/>
+
 ```
-$ tkn hub install task git-clone
-$ tkn hub install task npm
-$ tkn hub install task kubernetes-actions
+$ {
+    tkn hub install task git-clone
+    tkn hub install task npm
+    tkn hub install task kubernetes-actions
+}
+```
+
+<br/>
+
+```
+$ kubectl get task npm -o yaml > npm-task.yaml
+$ vi npm-task.yaml
+```
+
+<br/>
+
+```
+default: docker.io/library/node:18-alpine
+```
+
+<br/>
+
+```
+$ kubectl apply -f npm-task.yaml
 ```
 
 <br/>
@@ -56,7 +79,7 @@ $ tkn hub install task kubernetes-actions
 <br/>
 
 Можно попробовать использовать task "docker build task".
-Но требуется обращение к Docker демону по сокету (или как-то так) и не работает во всех окружения.
+Но требуется обращение к Docker демону по сокету (или как-то так) и не работает во всех окружениях.
 
 Предлагают использовать Buildah
 
@@ -66,7 +89,7 @@ https://buildah.io/
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: build-push
@@ -98,7 +121,7 @@ EOF
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: tekton-deploy
@@ -112,6 +135,7 @@ spec:
   workspaces:
     - name: source
   tasks:
+
     - name: clone
       taskRef:
         name: git-clone
@@ -121,6 +145,7 @@ spec:
       workspaces:
         - name: output
           workspace: source
+
     - name: install
       taskRef:
         name: npm
@@ -133,6 +158,7 @@ spec:
           workspace: source
       runAfter:
         - clone
+
     - name: lint
       taskRef:
         name: npm
@@ -146,6 +172,7 @@ spec:
           workspace: source
       runAfter:
         - install
+
     - name: test
       taskRef:
         name: npm
@@ -159,6 +186,7 @@ spec:
           workspace: source
       runAfter:
         - install
+
     - name: build-push
       taskRef:
         name: build-push
@@ -175,6 +203,7 @@ spec:
       runAfter:
         - test
         - lint
+
     - name: deploy
       taskRef:
         name: kubernetes-actions
@@ -207,21 +236,8 @@ $ kubectl create secret generic git-secret --from-literal=secretToken=${TEKTON_S
 
 <br/>
 
-v1alpha1 заменить на v1beta1 не удалось. С v1alpha1 работает. С v1beta1 нужно обновлять манифест.
-
-<br/>
-
 ```yaml
 $ cat << 'EOF' | envsubst | kubectl apply -f -
-apiVersion: triggers.tekton.dev/v1beta1
-kind: TriggerBinding
-metadata:
-  name: event-binding
-spec:
-  params:
-    - name: gitrepositoryurl
-      value: $(body.repository.url)
----
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
@@ -231,7 +247,7 @@ spec:
   - name: gitrepositoryurl
     description: The git repository url
   resourcetemplates:
-  - apiVersion: tekton.dev/v1beta1
+  - apiVersion: tekton.dev/v1
     kind: PipelineRun
     metadata:
       generateName: tekton-deploy-
@@ -258,7 +274,28 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
----
+EOF
+```
+
+<br/>
+
+```yaml
+$ cat << 'EOF' | kubectl apply -f -
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: event-binding
+spec:
+  params:
+    - name: gitrepositoryurl
+      value: $(body.repository.clone_url)
+EOF
+```
+
+<br/>
+
+```yaml
+$ cat << 'EOF' | kubectl apply -f -
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
@@ -289,22 +326,13 @@ $ kubectl port-forward svc/el-listener 8080
 
 <br/>
 
-Нужно зарегаться  
-https://ngrok.com/download
+### [Устанавливаю ngrok](/tools/clouds/google/google-cloud-shell/get-access-ngrok/)
 
 <br/>
 
 ```
-$ cd ~/tmp
-$ wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-$ unzip ngrok-stable-linux-amd64.zip
-$ ./ngrok authtoken <YOUR_TOKEN>
-```
-
-<br/>
-
-```
-$ ./ngrok http 8080
+$ ngrok http 8080
+Forwarding                    https://b26d9bc503c7.ngrok-free.app -> http://localhost:8080
 ```
 
 <br/>
@@ -319,7 +347,7 @@ Fork -> https://github.com/PacktPublishing/tekton-book-app
 
 <br/>
 
-• Payload URL: This is your ngrok URL.
+• Payload URL: This is your ngrok URL. (https://b26d9bc503c7.ngrok-free.app)
 • Content type: application/json.
 • Secret: Use the secret token you created earlier. You can view your token with the echo ${TEKTON_SECRET_TOKEN} command.
 
@@ -365,13 +393,12 @@ Commit changes
 $ tkn pipelineruns ls tekton-deploy
 NAME                  STARTED         DURATION   STATUS
 tekton-deploy-69n84   4 minutes ago   4m37s      Succeeded
-
 ```
 
 <br/>
 
 ```
-$ tkn pipelinerun logs tekton-deploy-69n84
+$ tkn pipelinerun logs tekton-deploy-l8kqh
 
 ****
 [deploy : kubectl] deployment.apps/tekton-deployment restarted
@@ -391,20 +418,4 @@ $ curl $(minikube --profile ${PROFILE} ip)
 
 ```
 {"message":"Hello","change":"the end"}
-```
-
-<br/>
-
-```
-// Приблизительный ответ
-$ kubectl get pods
-NAME                                 READY   STATUS      RESTARTS   AGE
-el-listener-65c9dd676b-2zzkt         1/1     Running     0          41m
-tekton-deploy-zzvxv-build-push-pod   0/1     Completed   0          28m
-tekton-deploy-zzvxv-clone-pod        0/1     Completed   0          29m
-tekton-deploy-zzvxv-deploy-pod       0/1     Completed   0          26m
-tekton-deploy-zzvxv-install-pod      0/1     Completed   0          29m
-tekton-deploy-zzvxv-lint-pod         0/1     Completed   0          28m
-tekton-deploy-zzvxv-test-pod         0/1     Completed   0          28m
-tekton-deployment-77b749c5dc-gzwwl   1/1     Running     0          25m
 ```
