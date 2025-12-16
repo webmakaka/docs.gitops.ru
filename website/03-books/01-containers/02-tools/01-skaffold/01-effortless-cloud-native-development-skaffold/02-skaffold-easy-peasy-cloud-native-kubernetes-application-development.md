@@ -10,6 +10,31 @@ permalink: /books/containers/kubernetes/tools/skaffold/skaffold-easy-peasy-cloud
 
 <br/>
 
+**Делаю:**  
+2025.12.14
+
+<br/>
+
+```
+$ export \
+    PROFILE=${USER}-minikube
+```
+
+<br/>
+
+```
+$ skaffold config set --kube-context ${PROFILE} local-cluster true
+```
+
+<br/>
+
+```
+$ cd ~/tmp/
+$ git clone https://github.com/webmakaka/Effortless-Cloud-Native-App-Development-Using-Skaffold
+```
+
+<br/>
+
 ```
 $ cd ~/tmp/Effortless-Cloud-Native-App-Development-Using-Skaffold/Chapter03/
 ```
@@ -18,13 +43,6 @@ $ cd ~/tmp/Effortless-Cloud-Native-App-Development-Using-Skaffold/Chapter03/
 
 ```
 $ skaffold dev
-```
-
-<br/>
-
-```
-// Еще 1 терминалом подключаюсь
-$ gcloud cloud-shell ssh
 ```
 
 <br/>
@@ -72,7 +90,7 @@ $ echo ${MINIKUBE_IP}
 
 ```
 // Одно значение д.б. но выводятся все. Нужно смотреть код, что не так
-$ curl -X GET "${MINIKUBE_IP}:30087/states?name=Karnataka" \
+$ curl -X GET "${MINIKUBE_IP}:30476/states?name=Karnataka" \
   | jq
 ```
 
@@ -80,7 +98,7 @@ $ curl -X GET "${MINIKUBE_IP}:30087/states?name=Karnataka" \
 
 ```
 // Все данные
-$ curl $(minikube --profile ${PROFILE} ip):30087/states \
+$ curl $(minikube --profile ${PROFILE} ip):30476/states \
   | jq
 ```
 

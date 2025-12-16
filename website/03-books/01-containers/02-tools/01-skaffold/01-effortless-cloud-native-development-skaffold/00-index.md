@@ -21,11 +21,6 @@ English | 2021 | ISBN: 978-1801077118 | 272 Pages | PDF, EPUB | 20 MB
 
 <br/>
 
-Делаю:  
-05.05.2022
-
-<br/>
-
 **GitHub:**  
 https://github.com/PacktPublishing/Effortless-Cloud-Native-App-Development-Using-Skaffold
 
