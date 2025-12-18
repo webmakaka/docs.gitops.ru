@@ -3,7 +3,7 @@ layout: page
 title: Building CI/CD Systems Using Tekton - Building a Deployment Pipeline
 description: Building CI/CD Systems Using Tekton - Building a Deployment Pipeline
 keywords: books, ci-cd, tekton, Building a Deployment Pipeline
-permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/building-a-deployment-pipeline/
+permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/building-a-deployment-pipeline-github/
 ---
 
 # [OK!] Chapter 13. Building a Deployment Pipeline
@@ -12,10 +12,6 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 **Делаю:**  
 2025.12.13
-
-<br/>
-
-С нуля (вроде).
 
 <br/>
 
@@ -322,6 +318,73 @@ EOF
 
 ```
 $ kubectl port-forward svc/el-listener 8080
+```
+
+<br/>
+
+```
+$ kubectl create clusterrolebinding \
+  serviceaccounts-cluster-admin \
+  --clusterrole=cluster-admin \
+  --group=system:serviceaccounts
+```
+
+<br/>
+
+### Нужно развернуть приложение
+
+<br/>
+
+// Поправить <YOUR_USERNAME>
+
+```yaml
+$ cat << 'EOF' | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-deployment
+spec:
+  selector:
+    matchLabels:
+      app: trigger-demo
+  template:
+    metadata:
+      labels:
+        app: trigger-demo
+    spec:
+      containers:
+      - name: tekton-pod
+        image: <YOUR_USERNAME>/tekton-lab-app
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tekton-svc
+spec:
+  selector:
+    app: trigger-demo
+  ports:
+  - port: 3000
+    protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tekton-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: tekton-svc
+            port:
+              number: 3000
+EOF
 ```
 
 <br/>

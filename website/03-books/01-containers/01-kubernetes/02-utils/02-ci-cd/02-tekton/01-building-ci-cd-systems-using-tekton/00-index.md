@@ -64,4 +64,4 @@ files/downloads/9781801078214_ColorImages.pdf
 
 ### [OK!] [Chapter 12. Preparing for a New Pipeline](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/preparing-for-a-new-pipeline/)
 
-### [OK!] [Chapter 13. Building a Deployment Pipeline](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/building-a-deployment-pipeline/)
+### [OK!] [Chapter 13. Building a Deployment Pipeline](/books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-systems-using-tekton/building-a-deployment-pipeline-gitea/)

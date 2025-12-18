@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/tekton/
 <br/>
 
 **Делаю:**  
-2025.12.13
+2025.12.18
 
 <br/>
 
