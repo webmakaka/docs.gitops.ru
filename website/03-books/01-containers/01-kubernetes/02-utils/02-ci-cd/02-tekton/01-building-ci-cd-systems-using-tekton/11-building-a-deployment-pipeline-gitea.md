@@ -11,7 +11,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 **Делаю:**  
-2025.12.13
+2025.12.19
 
 <br/>
 
