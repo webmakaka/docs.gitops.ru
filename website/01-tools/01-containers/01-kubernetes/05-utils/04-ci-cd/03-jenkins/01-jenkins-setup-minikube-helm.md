@@ -15,6 +15,24 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/setup/minikube/minik
 
 <br/>
 
+### Скачать image заранее
+
+```
+$ eval $(minikube --profile ${PROFILE} docker-env)
+
+
+$ {
+    docker pull maven:3.8.6-openjdk-11
+    docker pull gcr.io/kaniko-project/executor:v1.19.2-debug
+    docker pull jenkins/inbound-agent:latest
+    docker pull rmkanda/docker-tools:latest
+    docker pull rmkanda/trufflehog
+    docker pull licensefinder/license_finder
+}
+```
+
+<br/>
+
 ### Инсталляция Jenkins с помощью helm
 
 ```
@@ -63,10 +81,20 @@ jenkins	ci       	1       	2025-12-26 06:17:51.564382494 +0300 MSKdeployed	jenki
 <br/>
 
 ```
-$ kubectl get svc -n ci
-NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-jenkins         NodePort    10.96.201.220   <none>        8080:30264/TCP   2m19s
-jenkins-agent   ClusterIP   10.102.17.14    <none>        50000/TCP        2m19s
+$ kubectl get pods -n ci
+NAME        READY   STATUS    RESTARTS   AGE
+jenkins-0   2/2     Running   0          3m13s
+```
+
+<br/>
+
+```
+// Get your 'admin' user password by running:
+$ kubectl exec --namespace ci -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
+
+или
+
+$ kubectl get secret -n ci jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode
 ```
 
 <br/>
@@ -80,12 +108,16 @@ $ minikube --profile ${PROFILE} ip
 <br/>
 
 ```
-// Get your 'admin' user password by running:
-$ kubectl exec --namespace ci -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
+$ kubectl get svc -n ci
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+jenkins         NodePort    10.96.201.220   <none>        8080:30264/TCP   2m19s
+jenkins-agent   ClusterIP   10.102.17.14    <none>        50000/TCP        2m19s
+```
 
-или
+<br/>
 
-$ kubectl get secret -n ci jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode
+```
+$ kubectl patch svc jenkins -p '{"spec":{"ports":[{"port":8080,"nodePort":30264}]}}'
 ```
 
 <br/>
@@ -108,15 +140,50 @@ http://192.168.49.2:30264/manage/pluginManager/available
 
 <br/>
 
-### Install Essential Plugins
-
-http://192.168.49.2:30264/user/admin/security
-
-<br/>
-
 ### Launch a DevOps Continuous Integration Pipeline
 
 fork -> https://github.com/lfs262/dso-demo
+
+<br/>
+
+В pom обновить
+
+```xml
+<plugin>
+    <groupId>org.owasp</groupId>
+    <artifactId>dependency-check-maven</artifactId>
+    <version>12.1.0</version>
+</plugin>
+```
+
+<br/>
+
+```
+Personal Access Token (PAT)
+
+Создайте PAT в GitHub:
+
+Settings → Developer settings → Personal access tokens → Fine-grained tokens
+
+Или: Settings → Developer settings → Personal access tokens → Tokens (classic)
+
+Дайте права: repo, admin:repo_hook, read:user
+
+
+Добавьте в Jenkins:
+
+Jenkins → Manage Jenkins → Credentials → System → Global credentials → Add Credentials
+
+Kind: "Username with password"
+
+Username: ваш GitHub username
+
+Password: ваш PAT
+
+ID: github-token (или любое другое имя)
+```
+
+<br/>
 
 Blue Ocean -> Create a new Pipeline
 
@@ -161,11 +228,11 @@ $ kubectl create secret -n ci docker-registry regcred \
     --docker-password=${REGISTRY_PASSWORD}
 ```
 
-###
+<br/>
 
-build-agent.yaml
+**build-agent.yaml**
 
-```
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -173,9 +240,17 @@ metadata:
     app: spring-build-ci
 spec:
   containers:
+    # Обязательный контейнер для подключения к Jenkins
+    - name: jnlp
+      image: jenkins/inbound-agent:latest
+      args: ['$(JENKINS_SECRET)', '$(JENKINS_NAME)']
+      volumeMounts:
+        - name: workspace
+          mountPath: /home/jenkins/agent
+
     - name: maven
-      image: maven:alpine
-      command: ["cat"]
+      image: maven:3.8.6-openjdk-11
+      command: ['cat']
       tty: true
       volumeMounts:
         - name: m2
@@ -186,26 +261,18 @@ spec:
     - name: kaniko
       # image: gcr.io/kaniko-project/executor:v1.6.0-debug
       image: gcr.io/kaniko-project/executor:v1.19.2-debug
-      command: ["sleep"]
-      args: ["999999"]
+      command: ['sleep']
+      args: ['999999']
       volumeMounts:
         - name: jenkins-docker-cfg
           mountPath: /kaniko/.docker
         - name: workspace
           mountPath: /home/jenkins/agent
 
-    # Обязательный контейнер для подключения к Jenkins
-    - name: jnlp
-      image: jenkins/inbound-agent:latest
-      args: ["$(JENKINS_SECRET)", "$(JENKINS_NAME)"]
-      volumeMounts:
-        - name: workspace
-          mountPath: /home/jenkins/agent
-
     # Опциональные контейнеры (можно удалить если не используются)
     - name: docker-tools
       image: rmkanda/docker-tools:latest
-      command: ["cat"]
+      command: ['cat']
       tty: true
       volumeMounts:
         - name: workspace
@@ -213,7 +280,7 @@ spec:
 
     - name: trufflehog
       image: rmkanda/trufflehog
-      command: ["cat"]
+      command: ['cat']
       tty: true
       volumeMounts:
         - name: workspace
@@ -221,7 +288,7 @@ spec:
 
     - name: licensefinder
       image: licensefinder/license_finder
-      command: ["cat"]
+      command: ['cat']
       tty: true
       volumeMounts:
         - name: workspace
@@ -253,8 +320,9 @@ spec:
 
     - name: trivycache
       emptyDir: {}
-
 ```
+
+<br/>
 
 // webmakaka на свой нужно поменять.
 Jenkinsfile
@@ -307,5 +375,4 @@ pipeline {
     }
   }
 }
-
 ```
