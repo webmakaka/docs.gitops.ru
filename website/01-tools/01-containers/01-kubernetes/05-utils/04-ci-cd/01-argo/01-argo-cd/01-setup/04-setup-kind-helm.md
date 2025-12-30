@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm
 <br/>
 
 Делаю:  
-2025.12.09
+2025.12.31
 
 <br/>
 
@@ -64,6 +64,12 @@ $ helm repo update
 
 <br/>
 
+```
+$ cd ~/tmp
+```
+
+<br/>
+
 ```yaml
 $ cat > values-ingress-nginx.yaml <<EOF
 controller:
@@ -87,9 +93,9 @@ $ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx --crea
 
 ```
 $ kubectl wait --namespace ingress-nginx \
---for=condition=ready pod \
---selector=app.kubernetes.io/component=controller \
---timeout=90s
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
 ```
 
 <br/>
@@ -126,7 +132,7 @@ $ curl http://127.0.0.1
 <br/>
 
 ```
-// Для debug
+// Если нужен debug
 $ kubectl exec -n ingress-nginx deployment/ingress-nginx-controller -- curl -I http://localhost
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -142,7 +148,6 @@ Connection: keep-alive
 
 ```yaml
 $ cat > values-argocd-ingress.yaml <<EOF
----
 server:
   ingress:
     enabled: true
@@ -178,8 +183,10 @@ EOF
 <br/>
 
 ```
-$ helm upgrade -i argo-cd argo/argo-cd --namespace argocd --create-namespace \
--f values-argocd-ingress.yaml
+$ helm upgrade -i argo-cd argo/argo-cd \
+  --namespace argocd \
+  --create-namespace \
+  -f values-argocd-ingress.yaml
 ```
 
 <br/>
@@ -228,12 +235,11 @@ $ echo ${ARGOCD_PASSWORD}
 <br/>
 
 ```
-$ argocd login \
+$ argocd login argocd.k8s.local \
     --insecure \
     --username admin \
     --password $ARGOCD_PASSWORD \
-    --grpc-web \
-    argocd.k8s.local
+    --grpc-web
 ```
 
 <br/>

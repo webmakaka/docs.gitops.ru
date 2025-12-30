@@ -32,3 +32,17 @@ $ chmod +x /usr/local/bin/argocd
 $ argocd version
 argocd: v3.2.1+8c4ab63
 ```
+
+<br/>
+
+```
+// Посмотреть текущие контексты и серверы
+argocd context
+```
+
+<br/>
+
+```
+// Очистить кеш конфигурации
+rm -rf ~/.config/argocd/
+```
