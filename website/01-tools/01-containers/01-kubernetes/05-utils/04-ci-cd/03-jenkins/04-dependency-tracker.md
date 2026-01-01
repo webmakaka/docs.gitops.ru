@@ -3,73 +3,15 @@ layout: page
 title: Инсталляция Jenkins в ubuntu 22.04
 description: Инсталляция Jenkins в ubuntu 22.04
 keywords: tools, containers, kubernetes, ci-cd, Jenkins, инсталляция
-permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/securing-the-supply-chain-with-sca/
+permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/dependency-tracker/
 ---
 
-# Инсталляция Jenkins в ubuntu 22.04
+# SBOM with CycloneDX and Dependency Tracker
 
 <br/>
 
 **Делаю:**  
 2025.12.26
-
-<br/>
-
-## 05 - Securing the Supply Chain with SCA
-
-```
-    stage('Static Analysis') {
-      parallel {
-        stage('Unit Tests') {
-          steps {
-            container('maven') {
-              sh 'mvn test'
-            }
-          }
-        }
-
-        stage('SCA') {
-            steps {
-                container('maven') {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh 'mvn org.owasp:dependency-check-maven:check'
-                    }
-                }
-            }
-            post {
-                always {
-                    archiveArtifacts(
-                        allowEmptyArchive: true,
-                        artifacts: 'target/dependency-check-report.html',
-                        fingerprint: true,
-                        onlyIfSuccessful: true
-                        )
-                    // dependencyCheckPublisher pattern: 'report.xml'
-                }
-            }
-        }
-
-        stage('OSS License Checker') {
-            steps {
-                container('licensefinder') {
-                    sh 'ls -al'
-                    sh '''#!/bin/bash --login
-                        /bin/bash --login
-                        rvm use default
-                        gem install license_finder
-                        license_finder
-                    '''
-                }
-            }
-        }
-
-      }
-    }
-```
-
-<br/>
-
-### SBOM with CycloneDX and Dependency Tracker
 
 ```
 $ helm repo add evryfs-oss https://evryfs.github.io/helm-charts/
@@ -213,10 +155,12 @@ stage('Generate SBOM') {
                                      artifact: 'target/bom.xml',
                                      autoCreateProjects: true,
                                      synchronous: true
-            archiveArtifacts allowEmptyArchive: true,
-                            artifacts: 'target/bom.xml',
-                            fingerprint: true,
-                            onlyIfSuccessful: true
+            archiveArtifacts (
+                allowEmptyArchive: true,
+                artifacts: 'target/bom.xml',
+                fingerprint: true,
+                onlyIfSuccessful: true
+            )
         }
     }
 }
