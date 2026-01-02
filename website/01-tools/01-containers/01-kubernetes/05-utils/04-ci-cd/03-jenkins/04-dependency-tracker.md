@@ -11,17 +11,19 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/dependency-tracker/
 <br/>
 
 **Делаю:**  
-2025.12.26
+2026.01.02
 
 ```
-$ helm repo add evryfs-oss https://evryfs.github.io/helm-charts/
+$ helm repo add dependency-track https://dependencytrack.github.io/helm-charts
 $ helm repo update
 ```
 
 <br/>
 
 ```
-$ kubectl create namespace dependency-track
+$ export PROFILE=${USER}-minikube
+$ export INGRESS_HOST=$(minikube --profile ${PROFILE} ip)
+$ echo dependencytrack.$INGRESS_HOST.nip.io
 ```
 
 <br/>
@@ -36,15 +38,9 @@ $ cd ~/tmp
 $ cat > deptrack.values.yaml <<EOF
 ingress:
   enabled: true
-  tls:
-    enabled: false
-    secretName: ""
+  tls: []
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-    ## allow large bom.xml uploads:
-    # nginx.ingress.kubernetes.io/proxy-body-size: 10m
-  host: dependencytrack.example.org
+  host: dependencytrack.$INGRESS_HOST.nip.io
 
 frontend:
   replicaCount: 1
@@ -53,7 +49,6 @@ frontend:
 
 apiserver:
   resources:
-    # https://docs.dependencytrack.org/getting-started/deploy-docker/
     requests:
       cpu: 1
       memory: 3000Mi
@@ -66,21 +61,60 @@ EOF
 <br/>
 
 ```
-$ helm install dependency-track --values deptrack.values.yaml --namespace dependency-track evryfs-oss/dependency-track
+$ helm search repo dependency-track
+NAME                       	CHART VERSION	APP VERSION	DESCRIPTION
+dependency-track/dependency-track	0.40.0       	4.13.6        	Dependency-Track is an intelligent Component An...
+```
+
+<br/>
+
+```
+$ helm install \
+    dependency-track dependency-track/dependency-track \
+    --namespace dependency-track \
+    --create-namespace \
+    --values deptrack.values.yaml \
+    --version 0.40.0 \
+    --wait
+```
+
+<br/>
+
+```
+// $ helm uninstall dependency-track --namespace dependency-track
+```
+
+<br/>
+
+```
 $ helm list -n dependency-track
+NAME            	NAMESPACE       	REVISION	UPDATED                                	STATUS  	CHART                  	APP VERSION
+dependency-track	dependency-track	1       	2026-01-02 22:20:22.691371548 +0300 MSK	deployed	dependency-track-0.40.0	4.13.6
 ```
 
 <br/>
 
 ```
 $ kubectl get pods -n dependency-track
+NAME                                         READY   STATUS    RESTARTS   AGE
+dependency-track-api-server-0                1/1     Running   0          2m22s
+dependency-track-frontend-6866fc6b9b-wt9rh   1/1     Running   0          2m22s
 ```
 
 <br/>
 
 ```
-// hosts
-192.168.49.2 dependencytrack.example.org
+
+$ kubectl get ingress -n dependency-track
+NAME               CLASS   HOSTS         ADDRESS   PORTS   AGE
+dependency-track   nginx   example.com             80      33s
+```
+
+<br/>
+
+```
+// Пришлось патчить HOSTS
+$ kubectl patch ingress dependency-track -n dependency-track --type='json' -p='[{"op": "replace", "path": "/spec/rules/0/host", "value": "dependencytrack.'$INGRESS_HOST'.nip.io"}]'
 ```
 
 <br/>
@@ -88,7 +122,7 @@ $ kubectl get pods -n dependency-track
 ```
 // OK!
 // admin /admin
-http://dependencytrack.example.org/change-password?redirect=%2Fdashboard
+http://dependencytrack.192.168.49.2.nip.io/
 ```
 
 <br/>
@@ -97,13 +131,22 @@ Administration -> Access Management -> Teams -> Automation
 
 <br/>
 
-Copy the API Key: AjqsiQwaewMwD1AoaZRaCHBJOR2D7XPu
+New API Key:
 
 Also add the following permissions
 
-- PROJECT_CREATION_UPLOAD
 - POLICY_VIOLATION_ANALYSIS
+- PROJECT_CREATION_UPLOAD
 - VULNERABILITY_ANALYSIS
+
+<br/>
+
+```
+$ kubectl get svc -n dependency-track
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+dependency-track-api-server   ClusterIP   10.109.140.42   <none>        8081/TCP         52m
+dependency-track-frontend     NodePort    10.97.167.253   <none>        8080:30298/TCP   52m
+```
 
 <br/>
 
@@ -115,25 +158,28 @@ http://192.168.49.2:30264/manage/pluginManager/available
 
 <br/>
 
-http://192.168.49.2:31272/manage/configure
+http://192.168.49.2:30264/manage/configure
 
 <br/>
 
-Dependency-Track URL : http://dependency-track-apiserver.dependency-track.svc.cluster.local
+Dependency-Track Backend URL: http://dependency-track-api-server.dependency-track.svc.cluster.local:8081
 
-API Key ->
+API Key -> Add
 
-Kind - Secret
-Secret: key copied from Dependency-Track earlier
-id: dep-track-api-key
+- Kind: Secret text
+- Secret: key copied from Dependency-Track earlier
+- id: dep-track-api-key
 
-Check Auto Create Projects Box
+Check Auto Create Projects
 
 <br/>
 
-Test Connection ->
+Test Connection
 
-The detected version 4.6.3 is older than the required version 4.12.0 and is no longer supported
+<!--
+http://dependency-track-frontend.dependency-track.svc.cluster.local
+
+-->
 
 <br/>
 
@@ -150,11 +196,11 @@ stage('Generate SBOM') {
     }
     post {
         success {
-            dependencyTrackPublisher projectName: 'sample-spring-app',
+            dependencyTrackPublisher (projectName: 'sample-spring-app',
                                      projectVersion: '0.0.1',
                                      artifact: 'target/bom.xml',
                                      autoCreateProjects: true,
-                                     synchronous: true
+                                     synchronous: true)
             archiveArtifacts (
                 allowEmptyArchive: true,
                 artifacts: 'target/bom.xml',
@@ -165,3 +211,45 @@ stage('Generate SBOM') {
     }
 }
 ```
+
+<!--
+
+
+$ kubectl patch svc dependency-track-api-server -n dependency-track --type='json' -p='[{"op": "replace", "path": "/spec/ports/0/port", "value": 8081}]'
+
+
+$ kubectl run api-test --rm -i --tty --image=curlimages/curl -n dependency-track -- /bin/sh
+
+
+curl -v http://dependency-track-api-server.dependency-track.svc.cluster.loca
+l:8081/api/version -->
+<!--
+```
+cat <<EOF | kubectl apply -n dependency-track -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dependency-track-api-ingress
+  namespace: dependency-track
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: dependencytrack-api.$INGRESS_HOST.nip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dependency-track-api-server
+            port:
+              number: 8081
+EOF
+```
+
+<br/>
+
+```
+http://dependencytrack-api.192.168.49.2.nip.io
+``` -->

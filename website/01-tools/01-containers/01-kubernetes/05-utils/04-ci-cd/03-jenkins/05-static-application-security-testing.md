@@ -15,10 +15,14 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/static-application-s
 
 <br/>
 
+Поиск уязвимостей в нашем java проекте.
+
+<br/>
+
 ```
 - name: slscan
   image: shiftleft/sast-scan
-  #imagePullPolicy: Always
+  imagePullPolicy: Always
   command: ["cat"]
   tty: true
   volumeMounts:

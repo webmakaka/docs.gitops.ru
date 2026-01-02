@@ -15,6 +15,10 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/securing-the-supply-
 
 <br/>
 
+Проверка на лицензии
+
+<br/>
+
 ```
     stage('Static Analysis') {
       parallel {

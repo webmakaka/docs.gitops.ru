@@ -15,6 +15,10 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/secure-deployment-an
 
 <br/>
 
+С помощью Argo мы запускаем в pipeline синхронизацию. С помощью zaproxy мы тестим приложение делая к нему запросы похожие на пользовательские.
+
+<br/>
+
 ### [Устанавливаю ArgoCD](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/minikube/helm/)
 
 <br/>

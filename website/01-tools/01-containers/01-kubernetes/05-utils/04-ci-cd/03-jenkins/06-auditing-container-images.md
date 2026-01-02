@@ -15,6 +15,10 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/auditing-container-i
 
 <br/>
 
+Сканируем docker image на уязвимости и Dockerfile на их корректность с т.з. безопасности.
+
+<br/>
+
 ```
 stage('Image Analysis') {
     parallel {
