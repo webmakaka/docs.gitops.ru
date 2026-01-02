@@ -10,7 +10,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.31
 
 <br/>

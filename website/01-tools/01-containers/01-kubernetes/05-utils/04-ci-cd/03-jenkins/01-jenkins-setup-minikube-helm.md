@@ -156,9 +156,11 @@ Settings → Developer settings → Personal access tokens → Fine-grained toke
 
 <br/>
 
+```
 // Добавьте в Jenkins:
 // Jenkins → Manage Jenkins → Credentials → System → Global credentials → Add Credentials
 http://192.168.49.2:30264/manage/credentials/store/system/domain/_/newCredentials
+```
 
 <br/>
 

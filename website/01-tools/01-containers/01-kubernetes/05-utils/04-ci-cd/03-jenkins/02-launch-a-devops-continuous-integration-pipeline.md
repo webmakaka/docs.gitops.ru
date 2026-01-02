@@ -152,6 +152,8 @@ spec:
       volumeMounts:
         - name: workspace
           mountPath: /home/jenkins/agent
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
 
     - name: trufflehog
       image: rmkanda/trufflehog

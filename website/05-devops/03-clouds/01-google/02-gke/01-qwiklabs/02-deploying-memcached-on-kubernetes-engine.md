@@ -25,9 +25,9 @@ In this lab you'll learn how to deploy a cluster of distributed Memcached server
 
 ### Objectives
 
--   Learn about some characteristics of Memcached's distributed architecture.
--   Deploy a Memcached service to Kubernetes Engine using Kubernetes and Helm.
--   Deploy Mcrouter, an open source Memcached proxy, to improve the system's performance.
+- Learn about some characteristics of Memcached's distributed architecture.
+- Deploy a Memcached service to Kubernetes Engine using Kubernetes and Helm.
+- Deploy Mcrouter, an open source Memcached proxy, to improve the system's performance.
 
 <br/>
 
@@ -35,14 +35,14 @@ In this lab you'll learn how to deploy a cluster of distributed Memcached server
 
 Memcached has two main design goals:
 
--   Simplicity: Memcached functions like a large hash table and offers a simple API to store and retrieve arbitrarily shaped objects by key.
--   Speed: Memcached holds cache data exclusively in random-access memory (RAM), making data access extremely fast.
+- Simplicity: Memcached functions like a large hash table and offers a simple API to store and retrieve arbitrarily shaped objects by key.
+- Speed: Memcached holds cache data exclusively in random-access memory (RAM), making data access extremely fast.
 
 Memcached is a distributed system that allows its hash table capacity to scale horizontally across a pool of servers. Each Memcached server operates in complete isolation from the other servers in the pool. Therefore, the routing and load balancing between the servers must be done at the client level. Memcached clients apply a consistent hashing scheme to appropriately select the target servers. This scheme guarantees the following conditions:
 
--   The same server is always selected for the same key.
--   Memory usage is evenly balanced between the servers.
--   A minimum number of keys are relocated when the pool of servers is reduced or expanded.
+- The same server is always selected for the same key.
+- Memory usage is evenly balanced between the servers.
+- A minimum number of keys are relocated when the pool of servers is reduced or expanded.
 
 The following diagram illustrates at a high level the interaction between a Memcached client and a distributed pool of Memcached servers.
 
@@ -327,7 +327,7 @@ Deploy some sample application pods with the NODE_NAME environment variable conf
 
 <br/>
 
-```
+```yaml
 cat <<EOF | kubectl create -f -
 apiVersion: extensions/v1beta1
 kind: Deployment

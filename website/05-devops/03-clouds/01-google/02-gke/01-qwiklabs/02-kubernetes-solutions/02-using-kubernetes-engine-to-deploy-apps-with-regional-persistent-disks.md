@@ -58,7 +58,7 @@ https://www.qwiklabs.com/focuses/1050?parent=catalog
 
 ### Create the StorageClass
 
-```
+```yaml
 $ kubectl apply -f - <<EOF
 kind: StorageClass
 apiVersion: storage.k8s.io/v1

@@ -10,7 +10,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/
 
 <br/>
 
-Делаю:  
+**Делаю:**  
 2025.12.04
 
 <br/>
@@ -156,4 +156,3 @@ https://localhost:8080/swagger-ui
 # Argocd cli command to get the argocd context
 $ argocd context
 ```
-

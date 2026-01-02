@@ -6,7 +6,7 @@ keywords: tools, containers, kubernetes, ci-cd, Jenkins, инсталляция
 permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/dependency-tracker/
 ---
 
-# SBOM with CycloneDX and Dependency Tracker
+# [FAIL!] SBOM with CycloneDX and Dependency Tracker
 
 <br/>
 
@@ -101,9 +101,9 @@ Copy the API Key: AjqsiQwaewMwD1AoaZRaCHBJOR2D7XPu
 
 Also add the following permissions
 
-PROJECT_CREATION_UPLOAD
-POLICY_VIOLATION_ANALYSIS
-VULNERABILITY_ANALYSIS
+- PROJECT_CREATION_UPLOAD
+- POLICY_VIOLATION_ANALYSIS
+- VULNERABILITY_ANALYSIS
 
 <br/>
 

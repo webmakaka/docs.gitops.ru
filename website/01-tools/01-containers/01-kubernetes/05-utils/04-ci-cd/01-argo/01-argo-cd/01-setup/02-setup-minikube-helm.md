@@ -10,8 +10,8 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/
 
 <br/>
 
-Делаю:  
-2025.12.10
+**Делаю:**  
+2026.01.02
 
 <br/>
 
@@ -37,7 +37,6 @@ $ cd ~/tmp
 
 ```yaml
 $ cat > argocd-values.yaml <<EOF
----
 server:
   ingress:
     enabled: true
@@ -75,15 +74,15 @@ $ helm repo add argo \
 ```
 $ helm search repo argo/argo-cd
 NAME        	CHART VERSION	APP VERSION	DESCRIPTION
-argo/argo-cd	9.1.5        	v3.2.1     	A Helm chart for Argo CD, a declarative, GitOps...
+argo/argo-cd	9.2.3        	v3.2.3     	A Helm chart for Argo CD, a declarative, GitOps...
 ```
 
 <br/>
 
 ```
-$ helm upgrade --install \
+$ helm install \
     argocd argo/argo-cd \
-    --version 9.1.5 \
+    --version 9.2.3 \
     --namespace argocd \
     --create-namespace \
     --set "server.ingress.hosts={argocd.$INGRESS_HOST.nip.io}" \
@@ -102,7 +101,7 @@ argocd-server   nginx   argocd.192.168.49.2.nip.io   192.168.49.2   80      75s
 <br/>
 
 ```
-// Патчим ingress, если что-то не то прописано
+// Патчим ingress, если в HOSTS прописано argocd.example.com
 $ kubectl patch ingress argocd-server -n argocd --type='json' -p='[
   {
     "op": "replace",
@@ -133,12 +132,7 @@ $ argocd login \
 <br/>
 
 ```
-$ argocd repo list
-```
-
-<br/>
-
-```
+// Меняем пароль
 $ ARGOCD_PASSWORD_NEW_PASSWORD=ABCDEFGH123
 $ argocd account update-password \
     --current-password ${ARGOCD_PASSWORD} \
