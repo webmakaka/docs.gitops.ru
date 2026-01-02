@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/setup/minikube/helm/
 <br/>
 
 **Делаю:**  
-2026.01.01
+2026.01.02
 
 <br/>
 
@@ -25,12 +25,6 @@ $ helm repo update
 <br/>
 
 ```
-$ kubectl create namespace ci
-```
-
-<br/>
-
-```
 $ cd ~/tmp
 ```
 
@@ -39,6 +33,9 @@ $ cd ~/tmp
 ```yaml
 $ cat > jenkins.values.yaml <<EOF
 controller:
+  JCasC:
+    defaultConfig: true
+
   serviceType: NodePort
   resources:
     requests:
@@ -54,15 +51,28 @@ EOF
 <br/>
 
 ```
-$ helm install --namespace ci --values jenkins.values.yaml jenkins jenkins/jenkins
+$ helm install \
+    jenkins jenkins/jenkins \
+    --create-namespace \
+    --namespace ci \
+    --values jenkins.values.yaml \
+    --version 5.8.115 \
+    --wait \
+    --timeout 15m
+```
+
+<br/>
+
+```
+// $ helm uninstall jenkins --namespace ci
 ```
 
 <br/>
 
 ```
 $ helm list -n ci
-NAME   	NAMESPACE	REVISION	UPDATED                                STATUS  	CHART          	APP VERSION
-jenkins	ci       	1       	2025-12-26 06:17:51.564382494 +0300 MSKdeployed	jenkins-5.8.114	2.528.3
+NAME   	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
+jenkins	ci       	1       	2026-01-02 12:54:32.837138894 +0300 MSK	deployed	jenkins-5.8.115	2.528.3
 ```
 
 <br/>
@@ -71,17 +81,6 @@ jenkins	ci       	1       	2025-12-26 06:17:51.564382494 +0300 MSKdeployed	jenki
 $ kubectl get pods -n ci
 NAME        READY   STATUS    RESTARTS   AGE
 jenkins-0   2/2     Running   0          3m13s
-```
-
-<br/>
-
-```
-// Get your 'admin' user password by running:
-$ kubectl exec --namespace ci -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
-
-или
-
-$ kubectl get secret -n ci jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode
 ```
 
 <br/>
@@ -104,7 +103,19 @@ jenkins-agent   ClusterIP   10.102.17.14    <none>        50000/TCP        2m19s
 <br/>
 
 ```
+// Задаю порт, чтобы не нужно было меня при каждой новой установке
 $ kubectl -n ci patch svc jenkins -p '{"spec":{"ports":[{"port":8080,"nodePort":30264}]}}'
+```
+
+<br/>
+
+```
+// Get your 'admin' user password by running:
+$ kubectl exec --namespace ci -it svc/jenkins -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
+
+или
+
+$ kubectl get secret -n ci jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode
 ```
 
 <br/>
@@ -129,6 +140,8 @@ http://192.168.49.2:30264/manage/pluginManager/available
 
 ### Создание учетки для работы с GitHub
 
+<br/>
+
 ```
 Personal Access Token (PAT)
 
@@ -143,12 +156,16 @@ Settings → Developer settings → Personal access tokens → Fine-grained toke
 
 <br/>
 
+// Добавьте в Jenkins:
+// Jenkins → Manage Jenkins → Credentials → System → Global credentials → Add Credentials
+http://192.168.49.2:30264/manage/credentials/store/system/domain/_/newCredentials
+
+<br/>
+
 ```
-Добавьте в Jenkins:
-
-Jenkins → Manage Jenkins → Credentials → System → Global credentials → Add Credentials
-
 Kind: "Username with password"
+
+Scope: Global (Jenkins, nodes, items, all child items, etc)
 
 Username: ваш GitHub username
 
@@ -156,3 +173,33 @@ Password: ваш PAT
 
 ID: github-token (или любое другое имя)
 ```
+
+<!-- <br/>
+
+### Создаю credentials в jenkins в командной строке
+
+<br/>
+
+```
+$ kubectl create secret generic github-credentials \
+  --namespace ci \
+  --from-literal=username=wildmakaka \
+  --from-literal=password=ваш_github_pat \
+  --dry-run=client -o yaml | kubectl apply -f -
+```
+
+<br/>
+
+```
+$ kubectl annotate secret github-credentials -n ci \
+  "jenkins.io/credentials-type=usernamePassword" \
+  --overwrite
+```
+
+<br/>
+
+```
+$ kubectl label secret github-credentials -n ci \
+  "jenkins.io/credentials-type=usernamePassword" \
+  --overwrite
+``` -->

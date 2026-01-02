@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/launch-a-devops-cont
 <br/>
 
 **Делаю:**  
-2026.01.01
+2026.01.02
 
 <br/>
 
@@ -22,12 +22,13 @@ $ eval $(minikube --profile ${PROFILE} docker-env)
 
 
 $ {
+    docker pull jenkins/inbound-agent:latest
     docker pull maven:3.8.6-openjdk-11
     docker pull gcr.io/kaniko-project/executor:v1.19.2-debug
-    docker pull jenkins/inbound-agent:latest
     docker pull rmkanda/docker-tools:latest
-    docker pull rmkanda/trufflehog
-    docker pull licensefinder/license_finder
+    docker pull rmkanda/trufflehog:latest
+    docker pull licensefinder/license_finder:latest
+    docker pull shiftleft/sast-scan:latest
 }
 ```
 
@@ -48,28 +49,6 @@ fork -> https://github.com/lfs262/dso-demo
     <version>12.1.0</version>
 </plugin>
 ```
-
-<br/>
-
-Blue Ocean -> Create a new Pipeline
-
-<br/>
-
-Указать ранее созданные credentials
-
-<br/>
-
-```
-// Долго перестодавал и запускаскал поды
-$ kubectl get pods -n ci
-NAME                                READY   STATUS              RESTARTS      AGE
-dso-demo-main-1-g5w63-9rp1g-723hv   0/5     ContainerCreating   0             4s
-jenkins-0                           2/2     Running             1 (33m ago)   48m
-```
-
-<!-- <br/>
-
-Settings -> Scan Repository Triggers -> Periodically if not otherwise run -> interval -> 1 minute -->
 
 <br/>
 
@@ -97,6 +76,32 @@ $ kubectl create secret -n ci docker-registry regcred \
     --docker-username=${REGISTRY_USER} \
     --docker-password=${REGISTRY_PASSWORD}
 ```
+
+<br/>
+
+// Blue Ocean -> Create a new Pipeline
+http://192.168.49.2:30264/blue/organizations/jenkins/pipelines
+
+Choose a repository: dso-demo
+
+<br/>
+
+// Указать ранее созданные credentials
+http://192.168.49.2:30264/job/dso-demo/configure
+
+<br/>
+
+```
+// Долго перестодавал и запускаскал поды
+$ kubectl get pods -n ci
+NAME                                READY   STATUS              RESTARTS      AGE
+dso-demo-main-1-g5w63-9rp1g-723hv   0/5     ContainerCreating   0             4s
+jenkins-0                           2/2     Running             1 (33m ago)   48m
+```
+
+<!-- <br/>
+
+Settings -> Scan Repository Triggers -> Periodically if not otherwise run -> interval -> 1 minute -->
 
 <br/>
 
