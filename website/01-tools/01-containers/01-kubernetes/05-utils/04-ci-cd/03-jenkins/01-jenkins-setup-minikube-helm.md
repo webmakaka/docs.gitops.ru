@@ -25,6 +25,12 @@ $ helm repo update
 <br/>
 
 ```
+$ helm search repo jenkins
+```
+
+<br/>
+
+```
 $ cd ~/tmp
 ```
 
@@ -71,8 +77,8 @@ $ helm install \
 
 ```
 $ helm list -n ci
-NAME   	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
-jenkins	ci       	1       	2026-01-02 12:54:32.837138894 +0300 MSK	deployed	jenkins-5.8.115	2.528.3
+NAME   	NAMESPACE	REVISION	UPDATED                                STATUS  	CHART          	APP VERSION
+jenkins	ci       	1       	2026-01-03 14:22:50.354071136 +0300 MSKdeployed	jenkins-5.8.115	2.528.3
 ```
 
 <br/>

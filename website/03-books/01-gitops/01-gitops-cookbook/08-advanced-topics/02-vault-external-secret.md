@@ -86,10 +86,12 @@ webhooks.generators.external-secrets.io                 2025-12-09T02:01:11Z
 
 <br/>
 
-```
+### [Устанавливаю vault](/tools/containers/kubernetes/utils/security/vault/setup/)
+
+<!-- ```
 $ helm repo add hashicorp https://helm.releases.hashicorp.com
 $ helm install vault hashicorp/vault -n vault --create-namespace --set server.dev.enabled=true
-```
+``` -->
 
 <br/>
 
