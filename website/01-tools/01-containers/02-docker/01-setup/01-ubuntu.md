@@ -9,7 +9,7 @@ permalink: /tools/containers/docker/setup/ubuntu/
 # Инсталляция / Upgrade Docker в Ubuntu 22.04
 
 Делаю:  
-2025.10.13
+2026.01.04
 
 <br/>
 
@@ -49,15 +49,15 @@ sudo add-apt-repository \
    stable"
 sudo apt-get update
 sudo apt-get install -y docker-ce
+```
 
-
+<!--
 ### Install Docker-Compose
 
 LATEST_VERSION=$(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
 
 sudo curl -L "https://github.com/docker/compose/releases/download/${LATEST_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
+sudo chmod +x /usr/local/bin/docker-compose -->
 
 <br/>
 
@@ -70,10 +70,10 @@ $ sudo ./install-docker-and-docker-compose.sh
 
 ```
 $ docker -v
-Docker version 28.5.1, build e180ab8
+Docker version 29.1.3, build f52814d
 
-$ docker-compose --version
-Docker Compose version v2.40.0
+$ docker compose version
+Docker Compose version v5.0.1
 ```
 
 <br/>
