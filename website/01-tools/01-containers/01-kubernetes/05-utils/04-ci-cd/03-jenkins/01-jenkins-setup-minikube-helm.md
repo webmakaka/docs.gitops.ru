@@ -3,7 +3,7 @@ layout: page
 title: Инсталляция Jenkins в ubuntu 22.04
 description: Инсталляция Jenkins в ubuntu 22.04
 keywords: tools, containers, kubernetes, ci-cd, Jenkins, инсталляция
-permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/setup/minikube/helm/
+permalink: /tools/containers/kubernetes/utils/ci-cd/jenkins/setup/helm/minikube/
 ---
 
 # Инсталляция Jenkins в ubuntu 22.04
@@ -130,84 +130,3 @@ $ kubectl get secret -n ci jenkins -o jsonpath="{.data.jenkins-admin-password}" 
 // admin
 http://192.168.49.2:30264
 ```
-
-<br/>
-
-### Install Essential Plugins
-
-Browse to Manage Jenkins -> Manage Plugins -> Available
-
-http://192.168.49.2:30264/manage/pluginManager/available
-
-- Blue Ocean
-- Configuration as Code Plugin - Groovy Scripting Extension
-
-<br/>
-
-### Создание учетки для работы с GitHub
-
-<br/>
-
-```
-Personal Access Token (PAT)
-
-Создайте PAT в GitHub:
-
-Settings → Developer settings → Personal access tokens → Fine-grained tokens
-
-Или: Settings → Developer settings → Personal access tokens → Tokens (classic)
-
-Дайте права: repo, admin:repo_hook, read:user
-```
-
-<br/>
-
-```
-// Добавьте в Jenkins:
-// Jenkins → Manage Jenkins → Credentials → System → Global credentials → Add Credentials
-http://192.168.49.2:30264/manage/credentials/store/system/domain/_/newCredentials
-```
-
-<br/>
-
-```
-Kind: "Username with password"
-
-Scope: Global (Jenkins, nodes, items, all child items, etc)
-
-Username: ваш GitHub username
-
-Password: ваш PAT
-
-ID: github-token (или любое другое имя)
-```
-
-<!-- <br/>
-
-### Создаю credentials в jenkins в командной строке
-
-<br/>
-
-```
-$ kubectl create secret generic github-credentials \
-  --namespace ci \
-  --from-literal=username=wildmakaka \
-  --from-literal=password=ваш_github_pat \
-  --dry-run=client -o yaml | kubectl apply -f -
-```
-
-<br/>
-
-```
-$ kubectl annotate secret github-credentials -n ci \
-  "jenkins.io/credentials-type=usernamePassword" \
-  --overwrite
-```
-
-<br/>
-
-```
-$ kubectl label secret github-credentials -n ci \
-  "jenkins.io/credentials-type=usernamePassword" \
-  --overwrite
-``` -->
