@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/
 <br/>
 
 **Делаю:**  
-2026.01.02
+2026.01.05
 
 <br/>
 
@@ -150,7 +150,7 @@ $ echo argocd.$INGRESS_HOST.nip.io
 ```
 // admin / ABCDEFGH123
 // OK!
-http://argocd.192.168.58.2.nip.io
+http://argocd.192.168.49.2.nip.io
 ```
 
 <br/>
