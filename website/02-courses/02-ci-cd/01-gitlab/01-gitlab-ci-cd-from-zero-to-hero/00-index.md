@@ -3,7 +3,7 @@ layout: page
 title: TechWorld with Nana -  GitLab CI/CD
 description: TechWorld with Nana -  GitLab CI/CD
 keywords: Видеокурсы по DevOps, TechWorld with Nana, GitLab CI/CD
-permalink: /courses/ci-cd/gitlab/gitlab-cicd-from-zero-to-hero/
+permalink: /courses/ci-cd/gitlab/gitlab-ci-cd-from-zero-to-hero/
 ---
 
 # [Video Course][TechWorld with Nana] GitLab CI CD - From Zero To Hero (2025) [ENG, 2022]

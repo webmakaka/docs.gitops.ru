@@ -10,4 +10,4 @@ permalink: /courses/ci-cd/gitlab/
 
 <br/>
 
-### [[TechWorld with Nana] GitLab CI/CD Full Course released - CI/CD with Docker | K8s | Microservices! [ENG, 2022]](/courses/ci-cd/gitlab/gitlab-cicd-from-zero-to-hero/)
+### [[TechWorld with Nana] GitLab CI/CD Full Course released - CI/CD with Docker | K8s | Microservices! [ENG, 2022]](/courses/ci-cd/gitlab/gitlab-ci-cd-from-zero-to-hero/)
