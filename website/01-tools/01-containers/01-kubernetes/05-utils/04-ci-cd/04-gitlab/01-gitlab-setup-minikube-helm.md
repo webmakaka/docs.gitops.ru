@@ -127,7 +127,6 @@ $ kubectl get ingress -n gitlab
 NAME                        CLASS          HOSTS                          ADDRESS        PORTS   AGE
 gitlab-kas                  gitlab-nginx   kas.192.168.49.2.nip.io        192.168.49.2   80      2m58s
 gitlab-minio                gitlab-nginx   minio.192.168.49.2.nip.io      192.168.49.2   80      2m58s
-gitlab-registry             gitlab-nginx   registry.192.168.49.2.nip.io   192.168.49.2   80      2m58s
 gitlab-webservice-default   gitlab-nginx   gitlab.192.168.49.2.nip.io     192.168.49.2   80      2m58s
 ```
 
@@ -150,7 +149,19 @@ http://gitlab.192.168.49.2.nip.io
 
 ### Добавить GitLab Runner
 
+<br/>
+
 ```
+$ RUNNER_TOKEN=$(kubectl exec -n gitlab -it $(kubectl get pods -n gitlab -l app=toolbox -o jsonpath='{.items[0].metadata.name}') -- gitlab-rails runner "runner = Ci::Runner.create!(runner_type: 'instance_type', description: 'k8s-runner', tag_list: [], run_untagged: true); puts runner.token")
+```
+
+<br/>
+
+```
+$ echo $RUNNER_TOKEN
+```
+
+<!-- ```
 //  Находим имя пода toolbox (в старых версиях назывался task-runner)
 $ TOOLBOX_POD=$(kubectl get pods -n gitlab -l app=toolbox -o jsonpath='{.items[0].metadata.name}')
 
@@ -158,7 +169,7 @@ $ kubectl exec -n gitlab -it $TOOLBOX_POD -- gitlab-rails runner "
   runner = Ci::Runner.create!(runner_type: 'instance_type', description: 'k8s-runner', run_untagged: true)
   puts runner.token
 "
-```
+``` -->
 
 <br/>
 
@@ -166,15 +177,28 @@ $ kubectl exec -n gitlab -it $TOOLBOX_POD -- gitlab-rails runner "
 $ cd ~/tmp
 ```
 
+<!--
+<br/>
+
+```
+kubectl run curl-test --image=curlimages/curl:latest -n gitlab -it --rm -- \
+  curl -I http://gitlab-webservice-default.gitlab.svc.cluster.local:8080
+```
+
+<br/>
+
+```
+$ kubectl run curl-test --image=curlimages/curl:latest -n gitlab -it --rm -- \
+  curl -I http://gitlab-webservice-default.gitlab.svc.cluster.local:8181
+``` -->
+
 <br/>
 
 ```yaml
 $ cat > runner-config.yaml <<EOF
-# URL вашего GitLab
-gitlabUrl: http://gitlab-webservice-default.gitlab.svc.cluster.local:8080
+gitlabUrl: http://gitlab.192.168.49.2.nip.io
 
-# НОВОЕ: В 2026 году используем runnerToken вместо runnerRegistrationToken
-runnerToken: "glrtr-JszP89kmHP5mnuDugHnY"
+runnerToken: $RUNNER_TOKEN
 
 rbac:
   create: true
@@ -195,7 +219,6 @@ runners:
         namespace = "{{ .Release.Namespace }}"
         image = "ubuntu:24.04"
         privileged = true
-        # Важно: разрешаем HTTP внутри кластера
         pull_policy = ["always", "if-not-present"]
 
 # Глобальное отключение TLS для сессий
@@ -205,12 +228,6 @@ envVars:
   - name: GIT_SSL_NO_VERIFY
     value: "true"
 
-# Решение проблемы "Checking for jobs... failed":
-# Если Ingress не пускает по внешнему домену, прописываем прямой путь к сервису
-hostAliases:
-  - ip: "$(kubectl get svc -n gitlab gitlab-webservice-default -o jsonpath='{.spec.clusterIP}')"
-    hostnames:
-      - "gitlab.$INGRESS_HOST.nip.io"
 EOF
 ```
 
@@ -231,66 +248,13 @@ $ helm install gitlab-runner gitlab/gitlab-runner \
 // helm uninstall gitlab-runner -n gitlab
 ```
 
-<br/>
-
-# 1. Находим имя пода toolbox
-
-TOOLBOX_POD=$(kubectl get pods -n gitlab -l app=toolbox -o jsonpath='{.items[0].metadata.name}')
-
-# 2. Выполняем команду внутри него
-
-```
-$ kubectl exec -n gitlab -it $TOOLBOX_POD -- gitlab-rails runner "
-runner = Ci::Runner.instance_type.last
-if runner.update(active: true, run_untagged: true, locked: false, access_level: 'not_protected')
-  puts '--- Runner Configuration Updated ---'
-  puts \"ID:          #{runner.id}\"
-  puts \"Description: #{runner.description}\"
-  puts \"Token:       #{runner.token}\"
-  puts \"Status:      #{runner.status}\"
-  puts \"Untagged:    #{runner.run_untagged}\"
-  puts \"Locked:      #{runner.locked}\"
-  puts '------------------------------------'
-else
-  puts 'ERROR: Failed to update runner'
-  puts runner.errors.full_messages
-end
-"
-```
-
-<br/>
-
-```
---- Runner Configuration Updated ---
-ID:          1
-Description: k8s-runner
-Token:       glrtr-YtxqMQJyKXjskj7TVh3Q
-Status:      never_contacted
-Untagged:    true
-Locked:      false
-------------------------------------
-```
-
-<br/>
-
 ```
 http://gitlab.192.168.49.2.nip.io/admin/runners
 ```
 
 <br/>
 
-# Добавить возможность клонировать репо
-
-```
-$ kubectl exec -n gitlab -it deployment/gitlab-toolbox -- gitlab-rails runner "
-settings = ApplicationSetting.current
-settings.update!(import_sources: ['github', 'git'])
-puts \"\nSUCCESS: Import sources updated!\"
-puts \"Current sources: #{settings.import_sources.join(', ')}\"
-"
-```
-
-<br/>
+### Проверка Runner
 
 ```
 $ kubectl exec -n gitlab -it deployment/gitlab-toolbox -- gitlab-rails runner '
@@ -318,18 +282,29 @@ end
 ```
 --- Runner Diagnostic ---
 Description:  k8s-runner
-Online:       NO
+Online:       YES
 Active:       true
 Can pick untagged: true
 Locked:       false
 Access level: not_protected
 Tags:
 Projects:
-
-[!] ВНИМАНИЕ: Раннер OFFLINE. Проверьте логи пода самого раннера.
 ```
 
 <br/>
+
+# Добавить возможность клонировать репо
+
+```
+$ kubectl exec -n gitlab -it deployment/gitlab-toolbox -- gitlab-rails runner "
+settings = ApplicationSetting.current
+settings.update!(import_sources: ['github', 'git'])
+puts \"\nSUCCESS: Import sources updated!\"
+puts \"Current sources: #{settings.import_sources.join(', ')}\"
+"
+```
+
+<!-- <br/>
 
 В Deployment поменял
 
@@ -337,4 +312,4 @@ Projects:
 yaml
         - name: CI_SERVER_URL
           value: http://gitlab-webservice-default.gitlab.svc.cluster.local:8080
-```
+``` -->
