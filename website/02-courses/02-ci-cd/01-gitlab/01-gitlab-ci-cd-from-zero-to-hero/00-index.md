@@ -6,7 +6,7 @@ keywords: Видеокурсы по DevOps, TechWorld with Nana, GitLab CI/CD
 permalink: /courses/ci-cd/gitlab/gitlab-ci-cd-from-zero-to-hero/
 ---
 
-# [Video Course][TechWorld with Nana] GitLab CI CD - From Zero To Hero (2025) [ENG, 2022]
+# [Video Course][TechWorld with Nana] GitLab CI/CD - From Zero To Hero (2025) [ENG, 2022]
 
 <br/>
 
@@ -18,7 +18,7 @@ permalink: /courses/ci-cd/gitlab/gitlab-ci-cd-from-zero-to-hero/
 
 Starting from chapter 2:
 
-Simple demo Node.js project: https://gitlab.com/nanuchi/mynodeapp-cicd-project
+Simple demo Node.js project: https://gitlab.com/nanuchi/mynodeapp-cicd-project.git
 
 Starting from chapter 7 (Microservices):
 Microservice mono-repo: https://gitlab.com/nanuchi/mymicroservice-cicd
