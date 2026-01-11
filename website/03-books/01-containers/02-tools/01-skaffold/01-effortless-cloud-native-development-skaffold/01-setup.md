@@ -19,7 +19,7 @@ permalink: /books/containers/kubernetes/tools/skaffold/setup/
 
 2. Инсталляция [Kubectl](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
-3. Инсталляция [Skaffold](/tools/containers/kubernetes/utils/scaffold/)
+3. Инсталляция [Skaffold](/tools/containers/kubernetes/utils/skaffold/setup/)
 
 <br/>
 
