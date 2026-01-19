@@ -10,12 +10,12 @@ permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops
 
 <br/>
 
-Взято в курсе "[Udemy] Ultimate Argo Bootcamp by School of Devops [ENG, 2024]"
+Делаю:  
+2026.01.19
 
 <br/>
 
-Делаю:  
-2024.12.21
+### Сначала пример как можно делать без использования Argo Rollouts
 
 <br/>
 
@@ -123,6 +123,13 @@ $ kubectl describe svc vote-preview
 <br/>
 
 ```
+$ kubectl port-forward svc/vote 30000:80
+$ kubectl port-forward svc/vote-preview 30100:80
+```
+
+<br/>
+
+```
 http://localhost:30000/
 http://localhost:30100/
 ```
@@ -134,7 +141,7 @@ http://localhost:30100/
 <br/>
 
 ```yaml
-$ cat << EOF > base/deployment.yaml
+$ cat << EOF > base/rollout.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
@@ -171,12 +178,6 @@ spec:
             cpu: "250m"
             memory: "128Mi"
 EOF
-```
-
-<br/>
-
-```
-$ mv base/deployment.yaml base/rollout.yaml
 ```
 
 <br/>
@@ -289,3 +290,7 @@ $ kubectl apply -k staging
 $ kubectl argo rollouts status vote
 Healthy
 ```
+
+<br/>
+
+Можно в UI сделать Rollback

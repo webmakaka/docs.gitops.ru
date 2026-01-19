@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm
 <br/>
 
 **Делаю:**  
-2025.12.31
+2026.01.19
 
 <br/>
 
@@ -85,8 +85,10 @@ EOF
 <br/>
 
 ```
-$ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx --create-namespace \
--f values-ingress-nginx.yaml
+$ helm install ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx \
+  --create-namespace \
+  --values values-ingress-nginx.yaml
 ```
 
 <br/>
@@ -186,8 +188,13 @@ EOF
 $ helm upgrade -i argo-cd argo/argo-cd \
   --namespace argocd \
   --create-namespace \
-  -f values-argocd-ingress.yaml
+  --values values-argocd-ingress.yaml \
+  --version 9.2.4
 ```
+
+<br/>
+
+Пришлось для redis изменить registry на hub.docker.com
 
 <br/>
 
@@ -221,13 +228,6 @@ $ echo "127.0.0.1 argocd.k8s.local" | sudo tee -a /etc/hosts
 <br/>
 
 ```
-// OK!
-http://argocd.k8s.local
-```
-
-<br/>
-
-```
 $ export ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 $ echo ${ARGOCD_PASSWORD}
 ```
@@ -256,7 +256,15 @@ $ echo ${ARGOCD_PASSWORD}
 <br/>
 
 ```
-$ k get nodes
+// OK!
+// admin / ABCDEFGH123
+http://argocd.k8s.local
+```
+
+<br/>
+
+```
+$ kubectl get nodes
 NAME                 STATUS   ROLES           AGE   VERSION
 kind-control-plane   Ready    control-plane   13m   v1.34.0
 ```

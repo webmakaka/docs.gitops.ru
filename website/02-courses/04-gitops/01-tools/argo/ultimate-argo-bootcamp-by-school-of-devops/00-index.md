@@ -12,6 +12,12 @@ https://schoolofdevops.com/programs/argo-bootcamp/
 
 <br/>
 
+### [Инсталляция Argo-CD](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
+
+### [Инсталляция Argo Rollouts в kind](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
+
+<br/>
+
 **github**:
 
 https://github.com/schoolofdevops/example-voting-app
@@ -24,4 +30,4 @@ https://github.com/sfd226/argo-labs
 
 https://github.com/sfd-cicd/vote-deploy
 
-https://github.com/initcron/vote-deploy
+https://github.com/initcron/vote-deploy вдруг стал https://github.com/gouravjshah/vote-deploy

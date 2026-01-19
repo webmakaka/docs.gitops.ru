@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/cli
 <br/>
 
 Делаю:  
-2025.12.10
+2026.01.19
 
 <br/>
 
