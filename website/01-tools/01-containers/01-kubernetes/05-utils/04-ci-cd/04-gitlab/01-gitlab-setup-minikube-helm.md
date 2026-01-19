@@ -15,7 +15,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/gitlab/setup/helm/minikube/
 
 <br/>
 
-# Разбираюсь как устанавливать!!!
+# Разбираюсь как устанавливать правильно!!!
 
 <br/>
 

@@ -3,7 +3,7 @@ layout: page
 title: Implementing Canary Release for Prod
 description: Implementing Canary Release for Prod
 keywords: devops, containers, kubernetes, argo, rollouts, setup, canary
-permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/canary/
+permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/
 ---
 
 # Implementing Canary Release for Prod

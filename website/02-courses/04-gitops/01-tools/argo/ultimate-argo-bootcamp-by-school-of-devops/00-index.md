@@ -3,7 +3,7 @@ layout: page
 title: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
 description: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
 keywords: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
-permalink: /courses/argo/ultimate-argo-bootcamp-by-school-of-devops/
+permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/
 ---
 
 # [School Of DevOps] Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events [ENG, 2024]

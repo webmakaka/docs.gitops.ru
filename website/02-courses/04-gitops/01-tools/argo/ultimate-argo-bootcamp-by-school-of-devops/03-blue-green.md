@@ -3,7 +3,7 @@ layout: page
 title: Blue Green Releases with Argo Rollouts
 description: Blue Green Releases with Argo Rollouts
 keywords: devops, containers, kubernetes, argo, rollouts, setup, blue-green
-permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/blue-green/
+permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/
 ---
 
 # Blue Green Releases with Argo Rollouts
