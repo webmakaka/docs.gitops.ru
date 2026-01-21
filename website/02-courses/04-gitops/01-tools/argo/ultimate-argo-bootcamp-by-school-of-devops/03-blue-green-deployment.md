@@ -6,7 +6,7 @@ keywords: devops, containers, kubernetes, argo, rollouts, setup, blue-green
 permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/
 ---
 
-# Blue Green Releases with Argo Rollouts
+# [School Of DevOps] Ultimate Argo Bootcamp: Blue Green Releases with Argo Rollouts
 
 <br/>
 
@@ -137,6 +137,12 @@ http://localhost:30100/
 <br/>
 
 ### Migrate Deployment to Argo Rollout
+
+<br/>
+
+```
+$ rm base/deployment.yaml
+```
 
 <br/>
 

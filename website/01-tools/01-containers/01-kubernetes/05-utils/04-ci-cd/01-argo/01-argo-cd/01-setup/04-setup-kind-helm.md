@@ -11,7 +11,7 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm
 <br/>
 
 **Делаю:**  
-2026.01.19
+2026.01.20
 
 <br/>
 
@@ -94,6 +94,7 @@ $ helm install ingress-nginx ingress-nginx/ingress-nginx \
 <br/>
 
 ```
+// Дожидаемся, что нужные поды запустятся
 $ kubectl wait --namespace ingress-nginx \
   --for=condition=ready pod \
   --selector=app.kubernetes.io/component=controller \
@@ -131,7 +132,7 @@ $ curl http://127.0.0.1
 </html>
 ```
 
-<br/>
+<!-- <br/>
 
 ```
 // Если нужен debug
@@ -144,7 +145,7 @@ Date: Fri, 05 Dec 2025 22:56:42 GMT
 Content-Type: text/html
 Content-Length: 146
 Connection: keep-alive
-```
+``` -->
 
 <br/>
 
@@ -192,9 +193,11 @@ $ helm upgrade -i argo-cd argo/argo-cd \
   --version 9.2.4
 ```
 
-<br/>
+<!-- <br/>
 
-Пришлось для redis изменить registry на hub.docker.com
+```
+$ kubectl set image deployment/argo-cd-argocd-redis redis=redis:8.2.2-alpine
+``` -->
 
 <br/>
 

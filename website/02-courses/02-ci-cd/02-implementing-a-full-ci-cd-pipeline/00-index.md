@@ -106,12 +106,8 @@ https://acloudguru.com/course/implementing-a-full-ci-cd-pipeline
 
 <br/>
 
-Скачать можешь на Шервуде!
-
-<br/>
-
 **Обсуждение:**  
-https://t.me/sysadm_ru
+http://techline_ru.t.me/
 
 <br/>
 

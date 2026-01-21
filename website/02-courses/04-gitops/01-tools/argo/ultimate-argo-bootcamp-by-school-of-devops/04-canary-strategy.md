@@ -6,16 +6,12 @@ keywords: devops, containers, kubernetes, argo, rollouts, setup, canary
 permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/
 ---
 
-# Implementing Canary Release for Prod
-
-<br/>
-
-Взято в курсе "[Udemy] Ultimate Argo Bootcamp by School of Devops [ENG, 2024]"
+# [School Of DevOps] Ultimate Argo Bootcamp: Implementing Canary Release for Prod
 
 <br/>
 
 Делаю:  
-2024.12.22
+2026.01.21
 
 <br/>
 
@@ -170,8 +166,6 @@ EOF
 
 <br/>
 
-add this rollout overlay spec to prod/kustomization.yaml in patches section as:
-
 ```yaml
 $ cat << EOF > prod/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -257,6 +251,22 @@ Healthy
 
 <br/>
 
+```
+$ kubectl argo rollouts get rollout vote
+```
+
+<br/>
+
+```
+$ kubectl get endpoints
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME           ENDPOINTS                                                  AGE
+vote           10.244.0.22:80,10.244.0.24:80,10.244.0.25:80 + 1 more...   6h42m
+vote-preview   10.244.0.22:80,10.244.0.24:80,10.244.0.25:80 + 1 more...   6h42m
+```
+
+<!-- <br/>
+
 ### Getting Ready to add Traffic Management - Set up Nginx Ingress Controller
 
 ```
@@ -294,7 +304,7 @@ $ kubectl label node kind-worker ingress-ready="true"
 $ kubectl get pods -n ingress-nginx
 NAME                                        READY   STATUS    RESTARTS   AGE
 ingress-nginx-controller-7b9d96d5f6-ssgs2   1/1     Running   0          105s
-```
+``` -->
 
 <br/>
 
@@ -358,6 +368,7 @@ $ kubectl describe ing vote
 <br/>
 
 ```
+// OK!
 http://127.0.0.1.nip.io/
 ```
 
@@ -419,6 +430,7 @@ $ vi base/rollout.yaml
 <br/>
 
 ```
+// Должен был создаться, но не создался
 $ kubectl describe ing vote-vote-canary
 ```
 
