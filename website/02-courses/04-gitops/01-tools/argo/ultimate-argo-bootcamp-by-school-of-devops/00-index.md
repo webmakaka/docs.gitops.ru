@@ -12,13 +12,15 @@ https://schoolofdevops.com/programs/argo-bootcamp/
 
 <br/>
 
-### [Инсталляция Argo-CD](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
+### 🛠️ ✅ [Инсталляция Argo-CD](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
 
-### [Инсталляция Argo Rollouts в kind](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
+### 🛠️ ✅ [Инсталляция Argo Rollouts в kind](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
 
 ### 🛠️ ✅ [Blue Green Releases with Argo Rollouts](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/)
 
-### 🛠️ ❌ [Implementing Canary Release for Prod](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
+### 🛠️ ✅ [Implementing Canary Release for Prod](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
+
+### 🛠️ ❌ [ArgoCD](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
 
 <br/>
 

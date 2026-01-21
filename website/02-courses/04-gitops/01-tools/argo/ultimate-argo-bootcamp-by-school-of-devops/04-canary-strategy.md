@@ -45,7 +45,95 @@ $ kubectl config get-contexts
 
 ```
 $ cd argo-labs/
-$ cp -r staging prod
+```
+
+<br/>
+
+```
+$ rm base/deployment.yaml
+```
+
+<br/>
+
+```yaml
+$ cat << EOF > base/rollout.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  labels:
+    app: vote
+    tier: front
+  name: vote
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: vote
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: true
+      autoPromotionSeconds: 30
+      activeService: vote
+      previewService: vote-preview
+  template:
+    metadata:
+      labels:
+        app: vote
+        tier: front
+    spec:
+      containers:
+      - image: schoolofdevops/vote:v1
+        name: vote
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "250m"
+            memory: "128Mi"
+EOF
+```
+
+<br/>
+
+```yaml
+$ cat << EOF > base/preview-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote-preview
+  labels:
+    role: vote
+spec:
+  selector:
+    app: vote
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      nodePort: 30100
+  type: NodePort
+EOF
+```
+
+<br/>
+
+```yaml
+$ cat << EOF > base/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- rollout.yaml
+- service.yaml
+- preview-service.yaml
+EOF
+```
+
+<br/>
+
+```
+$ mkdir prod
 ```
 
 <br/>
@@ -253,6 +341,34 @@ Healthy
 
 ```
 $ kubectl argo rollouts get rollout vote
+Name:            vote
+Namespace:       prod
+Status:          ॥ Paused
+Message:         CanaryPauseStep
+Strategy:        Canary
+  Step:          7/9
+  SetWeight:     80
+  ActualWeight:  80
+Images:          schoolofdevops/vote:v1 (stable)
+                 schoolofdevops/vote:v2 (canary)
+Replicas:
+  Desired:       5
+  Current:       5
+  Updated:       4
+  Ready:         5
+  Available:     5
+
+NAME                              KIND        STATUS     AGE    INFO
+⟳ vote                            Rollout     ॥ Paused   3m48s
+├──# revision:2
+│  └──⧉ vote-6fd5d7d96d           ReplicaSet  ✔ Healthy  46s    canary
+│     ├──□ vote-6fd5d7d96d-9hnlw  Pod         ✔ Running  46s    ready:1/1
+│     ├──□ vote-6fd5d7d96d-njzdq  Pod         ✔ Running  33s    ready:1/1
+│     ├──□ vote-6fd5d7d96d-mqd76  Pod         ✔ Running  21s    ready:1/1
+│     └──□ vote-6fd5d7d96d-llnfz  Pod         ✔ Running  9s     ready:1/1
+└──# revision:1
+   └──⧉ vote-7f7d9f97bf           ReplicaSet  ✔ Healthy  3m48s  stable
+      └──□ vote-7f7d9f97bf-d4c8s  Pod         ✔ Running  3m48s  ready:1/1
 ```
 
 <br/>
@@ -333,6 +449,18 @@ spec:
 EOF
 ```
 
+<!-- <br/>
+
+```yaml
+$ cat << EOF > prod/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../base
+- ingress.yaml
+EOF
+``` -->
+
 <br/>
 
 ```yaml
@@ -342,6 +470,17 @@ kind: Kustomization
 resources:
 - ../base
 - ingress.yaml
+namespace: prod
+commonAnnotations:
+  supported-by: sre@example.com
+labels:
+- includeSelectors: false
+  pairs:
+    project: instavote
+patches:
+- path: service.yaml
+- path: preview-service.yaml
+- path: rollout.yaml
 EOF
 ```
 
@@ -399,7 +538,7 @@ spec:
           replicas: 3
       - setWeight: 20
       - pause:
-      duration: 10s
+          duration: 10s
       - setWeight: 40
       - pause:
           duration: 10s
@@ -430,14 +569,42 @@ $ vi base/rollout.yaml
 <br/>
 
 ```
-// Должен был создаться, но не создался
+$ kubectl apply -k prod
+```
+
+<br/>
+
+```
+$ kubectl get ing
+NAME               CLASS   HOSTS              ADDRESS        PORTS   AGE
+vote               nginx   127.0.0.1.nip.io   10.96.215.21   80      8m12s
+vote-vote-canary   nginx   127.0.0.1.nip.io   10.96.215.21   80      2m51s
+```
+
+<br/>
+
+```
 $ kubectl describe ing vote-vote-canary
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+Name:             vote-vote-canary
+Labels:           <none>
+Namespace:        prod
+Address:          10.96.215.21
+Ingress Class:    nginx
+Default backend:  <default>
+Rules:
+  Host              Path  Backends
+  ----              ----  --------
+  127.0.0.1.nip.io
+                    /   vote-preview:80 (10.244.0.50:80,10.244.0.51:80,10.244.0.52:80)
+Annotations:        nginx.ingress.kubernetes.io/canary: true
+                    nginx.ingress.kubernetes.io/canary-weight: 40
+Events:
+  Type    Reason  Age                 From                      Message
+  ----    ------  ----                ----                      -------
+  Normal  Sync    6s (x4 over 2m23s)  nginx-ingress-controller  Scheduled for sync
 ```
 
 <br/>
 
 http://localhost:3100/rollouts/rollout/prod/vote
-
-<br/>
-
-Запутался, где что и пока не хочется разбираться.
