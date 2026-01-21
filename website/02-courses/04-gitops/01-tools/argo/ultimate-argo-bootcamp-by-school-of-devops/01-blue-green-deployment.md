@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Blue Green Releases with Argo Rollouts
-description: Blue Green Releases with Argo Rollouts
-keywords: devops, containers, kubernetes, argo, rollouts, setup, blue-green
+title: Ultimate Argo Bootcamp - Blue Green Releases with Argo Rollouts
+description: Ultimate Argo Bootcamp - Blue Green Releases with Argo Rollouts
+keywords: courses, gitops, argo, Ultimate Argo Bootcamp, Blue Green Releases with Argo Rollouts
 permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/
 ---
 

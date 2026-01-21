@@ -2,11 +2,13 @@
 layout: page
 title: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
 description: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
-keywords: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
+keywords: courses, gitops, argo, Ultimate Argo Bootcamp
 permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/
 ---
 
 # [School Of DevOps] Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events [ENG, 2024]
+
+<br/>
 
 https://schoolofdevops.com/programs/argo-bootcamp/
 
@@ -20,7 +22,7 @@ https://schoolofdevops.com/programs/argo-bootcamp/
 
 ### 🛠️ ✅ [Implementing Canary Release for Prod](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
 
-### 🛠️ ❌ [ArgoCD](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
+### 🛠️ ❌ [ArgoCD](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argocd/)
 
 <br/>
 

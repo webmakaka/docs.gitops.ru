@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Implementing Canary Release for Prod
-description: Implementing Canary Release for Prod
-keywords: devops, containers, kubernetes, argo, rollouts, setup, canary
+title: Ultimate Argo Bootcamp - Implementing Canary Release for Prod
+description: Ultimate Argo Bootcamp - Implementing Canary Release for Prod
+keywords: courses, gitops, argo, Ultimate Argo Bootcamp, Implementing Canary Release for Prod
 permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/
 ---
 
