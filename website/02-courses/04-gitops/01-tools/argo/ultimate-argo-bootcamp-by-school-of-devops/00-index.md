@@ -14,6 +14,11 @@ https://schoolofdevops.com/programs/argo-bootcamp/
 
 <br/>
 
+Blue Green - for staging  
+Canary - for production
+
+<br/>
+
 ### 🛠️ ✅ [Инсталляция Argo-CD](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
 
 ### 🛠️ ✅ [Инсталляция Argo Rollouts в kind](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
@@ -22,7 +27,9 @@ https://schoolofdevops.com/programs/argo-bootcamp/
 
 ### 🛠️ ✅ [Implementing Canary Release for Prod](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
 
-### 🛠️ ❌ [ArgoCD](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argocd/)
+### 🛠️ ✅ [ArgoCD](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argocd/)
+
+### 🛠️ ❌ [Argo Workflows](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-workflows/)
 
 <br/>
 
