@@ -329,7 +329,8 @@ $ kubectl logs -n argo-events -l "controller=sensor-controller"
 <br/>
 
 ```
-$ kubectl create secret generic github-token-secret --from-literal=token=<GITHUB_ACCESS_TOKEN>
+$ kubectl create secret generic github-token-secret \
+    --from-literal=token=<GITHUB_ACCESS_TOKEN>
 ```
 
 <br/>
@@ -408,3 +409,78 @@ $ kubectl -n argo port-forward --address 0.0.0.0 svc/argo-server 2746:2746 > /de
 
 Появился новый image (делал коммит в репо):  
 https://hub.docker.com/r/webmakaka/vote/tags
+
+<br/>
+
+### Image Updater
+
+<br/>
+
+https://kubernetes-tutorial.schoolofdevops.com/argo_iamge_updater/
+
+<br/>
+
+```
+$ kubectl -n argocd create secret generic git-creds \
+  --from-literal=username=wildmakaka \
+  --from-literal=password=<GITHUB_ACCESS_TOKEN>
+```
+
+<br/>
+
+```
+$ kubectl get application -n argocd
+
+$ kubectl describe application -n argocd vote-staging
+```
+
+<br/>
+
+```yaml
+$ cat > ~/tmp/argo_applications_vote-staging_patch.yaml <<'EOF'
+metadata:
+  annotations:
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/image-list: myimage=webmakaka/vote
+    argocd-image-updater.argoproj.io/myimage.allow-tags: regexp:^[0-9a-f]{7}$
+    argocd-image-updater.argoproj.io/myimage.ignore-tags: latest, dev
+    argocd-image-updater.argoproj.io/myimage.update-strategy: latest
+    argocd-image-updater.argoproj.io/myimage.kustomize.image-name: schoolofdevops/vote
+    argocd-image-updater.argoproj.io/myimage.force-update: "true"
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
+    argocd-image-updater.argoproj.io/write-back-target: "kustomization:../base"
+EOF
+```
+
+<br/>
+
+```
+image-list - где искать образ
+kustomize.image-name - что менять в манифестах
+```
+
+<br/>
+
+```
+$ kubectl patch application --type=merge -n argocd vote-staging --patch-file ~/tmp/argo_applications_vote-staging_patch.yaml
+```
+
+<br/>
+
+```
+$ kubectl get application vote-staging -n argocd -o jsonpath='{.metadata.annotations}' | jq .
+```
+
+<br/>
+
+```
+// логи
+$ kubectl logs -f -l "app.kubernetes.io/name=argocd-image-updater" -n argocd
+```
+
+<br/>
+
+Обновился tag в репо wildmakaka.  
+Потом спустя минут 10 обновились images в ns staging  
+Делаем MR в release  
+Потом спустя минут 10 обновились images в ns prod
