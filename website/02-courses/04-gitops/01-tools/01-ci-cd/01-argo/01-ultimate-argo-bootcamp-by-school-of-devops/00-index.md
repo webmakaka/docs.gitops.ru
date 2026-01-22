@@ -3,7 +3,7 @@ layout: page
 title: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
 description: Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events
 keywords: courses, gitops, argo, Ultimate Argo Bootcamp
-permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/
+permalink: /courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/
 ---
 
 # [School Of DevOps] Ultimate Argo Bootcamp – Argo Rollouts, CD, Workflow, Events [ENG, 2024]
@@ -11,6 +11,10 @@ permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops
 <br/>
 
 https://schoolofdevops.com/programs/argo-bootcamp/
+
+<br/>
+
+https://kubernetes-tutorial.schoolofdevops.com/
 
 <br/>
 
@@ -23,13 +27,15 @@ Canary - for production
 
 ### 🛠️ ✅ [Инсталляция Argo Rollouts в kind](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
 
-### 🛠️ ✅ [Blue Green Releases with Argo Rollouts](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/)
+### 🛠️ ✅ [Blue Green Releases with Argo Rollouts](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/)
 
-### 🛠️ ✅ [Implementing Canary Release for Prod](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
+### 🛠️ ✅ [Implementing Canary Release for Prod](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/)
 
-### 🛠️ ✅ [ArgoCD](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argocd/)
+### 🛠️ ✅ [ArgoCD](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argocd/)
 
-### 🛠️ ❌ [Argo Workflows](/courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-workflows/)
+### 🛠️ ✅ [Argo Workflows](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-workflows/)
+
+### 🛠️ ❌ [Argo Events and Argo Image Updater](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-events-and-argo-image-updater/)
 
 <br/>
 

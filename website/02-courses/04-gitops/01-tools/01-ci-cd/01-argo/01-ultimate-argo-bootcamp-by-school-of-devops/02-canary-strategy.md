@@ -3,7 +3,7 @@ layout: page
 title: Ultimate Argo Bootcamp - Implementing Canary Release for Prod
 description: Ultimate Argo Bootcamp - Implementing Canary Release for Prod
 keywords: courses, gitops, argo, Ultimate Argo Bootcamp, Implementing Canary Release for Prod
-permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/
+permalink: /courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/canary-strategy/
 ---
 
 # [School Of DevOps] Ultimate Argo Bootcamp: Implementing Canary Release for Prod

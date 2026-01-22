@@ -3,7 +3,7 @@ layout: page
 title: Ultimate Argo Bootcamp - ArgoCD
 description: Ultimate Argo Bootcamp - ArgoCD
 keywords: courses, gitops, argo, Ultimate Argo Bootcamp, ArgoCD
-permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argocd/
+permalink: /courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argocd/
 ---
 
 # [School Of DevOps] Ultimate Argo Bootcamp: ArgoCD
@@ -238,4 +238,3 @@ $ kubectl port-forward svc/vote-preview 30300:80
 http://localhost:30200/
 http://localhost:30300/
 ```
-

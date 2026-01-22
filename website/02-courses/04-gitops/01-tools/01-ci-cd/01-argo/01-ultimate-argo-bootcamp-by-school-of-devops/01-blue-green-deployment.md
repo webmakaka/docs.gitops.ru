@@ -3,7 +3,7 @@ layout: page
 title: Ultimate Argo Bootcamp - Blue Green Releases with Argo Rollouts
 description: Ultimate Argo Bootcamp - Blue Green Releases with Argo Rollouts
 keywords: courses, gitops, argo, Ultimate Argo Bootcamp, Blue Green Releases with Argo Rollouts
-permalink: /courses/gitops/tools/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/
+permalink: /courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-rollouts/blue-green-deployment/
 ---
 
 # [School Of DevOps] Ultimate Argo Bootcamp: Blue Green Releases with Argo Rollouts
