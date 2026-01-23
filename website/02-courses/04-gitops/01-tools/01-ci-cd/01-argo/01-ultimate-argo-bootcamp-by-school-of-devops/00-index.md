@@ -37,7 +37,7 @@ Canary - for production
 
 ### 🛠️ ✅ [Argo Events and Argo Image Updater](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-events-and-argo-image-updater/)
 
-### 🛠️ ❌ [Automated Analysis and Experiments with Prometheus and Grafana](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/argo-events-and-argo-image-updater/)
+### 🛠️ ✅ ❌ [Automated Analysis and Experiments with Prometheus and Grafana](/courses/gitops/tools/ci-cd/argo/ultimate-argo-bootcamp-by-school-of-devops/automated-analysis-and-experiments-with-prometheus-and-grafana/)
 
 <br/>
 
