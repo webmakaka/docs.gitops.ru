@@ -175,17 +175,90 @@ Let's think about what operations are needed every time you perform a commit on 
 
 <br/>
 
-Можно попробовать использовать task "docker build task".
-Но требуется обращение к Docker демону по сокету (или как-то так) и не работает во всех окружениях.
+```
+$ {
+    export REGISTRY_SERVER=https://index.docker.io/v1/
+    export REGISTRY_USER=webmakaka
+    export REGISTRY_PASSWORD=webmakaka-password
 
-Предлагают использовать Buildah
+    echo ${REGISTRY_SERVER}
+    echo ${REGISTRY_USER}
+    echo ${REGISTRY_PASSWORD}
+}
+```
 
-https://buildah.io/
+<br/>
+
+```
+$ kubectl create secret docker-registry dockerhub-secret -n my-pipelines-ns \
+    --docker-server=${REGISTRY_SERVER} \
+    --docker-username=${REGISTRY_USER} \
+    --docker-password=${REGISTRY_PASSWORD}
+```
+
+<br/>
+
+```
+$ kubectl create serviceaccount tekton-sa -n my-pipelines-ns
+```
+
+<br/>
+
+```
+$ kubectl patch serviceaccount tekton-sa \
+  -n my-pipelines-ns \
+  -p '{"secrets": [{"name": "dockerhub-secret"}]}'
+```
 
 <br/>
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: build-push
+  namespace: my-pipelines-ns
+spec:
+  params:
+    - name: image
+      description: Ссылка на образ (например, docker.io/user/app:latest)
+  workspaces:
+    - name: source
+  steps:
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor:v1.23.2
+      env:
+        - name: DOCKER_CONFIG
+          value: /kaniko/.docker
+      args:
+        - --dockerfile=Dockerfile
+        - --context=$(workspaces.source.path)
+        - --destination=$(params.image)
+        - --digest-file=$(results.IMAGE_DIGEST.path)
+      volumeMounts:
+        - name: docker-config
+          mountPath: /kaniko/.docker
+  volumes:
+    - name: docker-config
+      secret:
+        # Секрет должен быть создан командой:
+        # kubectl create secret docker-registry dockerhub-secret ...
+        secretName: dockerhub-secret
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+  results:
+    - name: IMAGE_DIGEST
+      description: Digest собранного образа
+EOF
+```
+
+<!--
+<br/>
+
+```yaml
+$ cat << 'EOF' | kubectl apdeply -f -
 apiVersion: tekton.dev/v1
 kind: Task
 metadata:
@@ -209,42 +282,22 @@ spec:
         buildah login -u $(params.username) -p $(params.password) docker.io
         buildah push $(params.image)
 EOF
-```
+``` -->
 
 <br/>
 
 ### Using the task catalog
 
-// Пишут, что was officially shut down in January 2026  
-https://hub.tekton.dev/
+https://hub.tekton.dev/ was officially shut down in January 2026
 
 <br/>
 
-```
-$ {
-    tkn hub install task git-clone
-    tkn hub install task npm
-    tkn hub install task kubernetes-actions
-}
-```
-
-<br/>
+Нужно использовать:
 
 ```
-$ kubectl get task npm -o yaml > npm-task.yaml
-$ vi npm-task.yaml
-```
-
-<br/>
-
-```
-default: docker.io/library/node:18-alpine
-```
-
-<br/>
-
-```
-$ kubectl apply -f npm-task.yaml
+https://artifacthub.io/packages/tekton-task/tekton-catalog-tasks/git-clone
+https://artifacthub.io/packages/tekton-task/tekton-catalog-tasks/npm
+https://artifacthub.io/packages/tekton-task/tekton-catalog-tasks/kubernetes-actions
 ```
 
 <br/>
@@ -253,7 +306,7 @@ $ kubectl apply -f npm-task.yaml
 
 <br/>
 
-Покоцаная
+Для теста
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
@@ -347,8 +400,6 @@ spec:
     - name: repo-url
     - name: deployment-name
     - name: image
-    - name: docker-username
-    - name: docker-password
   workspaces:
     - name: source
   tasks:
@@ -386,8 +437,9 @@ spec:
             value: "0.1"
       params:
         - name: ARGS
-          value:
-            - install
+          value: ["install"]
+        - name: IMAGE
+          value: "node:20-alpine"
       workspaces:
         - name: source
           workspace: source
@@ -446,10 +498,6 @@ spec:
       params:
         - name: image
           value: $(params.image)
-        - name: username
-          value: $(params.docker-username)
-        - name: password
-          value: $(params.docker-password)
       workspaces:
         - name: source
           workspace: source
@@ -555,6 +603,7 @@ spec:
     metadata:
       generateName: tekton-deploy-
     spec:
+      serviceAccountName: tekton-sa
       pipelineRef:
         name: tekton-deploy
       params:
@@ -563,11 +612,7 @@ spec:
         - name: deployment-name
           value: "tekton-deployment"
         - name: image
-          value: "${DOCKER_USERNAME}/tekton-lab-app"
-        - name: docker-username
-          value: "${DOCKER_USERNAME}"
-        - name: docker-password
-          value: "<DOCKER_PASSWORD>"
+          value: "docker.io/${DOCKER_USERNAME}/tekton-lab-app:latest"
       workspaces:
         - name: source
           volumeClaimTemplate:
@@ -724,7 +769,7 @@ tekton-deploy-69n84   4 minutes ago   4m37s      Succeeded
 <br/>
 
 ```
-$ tkn pipelinerun logs tekton-deploy-lp6nm -n my-pipelines-ns
+$ tkn pipelinerun -n my-pipelines-ns logs tekton-deploy-rp6kl
 
 ****
 [deploy : kubectl] deployment.apps/tekton-deployment restarted
