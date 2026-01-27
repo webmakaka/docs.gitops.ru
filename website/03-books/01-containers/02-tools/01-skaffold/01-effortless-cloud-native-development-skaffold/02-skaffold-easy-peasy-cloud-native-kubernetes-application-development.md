@@ -63,19 +63,8 @@ skaffold-introduction   NodePort    10.102.184.144   <none>        8080:30087/TC
 <br/>
 
 ```
-// Убеждаемся, что значение профиля установлено
+$ export PROFILE=${USER}-minikube
 $ echo ${PROFILE}
-```
-
-<br/>
-
-Если нет
-
-<br/>
-
-```
-$ export \
-    PROFILE=${USER}-minikube
 ```
 
 <br/>

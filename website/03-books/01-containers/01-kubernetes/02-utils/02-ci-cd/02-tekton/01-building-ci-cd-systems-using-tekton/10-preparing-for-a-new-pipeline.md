@@ -160,7 +160,7 @@ tekton-deployment-5d5d5fd747-9dcn4   1/1     Running   0          78s
 <br/>
 
 ```
-// Убеждаемся, что значение профиля установлено
+$ export PROFILE=${USER}-minikube
 $ echo ${PROFILE}
 ```
 

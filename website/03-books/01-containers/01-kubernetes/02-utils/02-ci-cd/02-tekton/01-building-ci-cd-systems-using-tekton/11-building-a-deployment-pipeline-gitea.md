@@ -131,7 +131,7 @@ EOF
 <br/>
 
 ```
-// Убеждаемся, что значение профиля установлено
+$ export PROFILE=${USER}-minikube
 $ echo ${PROFILE}
 $ curl $(minikube --profile ${PROFILE} ip)
 ```
@@ -478,7 +478,7 @@ $ tkn pipeline start tekton-deploy --use-param-defaults
 ```
 ? Value for param `repo-url` of type `string`? http://gitea.192.168.49.2.nip.io/gitea_admin/tekton-book-app.git
 ? Value for param `deployment-name` of type `string`? tekton-deployment
-? Value for param `image` of type `string`? tekton-lab-app
+? Value for param `image` of type `string`? webmakaka/tekton-lab-app
 ? Value for param `docker-username` of type `string`? webmakaka
 ? Value for param `docker-password` of type `string`?
 Please give specifications for the workspace: source
@@ -507,7 +507,7 @@ $ tkn pipelinerun logs tekton-deploy-run-nbx4f
 
 <br/>
 
-## Ивенты
+## Настраиваем обновление по коммиту
 
 <br/>
 
@@ -530,7 +530,7 @@ spec:
   - name: gitrepositoryurl
     description: The git repository url
   resourcetemplates:
-  - apiVersion: tekton.dev/v1
+  - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
       generateName: tekton-deploy-
@@ -539,15 +539,15 @@ spec:
         name: tekton-deploy
       params:
         - name: repo-url
-          value: $(tt.params.gitrepositoryurl)
+          value: "$(tt.params.gitrepositoryurl)"
         - name: deployment-name
-          value: tekton-deployment
+          value: "tekton-deployment"
         - name: image
-          value: ${DOCKER_USERNAME}/tekton-lab-app
+          value: "${DOCKER_USERNAME}/tekton-lab-app"
         - name: docker-username
-          value: ${DOCKER_USERNAME}
+          value: "${DOCKER_USERNAME}"
         - name: docker-password
-          value: <DOCKER_PASSWORD>
+          value: "<DOCKER_PASSWORD>"
       workspaces:
         - name: source
           volumeClaimTemplate:
@@ -601,13 +601,6 @@ spec:
 EOF
 ```
 
-<!-- <br/>
-
-```
-????
-$ kubectl port-forward svc/el-listener 8080
-``` -->
-
 <br/>
 
 ```yaml
@@ -629,7 +622,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: el-listener  # Правильное имя сервиса!
+            name: el-listener
             port:
               number: 8080
 EOF
@@ -678,6 +671,14 @@ Commit changes
 
 ## Проверяем
 
+<br/>
+
+```
+$ kubectl logs -l eventlistener=listener
+```
+
+<br/>
+
 ```
 $ tkn pipelineruns ls tekton-deploy
 NAME                  STARTED         DURATION   STATUS
@@ -701,7 +702,7 @@ https://hub.docker.com/r/webmakaka/tekton-lab-app
 <br/>
 
 ```
-// Убеждаемся, что значение профиля установлено
+$ export PROFILE=${USER}-minikube
 $ echo ${PROFILE}
 $ curl $(minikube --profile ${PROFILE} ip)
 ```
