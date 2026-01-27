@@ -15,7 +15,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 <br/>
 
-Тоже самое. За исключением мелочей, вроде установки ngrok
+Тоже самое. За исключением мелочей, вроде установки ngrok, который в РФ не работает.
 
 <br/>
 

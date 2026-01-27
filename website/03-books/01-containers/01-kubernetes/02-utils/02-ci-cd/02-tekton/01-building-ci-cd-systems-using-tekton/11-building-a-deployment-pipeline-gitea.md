@@ -15,6 +15,10 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 <br/>
 
+Если не будет работать, смотреть содержимое коммита: e75e6863a4bc644ef40a79ac7507b1cfd2ea63ea
+
+<br/>
+
 ```
 // Использую
 $ LATEST_KUBERNETES_VERSION=v1.32.2
@@ -31,9 +35,15 @@ $ LATEST_KUBERNETES_VERSION=v1.32.2
 <br/>
 
 ```
+$ kubectl create ns my-pipelines-ns
+```
+
+<br/>
+
+```
 $ export TEKTON_SECRET_TOKEN=$(head -c 24 /dev/random | base64)
 $ echo ${TEKTON_SECRET_TOKEN}
-$ kubectl create secret generic git-secret --from-literal=secretToken=${TEKTON_SECRET_TOKEN}
+$ kubectl create secret generic git-secret --from-literal=secretToken=${TEKTON_SECRET_TOKEN}  -n my-pipelines-ns
 ```
 
 <br/>
@@ -180,6 +190,7 @@ apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: build-push
+  namespace: my-pipelines-ns
 spec:
   params:
     - name: image
@@ -250,6 +261,7 @@ apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: tekton-deploy
+  namespace: my-pipelines-ns
 spec:
   params:
     - name: repo-url
@@ -281,7 +293,7 @@ EOF
 <br/>
 
 ```
-$ tkn pipeline start tekton-deploy --use-param-defaults
+$ tkn pipeline start tekton-deploy --use-param-defaults -n my-pipelines-ns
 ```
 
 <br/>
@@ -329,6 +341,7 @@ apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: tekton-deploy
+  namespace: my-pipelines-ns
 spec:
   params:
     - name: repo-url
@@ -462,6 +475,8 @@ spec:
             - rollout
             - restart
             - deployment/$(params.deployment-name)
+            - -n
+            - default
       runAfter:
         - build-push
 EOF
@@ -470,7 +485,7 @@ EOF
 <br/>
 
 ```
-$ tkn pipeline start tekton-deploy --use-param-defaults
+$ tkn pipeline start tekton-deploy --use-param-defaults -n my-pipelines-ns
 ```
 
 <br/>
@@ -492,7 +507,7 @@ Please give specifications for the workspace: source
 <br/>
 
 ```
-$ tkn pipelineruns ls tekton-deploy
+$ tkn pipelineruns ls tekton-deploy -n my-pipelines-ns
 NAME                      STARTED         DURATION   STATUS
 tekton-deploy-run-nbx4f   2 minutes ago   2m3s       Succeeded
 ```
@@ -500,7 +515,7 @@ tekton-deploy-run-nbx4f   2 minutes ago   2m3s       Succeeded
 <br/>
 
 ```
-$ tkn pipelinerun logs tekton-deploy-run-nbx4f
+$ tkn pipelinerun logs tekton-deploy-run-nbx4f -n my-pipelines-ns
 ****
 [deploy : kubectl] deployment.apps/tekton-deployment restarted
 ```
@@ -517,6 +532,10 @@ $ tkn pipelinerun logs tekton-deploy-run-nbx4f
 
 **Нужно поменять <DOCKER_PASSWORD> на свой.**
 
+```
+$ export DOCKER_USERNAME=<YOUR_DOCKER_USERNAME>
+```
+
 <br/>
 
 ```yaml
@@ -525,12 +544,13 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: commit-tt
+  namespace: my-pipelines-ns
 spec:
   params:
   - name: gitrepositoryurl
     description: The git repository url
   resourcetemplates:
-  - apiVersion: tekton.dev/v1beta1
+  - apiVersion: tekton.dev/v1
     kind: PipelineRun
     metadata:
       generateName: tekton-deploy-
@@ -568,6 +588,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: event-binding
+  namespace: my-pipelines-ns
 spec:
   params:
     - name: gitrepositoryurl
@@ -583,6 +604,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: listener
+  namespace: my-pipelines-ns
 spec:
   serviceAccountName: tekton-triggers-example-sa
   triggers:
@@ -609,7 +631,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: tekton-gitea-ingress
-  namespace: default  # Указать namespace где находится сервис
+  namespace: my-pipelines-ns
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -631,10 +653,23 @@ EOF
 <br/>
 
 ```
+// Не нужно создавать! (Скорее всего)
 $ kubectl create clusterrolebinding \
   serviceaccounts-cluster-admin \
   --clusterrole=cluster-admin \
-  --group=system:serviceaccounts
+  --group=system:serviceaccounts \
+  --namespace=my-pipelines-ns
+```
+
+<br/>
+
+```
+$ kubectl create sa tekton-triggers-example-sa -n my-pipelines-ns
+
+$ kubectl create rolebinding el-admin \
+ --clusterrole=cluster-admin \
+ --serviceaccount=my-pipelines-ns:tekton-triggers-example-sa \
+ --namespace=my-pipelines-ns
 ```
 
 <br/>
@@ -674,13 +709,14 @@ Commit changes
 <br/>
 
 ```
-$ kubectl logs -l eventlistener=listener
+$ kubectl logs -l eventlistener=listener -n my-pipelines-ns
+$ kubectl logs  -l app=tekton-triggers-controller --tail=20 -n tekton-pipelines
 ```
 
 <br/>
 
 ```
-$ tkn pipelineruns ls tekton-deploy
+$ tkn pipelineruns ls tekton-deploy -n my-pipelines-ns
 NAME                  STARTED         DURATION   STATUS
 tekton-deploy-69n84   4 minutes ago   4m37s      Succeeded
 ```
@@ -688,7 +724,7 @@ tekton-deploy-69n84   4 minutes ago   4m37s      Succeeded
 <br/>
 
 ```
-$ tkn pipelinerun logs tekton-deploy-blqts
+$ tkn pipelinerun logs tekton-deploy-lp6nm -n my-pipelines-ns
 
 ****
 [deploy : kubectl] deployment.apps/tekton-deployment restarted
