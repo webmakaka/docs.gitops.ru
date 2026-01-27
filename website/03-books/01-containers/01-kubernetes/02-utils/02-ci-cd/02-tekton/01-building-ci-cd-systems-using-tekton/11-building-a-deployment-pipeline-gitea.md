@@ -11,7 +11,7 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 <br/>
 
 **Делаю:**  
-2025.12.19
+2026.01.27
 
 <br/>
 
@@ -21,6 +21,132 @@ $ LATEST_KUBERNETES_VERSION=v1.32.2
 ```
 
 <br/>
+
+## Подготовка
+
+<br/>
+
+### [Установка gitea в minikube](/tools/git/gitea/minikube/setup/)
+
+<br/>
+
+```
+$ export TEKTON_SECRET_TOKEN=$(head -c 24 /dev/random | base64)
+$ echo ${TEKTON_SECRET_TOKEN}
+$ kubectl create secret generic git-secret --from-literal=secretToken=${TEKTON_SECRET_TOKEN}
+```
+
+<br/>
+
+```
+//    username: gitea_admin
+//    password: r8sA8CPHD9!bt6d
+http://gitea.192.168.49.2.nip.io/
+```
+
+<br/>
+
+```
+New Migration -> https://github.com/PacktPublishing/tekton-book-app
+```
+
+<br/>
+
+**gitea_admin / tekton-book-app -> MyProject -> Settings -> Webhooks -> Add webhook -> Gitea**
+
+<br/>
+
+• Target URL: (http://tekton-events.192.168.49.2.nip.io)
+• Content type: application/json.
+• Secret: Use the secret token you created earlier. You can view your token with the echo ${TEKTON_SECRET_TOKEN} command.
+
+<br/>
+
+Trigger On:
+
+- Push event
+
+<br/>
+
+Add Webhook
+
+<br/>
+
+### Нужно развернуть приложение на стенде. см предыдущий шаг.
+
+<br/>
+
+// Поправить <YOUR_USERNAME>
+
+```yaml
+$ cat << 'EOF' | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-deployment
+spec:
+  selector:
+    matchLabels:
+      app: trigger-demo
+  template:
+    metadata:
+      labels:
+        app: trigger-demo
+    spec:
+      containers:
+      - name: tekton-pod
+        image: <YOUR_USERNAME>/tekton-lab-app
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tekton-svc
+spec:
+  selector:
+    app: trigger-demo
+  ports:
+  - port: 3000
+    protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tekton-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: tekton-svc
+            port:
+              number: 3000
+EOF
+```
+
+<br/>
+
+```
+// Убеждаемся, что значение профиля установлено
+$ echo ${PROFILE}
+$ curl $(minikube --profile ${PROFILE} ip)
+```
+
+<br/>
+
+**response:**
+
+```
+{"message":"Hello","change":"here"}
+```
+
+<br/>
+
+## Основная часть
 
 Let's think about what operations are needed every time you perform a commit on your source code:
 
@@ -32,41 +158,6 @@ Let's think about what operations are needed every time you perform a commit on 
 4. Lint the code.
 5. Build and push the image.
 6. Deploy the application.
-
-<br/>
-
-### Using the task catalog
-
-https://hub.tekton.dev/
-
-<br/>
-
-```
-$ {
-    tkn hub install task git-clone
-    tkn hub install task npm
-    tkn hub install task kubernetes-actions
-}
-```
-
-<br/>
-
-```
-$ kubectl get task npm -o yaml > npm-task.yaml
-$ vi npm-task.yaml
-```
-
-<br/>
-
-```
-default: docker.io/library/node:18-alpine
-```
-
-<br/>
-
-```
-$ kubectl apply -f npm-task.yaml
-```
 
 <br/>
 
@@ -111,9 +202,126 @@ EOF
 
 <br/>
 
+### Using the task catalog
+
+// Пишут, что was officially shut down in January 2026  
+https://hub.tekton.dev/
+
+<br/>
+
+```
+$ {
+    tkn hub install task git-clone
+    tkn hub install task npm
+    tkn hub install task kubernetes-actions
+}
+```
+
+<br/>
+
+```
+$ kubectl get task npm -o yaml > npm-task.yaml
+$ vi npm-task.yaml
+```
+
+<br/>
+
+```
+default: docker.io/library/node:18-alpine
+```
+
+<br/>
+
+```
+$ kubectl apply -f npm-task.yaml
+```
+
+<br/>
+
 ### Creating the pipeline
 
 <br/>
+
+Покоцаная
+
+```yaml
+$ cat << 'EOF' | kubectl apply -f -
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: tekton-deploy
+spec:
+  params:
+    - name: repo-url
+  workspaces:
+    - name: source
+  tasks:
+
+    - name: clone
+      taskRef:
+        resolver: hub
+        params:
+          - name: catalog
+            value: tekton-catalog-tasks
+          - name: type
+            value: artifact
+          - name: name
+            value: git-clone
+          - name: version
+            value: "0.9"
+      params:
+        - name: url
+          value: $(params.repo-url)
+      workspaces:
+        - name: output
+          workspace: source
+EOF
+```
+
+<br/>
+
+```
+$ tkn pipeline start tekton-deploy --use-param-defaults
+```
+
+<br/>
+
+```
+? Value for param `repo-url` of type `string`? http://gitea.192.168.49.2.nip.io/gitea_admin/tekton-book-app.git
+? Name for the workspace : source
+? Value of the Sub Path :
+? Type of the Workspace : emptyDir
+? Type of EmptyDir :
+```
+
+<br/>
+
+```
+$ tkn pipelineruns ls tekton-deploy
+NAME                      STARTED          DURATION   STATUS
+tekton-deploy-run-kc2z2   50 seconds ago   19s        Succeeded
+```
+
+<br/>
+
+```yaml
+$ cat << 'EOF' | kubectl apply -f -
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tekton-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+EOF
+```
+
+<br/>
+
+// Шаг тестирования и линтинга пришлось отключить, т.к. в них ошибки.
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
@@ -134,7 +342,16 @@ spec:
 
     - name: clone
       taskRef:
-        name: git-clone
+        resolver: hub
+        params:
+          - name: catalog
+            value: tekton-catalog-tasks
+          - name: type
+            value: artifact
+          - name: name
+            value: git-clone
+          - name: version
+            value: "0.9"
       params:
         - name: url
           value: $(params.repo-url)
@@ -144,7 +361,16 @@ spec:
 
     - name: install
       taskRef:
-        name: npm
+        resolver: hub
+        params:
+          - name: catalog
+            value: tekton-catalog-tasks
+          - name: type
+            value: artifact
+          - name: name
+            value: npm
+          - name: version
+            value: "0.1"
       params:
         - name: ARGS
           value:
@@ -157,7 +383,16 @@ spec:
 
     - name: lint
       taskRef:
-        name: npm
+        resolver: hub
+        params:
+          - name: catalog
+            value: tekton-catalog-tasks
+          - name: type
+            value: artifact
+          - name: name
+            value: npm
+          - name: version
+            value: "0.1"
       params:
         - name: ARGS
           value:
@@ -171,7 +406,16 @@ spec:
 
     - name: test
       taskRef:
-        name: npm
+        resolver: hub
+        params:
+          - name: catalog
+            value: tekton-catalog-tasks
+          - name: type
+            value: artifact
+          - name: name
+            value: npm
+          - name: version
+            value: "0.1"
       params:
         - name: ARGS
           value:
@@ -202,7 +446,16 @@ spec:
 
     - name: deploy
       taskRef:
-        name: kubernetes-actions
+        resolver: hub
+        params:
+          - name: catalog
+            value: tekton-catalog-tasks
+          - name: type
+            value: artifact
+          - name: name
+            value: kubernetes-actions
+          - name: version
+            value: "0.2"
       params:
         - name: args
           value:
@@ -216,19 +469,53 @@ EOF
 
 <br/>
 
+```
+$ tkn pipeline start tekton-deploy --use-param-defaults
+```
+
+<br/>
+
+```
+? Value for param `repo-url` of type `string`? http://gitea.192.168.49.2.nip.io/gitea_admin/tekton-book-app.git
+? Value for param `deployment-name` of type `string`? tekton-deployment
+? Value for param `image` of type `string`? tekton-lab-app
+? Value for param `docker-username` of type `string`? webmakaka
+? Value for param `docker-password` of type `string`?
+Please give specifications for the workspace: source
+? Name for the workspace : source
+? Value of the Sub Path :
+? Type of the Workspace : pvc
+? Value of Claim Name : tekton-pvc
+
+```
+
+<br/>
+
+```
+$ tkn pipelineruns ls tekton-deploy
+NAME                      STARTED         DURATION   STATUS
+tekton-deploy-run-nbx4f   2 minutes ago   2m3s       Succeeded
+```
+
+<br/>
+
+```
+$ tkn pipelinerun logs tekton-deploy-run-nbx4f
+****
+[deploy : kubectl] deployment.apps/tekton-deployment restarted
+```
+
+<br/>
+
+## Ивенты
+
+<br/>
+
 ### Creating the trigger
 
 <br/>
 
-```
-$ export TEKTON_SECRET_TOKEN=$(head -c 24 /dev/random | base64)
-$ echo ${TEKTON_SECRET_TOKEN}
-$ kubectl create secret generic git-secret --from-literal=secretToken=${TEKTON_SECRET_TOKEN}
-```
-
-<br/>
-
-**Нужно не забыть заменить <DOCKER_PASSWORD> на свой.**
+**Нужно поменять <DOCKER_PASSWORD> на свой.**
 
 <br/>
 
@@ -359,87 +646,7 @@ $ kubectl create clusterrolebinding \
 
 <br/>
 
-### Нужно развернуть приложение
-
-<br/>
-
-// Поправить <YOUR_USERNAME>
-
-```yaml
-$ cat << 'EOF' | kubectl apply -f -
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: tekton-deployment
-spec:
-  selector:
-    matchLabels:
-      app: trigger-demo
-  template:
-    metadata:
-      labels:
-        app: trigger-demo
-    spec:
-      containers:
-      - name: tekton-pod
-        image: <YOUR_USERNAME>/tekton-lab-app
-        ports:
-        - containerPort: 3000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: tekton-svc
-spec:
-  selector:
-    app: trigger-demo
-  ports:
-  - port: 3000
-    protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: tekton-ingress
-spec:
-  rules:
-  - http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: tekton-svc
-            port:
-              number: 3000
-EOF
-```
-
-<br/>
-
-```
-Fork -> https://github.com/PacktPublishing/tekton-book-app
-```
-
-<br/>
-
-**Github -> MyProject -> Settings -> Webhooks -> Add webhook**
-
-<br/>
-
-• Payload URL: (http://tekton-events.192.168.49.2.nip.io)
-• Content type: application/json.
-• Secret: Use the secret token you created earlier. You can view your token with the echo ${TEKTON_SECRET_TOKEN} command.
-
-<br/>
-
-Which events would you like to trigger this webhook?
-
-- Just the push event
-
-<br/>
-
-Add Webhook
+## Проверка работы
 
 <br/>
 
@@ -468,6 +675,8 @@ Commit changes
 ```
 
 <br/>
+
+## Проверяем
 
 ```
 $ tkn pipelineruns ls tekton-deploy

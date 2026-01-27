@@ -37,6 +37,7 @@ Let's think about what operations are needed every time you perform a commit on 
 
 ### Using the task catalog
 
+// Пишут, что was officially shut down in January 2026  
 https://hub.tekton.dev/
 
 <br/>

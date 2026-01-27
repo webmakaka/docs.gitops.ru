@@ -178,33 +178,3 @@ OK!
 <br/>
 
 Далее нудная процедура по изменению кода и обновлению всего и вся, чтобы показать нам как все это нудно делать руками.
-
-<!--
-
-<br/>
-
-[Поднимаем новый minikube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
-
-<br/>
-
-Настраиваем для работы.
-
-<br/>
-
-```
-$ kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
-$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
-$ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/interceptors.yaml
-$ kubectl apply -f https://raw.githubusercontent.com/tektoncd/triggers/main/examples/rbac.yaml
-```
-
-
-
-<br/>
-
-```
-$ tkn version
-Client version: 0.31.0
-Pipeline version: v0.50.0
-Triggers version: v0.24.1
-``` -->

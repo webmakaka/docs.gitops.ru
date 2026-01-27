@@ -15,20 +15,20 @@ permalink: /dev/go/setup/
 <br/>
 
 **Делаю:**  
-2024.05.09
+2026.01.25
 
 <br/>
 
 ```
 $ mkdir ~/tmp
 $ cd ~/tmp/
-$ wget --no-check-certificate https://golang.org/dl/go1.24.2.linux-amd64.tar.gz
+$ wget --no-check-certificate https://golang.org/dl/go1.24.12.linux-amd64.tar.gz
 ```
 
 <br/>
 
 ```
-$ tar -xvzpf go1.24.2.linux-amd64.tar.gz
+$ tar -xvzpf go1.24.12.linux-amd64.tar.gz
 $ sudo mkdir -p /opt/go.1.24
 $ sudo mv go/* /opt/go.1.24/
 $ sudo ln -s /opt/go.1.24/ /opt/go
@@ -70,7 +70,7 @@ $ source /etc/profile.d/golang.sh
 
 ```
 $ go version
-go version go1.24.2 linux/amd64
+go version go1.24.12 linux/amd64
 ```
 
 <br/>

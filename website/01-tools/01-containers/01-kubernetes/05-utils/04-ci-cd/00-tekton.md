@@ -10,12 +10,12 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/tekton/
 
 <br/>
 
-**Делаю:**  
-2025.12.18
+### Инсталляция Tekton CLI
 
 <br/>
 
-### Инсталляция Tekton CLI
+**Делаю:**  
+2026.01.27
 
 <br/>
 
@@ -55,11 +55,17 @@ $ bash tekton-setup.sh
 ```
 $ tkn version
 Client version: 0.43.0
+Pipeline version: v1.6.0
 ```
 
 <br/>
 
 ### Добавляем Tekton CRD
+
+<br/>
+
+**Делаю:**  
+2026.01.27
 
 <br/>
 
@@ -72,14 +78,14 @@ $ kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeli
 ```
 $ kubectl get crds | grep tekton
 NAME                                       CREATED AT
-customruns.tekton.dev                      2025-12-11T23:12:05Z
-pipelineruns.tekton.dev                    2025-12-11T23:12:05Z
-pipelines.tekton.dev                       2025-12-11T23:12:05Z
-resolutionrequests.resolution.tekton.dev   2025-12-11T23:12:05Z
-stepactions.tekton.dev                     2025-12-11T23:12:05Z
-taskruns.tekton.dev                        2025-12-11T23:12:06Z
-tasks.tekton.dev                           2025-12-11T23:12:05Z
-verificationpolicies.tekton.dev            2025-12-11T23:12:06Z
+customruns.tekton.dev                      2026-01-27T14:28:36Z
+pipelineruns.tekton.dev                    2026-01-27T14:28:36Z
+pipelines.tekton.dev                       2026-01-27T14:28:36Z
+resolutionrequests.resolution.tekton.dev   2026-01-27T14:28:36Z
+stepactions.tekton.dev                     2026-01-27T14:28:36Z
+taskruns.tekton.dev                        2026-01-27T14:28:36Z
+tasks.tekton.dev                           2026-01-27T14:28:36Z
+verificationpolicies.tekton.dev            2026-01-27T14:28:36Z
 ```
 
 <br/>
@@ -123,6 +129,9 @@ tekton-pipelines-remote-resolvers-797b749dcc-pt6m6   1/1     Running   0        
 
 <br/>
 
+**Делаю:**  
+2026.01.27
+
 ```
 // Install the trigger custom resource definitions (CRDs)
 $ kubectl apply -f https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
@@ -161,6 +170,9 @@ tekton-triggers-webhook-7dcd7b4958-69xcc            1/1     Running   0         
 ### [Дополнительно] Добавление Tekton Dashboard
 
 <br/>
+
+**Делаю:**  
+2026.01.27
 
 ```
 $ kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release.yaml

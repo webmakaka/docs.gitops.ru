@@ -15,6 +15,12 @@ permalink: /tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/kind/helm
 
 <br/>
 
+https://artifacthub.io/packages/helm/argo-cd-oci/argo-cd
+
+Актуальная версия: 9.3.6
+
+<br/>
+
 Взято в книге: [[Book][Andrew Block, Christian Hernandez] Argo CD: Up and Running: A Hands-On Guide to GitOps and Kubernetes [ENG, 2025]](/books/containers/kubernetes/utils/ci-cd/argo-cd/argocd-up-and-running/)
 
 <br/>
@@ -132,6 +138,23 @@ $ curl http://127.0.0.1
 </html>
 ```
 
+<br/>
+
+### Устанавливаю argocd
+
+<br/>
+
+```
+$ helm repo add argo \
+    https://argoproj.github.io/argo-helm
+```
+
+<br/>
+
+```
+$ helm repo add argo/argo-cd --versions
+```
+
 <!-- <br/>
 
 ```
@@ -190,7 +213,7 @@ $ helm upgrade -i argo-cd argo/argo-cd \
   --namespace argocd \
   --create-namespace \
   --values values-argocd-ingress.yaml \
-  --version 9.2.4
+  --version 9.3.6
 ```
 
 <!-- <br/>

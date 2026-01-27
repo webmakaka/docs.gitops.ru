@@ -11,7 +11,7 @@ permalink: /tools/git/gitea/minikube/setup/
 <br/>
 
 **Делаю:**  
-2025.12.18
+2026.01.27
 
 <br/>
 
@@ -55,6 +55,7 @@ EOF
 
 ```
 $ helm repo add gitea-charts https://dl.gitea.io/charts/
+$ helm repo update
 $ helm install gitea gitea-charts/gitea \
   --namespace gitea \
   --create-namespace \
@@ -70,7 +71,7 @@ $ helm upgrade -i gitea gitea-charts/gitea --create-namespace \
 ``` -->
 
 ```
-// Проверка что прописано
+// Проверка что прописаны параметры для webhook
 $ kubectl exec -n gitea deployment/gitea -- cat /data/gitea/conf/app.ini | grep -A2 -B2 "webhook"
 [webhook]
 SKIP_TLS_VERIFY = true
@@ -81,15 +82,9 @@ ALLOWED_HOST_LIST = *
 <br/>
 
 ```
-// OK!
-$ kubectl exec -n gitea deployment/gitea -- curl -v http://argocd-server.argocd.svc.cluster.local
+// Если нужно проверить доступ сервиса
+// $ kubectl exec -n gitea deployment/gitea -- curl -v http://argocd-server.argocd.svc.cluster.local
 ```
-
-<!-- <br/>
-
-```
-$ kubectl --namespace default port-forward svc/gitea-http 3000:3000
-``` -->
 
 <br/>
 
