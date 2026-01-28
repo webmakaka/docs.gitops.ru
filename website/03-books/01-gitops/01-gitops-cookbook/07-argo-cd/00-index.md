@@ -12,7 +12,7 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/
 
 <br/>
 
-[Устанавливаю Argo CD](/tools/containers/kubernetes/utils/ci-cd/argo/argo-cd/setup/minikube/)
+[Устанавливаю Argo CD](/tools/gitops/ci-cd/argo/argo-cd/setup/minikube/)
 
 <br/>
 

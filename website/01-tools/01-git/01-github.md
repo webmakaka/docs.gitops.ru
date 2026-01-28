@@ -76,10 +76,10 @@ $ cd ~/.ssh/
 
 ```
 $ ssh-keygen \
--t rsa \
--b 4096 \
--C "example@gmail.com" \
--f webmakaka
+  -t rsa \
+  -b 4096 \
+  -C "example@gmail.com" \
+  -f webmakaka
 ```
 
 <br/>
@@ -144,12 +144,3 @@ MD5 должны совпадать в UI и в ssh-add
 ```
 $ GIT_SSH_COMMAND='ssh -i ~/.ssh/webmakaka -o IdentitiesOnly=yes' git push
 ```
-
-<br/>
-
-<!--
-
-// Страница генерации токена
-https://github.com/settings/tokens
-
--->

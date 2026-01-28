@@ -178,40 +178,7 @@ $ echo http://$MINIKUBE_IP:$APP_NODE_PORT
 
 <br/>
 
-### Устанавливаю argocd-image-updater
-
-<br/>
-
-https://github.com/argoproj-labs/argocd-image-updater
-
-<br/>
-
-https://argocd-image-updater.readthedocs.io/en/stable/basics/update-methods/
-
-<br/>
-
-С версии v1.0.0 Image Updater перешел на использование отдельных ImageUpdater CRD, а не аннотаций в Application ресурсах.
-
-<br/>
-
-```
-$ helm repo add argo https://argoproj.github.io/argo-helm
-```
-
-<br/>
-
-```
-$ helm install argocd-image-updater argo/argocd-image-updater \
- --namespace argocd \
- --set argocd.insecure=true
-```
-
-<br/>
-
-```
-$ kubectl get crd | grep imageupdater
-imageupdaters.argocd-image-updater.argoproj.io   2025-12-04T02:17:18Z
-```
+### [Устанавливаю argocd-image-updater](/tools/gitops/ci-cd/argo/argo-image-updater/setup/)
 
 <br/>
 

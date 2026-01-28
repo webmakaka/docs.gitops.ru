@@ -22,7 +22,7 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/use-advanced-deployment
 
 <br/>
 
-Устанавливаю [argo-rollouts](/tools/containers/kubernetes/utils/ci-cd/argo/argo-rollouts/setup/)
+Устанавливаю [argo-rollouts](/tools/gitops/ci-cd/argo/argo-rollouts/setup/)
 
 <br/>
 
