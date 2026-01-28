@@ -24,7 +24,7 @@ permalink: /courses/ci-cd/gitlab/gitlab-ci-cd-from-zero-to-hero/
 
 <br/>
 
-### [Инсталляция локальной версии gitlab в minikube](//docs.gitops.ru/tools/gitops/ci-cd/gitlab/setup/helm/minikube/)
+### [Инсталляция локальной версии gitlab в minikube](//docs.gitops.ru/tools/containers/kubernetes/ci-cd/gitlab/setup/helm/minikube/)
 
 <br/>
 

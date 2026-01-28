@@ -3,7 +3,7 @@ layout: page
 title: Инсталляция GitLab в ubuntu 22.04
 description: Инсталляция GitLab в ubuntu 22.04
 keywords: tools, gitops, kubernetes, ci-cd, GitLab, инсталляция
-permalink: /tools/gitops/ci-cd/gitlab/setup/helm/minikube/
+permalink: /tools/containers/kubernetes/ci-cd/gitlab/setup/helm/minikube/
 ---
 
 # Инсталляция GitLab в ubuntu 22.04

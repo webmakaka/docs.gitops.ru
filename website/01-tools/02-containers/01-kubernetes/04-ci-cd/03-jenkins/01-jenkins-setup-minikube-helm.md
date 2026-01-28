@@ -3,7 +3,7 @@ layout: page
 title: Инсталляция Jenkins в ubuntu 22.04
 description: Инсталляция Jenkins в ubuntu 22.04
 keywords: tools, gitops, kubernetes, ci-cd, Jenkins, инсталляция
-permalink: /tools/gitops/ci-cd/jenkins/setup/helm/minikube/
+permalink: /tools/containers/kubernetes/ci-cd/jenkins/setup/helm/minikube/
 ---
 
 # Инсталляция Jenkins в ubuntu 22.04
