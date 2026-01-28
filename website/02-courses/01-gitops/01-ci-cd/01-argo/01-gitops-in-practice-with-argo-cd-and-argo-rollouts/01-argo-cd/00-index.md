@@ -3,10 +3,10 @@ layout: page
 title: GitOps in Practice with Argo CD and Argo Rollouts
 description: GitOps in Practice with Argo CD and Argo Rollouts
 keywords: courses, gitops, argo, GitOps in Practice with Argo CD and Argo Rollouts
-permalink: /courses/gitops/ci-cd/argo/gitops-in-practice-with-argo-cd-and-argo-rollouts/
+permalink: /courses/gitops/ci-cd/argo/gitops-in-practice-with-argo-cd-and-argo-rollouts/argo-cd/
 ---
 
-# [Lauro Fialho Müller] GitOps in Practice with Argo CD and Argo Rollouts [ENG, 2026]
+# [Lauro Fialho Müller] GitOps in Practice with Argo CD and Argo Rollouts [ENG, 2026]: Argo CD
 
 <br/>
 
@@ -434,3 +434,105 @@ EOF
 <br/>
 
 ### 008. Lab - Implementing Sync Hooks
+
+<br/>
+
+```yaml
+$ cat << EOF | kubectl apply -f -
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/lm-academy/argocd-example-apps.git
+    path: helm-guestbook
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+EOF
+```
+
+<br/>
+
+```yaml
+$ cat << EOF | kubectl apply -f -
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration-job
+  annotation:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: busybox
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Running db migration...'; sleep 10; echo 'Done!'"
+EOF
+```
+
+<br/>
+
+### 012. Lab - Ordering with Sync Waves
+
+<br/>
+
+```yaml
+$ cat << EOF | kubectl apply -f -
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-check-job
+  annotation:
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: check
+          image: busybox
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Running db check to $DB_HOST...'; sleep 10; echo 'Connected!'"
+            env:
+              - name: DB_HOST
+                valueFrom:
+                  configMapKeyRef:
+                    name: db-config
+                    key: db_host
+EOF
+```
+
+<br/>
+
+```yaml
+$ cat << EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+  annotation:
+    argocd.argoproj.io/sync-wave: "1"
+data:
+  db_host: "postgres-db"
+EOF
+```

@@ -23,7 +23,7 @@ Canary - for production
 
 <br/>
 
-### 🛠️ ✅ [Инсталляция Argo-CD](/tools/gitops/ci-cd/argo/argo-rollouts/setup/)
+### 🛠️ ✅ [Инсталляция Argo-CD](/tools/gitops/ci-cd/argo/argo-cd/setup/kind/helm//tools/gitops/ci-cd/argo/argo-rollouts/setup/)
 
 ### 🛠️ ✅ [Инсталляция Argo Rollouts в kind](/tools/gitops/ci-cd/argo/argo-rollouts/setup/)
 

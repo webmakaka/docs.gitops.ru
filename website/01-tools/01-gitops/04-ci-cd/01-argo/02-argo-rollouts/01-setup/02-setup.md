@@ -1,45 +1,89 @@
 ---
 layout: page
-title: Инсталляция Argo Rollouts в kind
-description: Инсталляция Argo Rollouts в kind
+title: Инсталляция Argo Rollouts с помощью Helm
+description: Инсталляция Argo Rollouts с помощью Helm
 keywords: devops, containers, kubernetes, argo, rollouts, setup, minikube
 permalink: /tools/gitops/ci-cd/argo/argo-rollouts/setup/
 ---
 
-# Инсталляция Argo Rollouts в kind
+# Инсталляция Argo Rollouts с помощью Helm
 
 <br/>
-
-Делаю:  
-2026.01.20
 
 ### [CLI Argo Rollouts](/tools/gitops/ci-cd/argo/argo-rollouts/setup/cli/)
 
 <br/>
 
+## Инсталляция с помощью Helm
+
+<br/>
+
+https://artifacthub.io/packages/helm/argo/argo-rollouts
+
+<br/>
+
+Делаю:  
+2026.01.28
+
+<br/>
+
 ```
-$ kubectl create namespace argo-rollouts
-$ kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
+$ helm repo add argo https://argoproj.github.io/argo-helm
 ```
 
 <br/>
 
 ```
-$ kubectl api-resources | grep -i argo
-analysisruns                        ar                 argoproj.io/v1alpha1              true         AnalysisRun
-analysistemplates                   at                 argoproj.io/v1alpha1              true         AnalysisTemplate
-applications                        app,apps           argoproj.io/v1alpha1              true         Application
-applicationsets                     appset,appsets     argoproj.io/v1alpha1              true         ApplicationSet
-appprojects                         appproj,appprojs   argoproj.io/v1alpha1              true         AppProject
-clusteranalysistemplates            cat                argoproj.io/v1alpha1              false        ClusterAnalysisTemplate
-experiments                         exp                argoproj.io/v1alpha1              true         Experiment
-rollouts                            ro                 argoproj.io/v1alpha1              true         Rollout
+$ cd ~/tmp
+```
+
+<br/>
+
+```yaml
+$ cat > values-argo-rollouts.yaml <<EOF
+dashboard:
+  enabled: true
+EOF
+```
+
+<br/>
+
+```
+$ helm upgrade argo-rollouts argo/argo-rollouts \
+    --install \
+    --namespace argo-rollouts \
+    --create-namespace \
+    --version 2.40.5 \
+    --values values-argo-rollouts.yaml
 ```
 
 <br/>
 
 ```
 $ kubectl get pods -n argo-rollouts
-NAME                             READY   STATUS    RESTARTS   AGE
-argo-rollouts-6f4f78ffd8-n6425   1/1     Running   0          65s
+NAME                                      READY   STATUS              RESTARTS   AGE
+argo-rollouts-6ccc9f6fb5-v4g64            0/1     Completed           0          19s
+argo-rollouts-6ccc9f6fb5-xvvkq            1/1     Running             0          10m
+argo-rollouts-6d6948675d-45xvn            1/1     Running             0          19s
+argo-rollouts-6d6948675d-m8w6k            0/1     ContainerCreating   0          2s
+argo-rollouts-dashboard-9996f6666-qpsp5   1/1     Running             0          19s
+```
+
+<br/>
+
+```
+$ kubectl get crds | grep rollouts
+rollouts.argoproj.io                   2026-01-28T06:05:20Z
+```
+
+<br/>
+
+```
+$ kubectl argo rollouts dashboard
+```
+
+<br/>
+
+```
+http://localhost:3100/rollouts
 ```

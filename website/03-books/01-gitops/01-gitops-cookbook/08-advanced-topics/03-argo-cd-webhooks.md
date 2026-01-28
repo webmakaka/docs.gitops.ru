@@ -3,7 +3,7 @@ layout: page
 title: GitOps Cookbook - Advanced Topics - Trigger the Deployment of an Application Automatically (Argo CD Webhooks)
 description: Немедленный деплой приложения при изменении в git
 keywords: books, gitops, GitOps Cookbook - Advanced Topics, Trigger the Deployment of an Application Automatically (Argo CD Webhooks)
-permalink: /books/gitops/gitops-cookbook/advanced-topics/vault-external-secret/
+permalink: /books/gitops/gitops-cookbook/advanced-topics/argo-cd-webhooks/
 ---
 
 <br/>
