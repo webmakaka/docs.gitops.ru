@@ -117,7 +117,7 @@ curl localhost:8787/plusone/99
 
 <br/>
 
-### [[Video Course][Siddharth Barahalikar] FluxCD 101 with Hands-On Labs [ENG, 2023][~5h 45m]](/courses/containers/kubernetes/ci-cd/fluxcd/fluxcd-101-with-hands-on-labs/)
+### [[Video Course][Siddharth Barahalikar] FluxCD 101 with Hands-On Labs [ENG, 2023][~5h 45m]](/courses/gitops/ci-cd/fluxcd/fluxcd-101-with-hands-on-labs/)
 
 <br/>
 
@@ -151,7 +151,7 @@ curl localhost:8787/plusone/99
 
 <br/>
 
-### [FluxCD v2](/courses/containers/kubernetes/ci-cd/fluxcd/)
+### [FluxCD v2](/courses/gitops/ci-cd/fluxcd/)
 
 ### [Istio](/courses/containers/kubernetes/service-mesh/istio/)
 
