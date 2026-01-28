@@ -19,20 +19,7 @@ https://kubernetes-tutorial.schoolofdevops.com/argo_experiments_analysis/
 
 <br/>
 
-### Устанавливаем metrics-server
-
-```
-$ cd ~/tmp
-$ git clone https://github.com/schoolofdevops/metrics-server.git
-$ kubectl apply -k metrics-server/manifests/overlays/release
-```
-
-<br/>
-
-```
-$ kubectl top pod
-$ kubectl top node
-```
+### [Устанавливаем metrics-server](//docs.k8s.ru/tools/containers/kubernetes/utils/metrics-server/)
 
 <br/>
 
