@@ -17,7 +17,7 @@ permalink: /tools/gitops/ci-cd/argo/argo-cd/setup/kind/helm/
 
 https://artifacthub.io/packages/helm/argo-cd-oci/argo-cd
 
-Актуальная версия: 9.3.6
+Актуальная версия: 9.3.7
 
 <br/>
 
@@ -140,7 +140,7 @@ $ curl http://127.0.0.1
 
 <br/>
 
-### Устанавливаю argocd
+### Инсталляция argocd
 
 <br/>
 
@@ -210,11 +210,38 @@ EOF
 <br/>
 
 ```
-$ helm upgrade -i argo-cd argo/argo-cd \
+// Сделано заранее
+// $ kubectl get pods -n argocd -o jsonpath='{.items[*].spec.containers[*].image} {.items[*].spec.initContainers[*].image}' | tr ' ' '\n' | grep -v '^$' | sort -u
+```
+
+Тот, что с ecr-public.aws.com прям вообще долго качается. Заменим его.
+
+```
+ecr-public.aws.com/docker/library/redis:8.2.2-alpine
+ghcr.io/dexidp/dex:v2.44.0
+quay.io/argoproj/argocd:v3.2.6
+```
+
+<br/>
+
+```
+// Скачаю образы до инсталляции
+$ {
+  docker pull ghcr.io/dexidp/dex:v2.44.0
+  docker pull quay.io/argoproj/argocd:v3.2.6
+  docker pull redis:8.2.2-alpine
+}
+```
+
+<br/>
+
+```
+$ helm upgrade argo-cd argo/argo-cd \
+  --install \
   --namespace argocd \
   --create-namespace \
   --values values-argocd-ingress.yaml \
-  --version 9.3.6
+  --version 9.3.7
 ```
 
 <!-- <br/>
@@ -226,8 +253,43 @@ $ kubectl set image deployment/argo-cd-argocd-redis redis=redis:8.2.2-alpine
 <br/>
 
 ```
-// 6m wait
-$ watch kubectl get pods -n argocd
+// Прописываю image
+$ kubectl set image deployment/argo-cd-argocd-redis redis=redis:8.2.2-alpine
+```
+
+<!-- <br/>
+
+```
+// Дожидаемся запуска pod
+$ kubectl wait --namespace argocd \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/instance=argo-cd \
+  --timeout=300s \
+  --timeout=600s && \
+  echo "✅ Успех: Все поды ArgoCD запущены!" || \
+  (echo "❌ Ошибка: Поды не успели подняться за 600с"; exit 1)
+``` -->
+
+<br/>
+
+```
+$ {
+    TIMEFORMAT="⏱ Прошло времени: %R сек."
+    time {
+      kubectl wait --namespace argocd \
+        --for=condition=ready pod \
+        --selector=app.kubernetes.io/instance=argo-cd \
+        --timeout=300s && \
+        echo "✅ Успех: Все поды ArgoCD запущены!" || \
+        (echo "❌ Ошибка: Тайм-аут!"; exit 1)
+      }
+}
+```
+
+<br/>
+
+```
+$ kubectl get pods -n argocd
 NAME                                                        READY   STATUS    RESTARTS   AGE
 argo-cd-argocd-application-controller-0                     1/1     Running   0          10m
 argo-cd-argocd-applicationset-controller-586d475675-ch7zs   1/1     Running   0          10m

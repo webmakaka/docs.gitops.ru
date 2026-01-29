@@ -10,17 +10,8 @@ permalink: /courses/gitops/ci-cd/argo/gitops-in-practice-with-argo-cd-and-argo-r
 
 <br/>
 
-https://github.com/lm-academy/argocd-course
-
-https://github.com/lm-academy/argo-rollouts-course
-
-https://github.com/lm-academy/argocd-example-apps
-
-https://github.com/lm-academy/argocd-example-apps-labs
-
-<br/>
-
-https://github.com/PacktPublishing/GitOps-in-Practice-with-Argo-CD-and-Argo-Rollouts-The-Complete-Guide
+**Делаю:**  
+2026.01.28
 
 <br/>
 

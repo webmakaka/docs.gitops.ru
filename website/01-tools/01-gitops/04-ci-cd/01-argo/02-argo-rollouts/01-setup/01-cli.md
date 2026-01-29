@@ -11,7 +11,7 @@ permalink: /tools/gitops/ci-cd/argo/argo-rollouts/setup/cli/
 <br/>
 
 Делаю:  
-2026.01.19
+2026.01.28
 
 <br/>
 

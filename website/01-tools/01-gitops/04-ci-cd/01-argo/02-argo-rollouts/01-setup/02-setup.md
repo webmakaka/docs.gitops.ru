@@ -60,6 +60,22 @@ $ helm upgrade argo-rollouts argo/argo-rollouts \
 <br/>
 
 ```
+$ {
+    TIMEFORMAT="⏱ Прошло времени: %R сек."
+    time {
+      kubectl wait --namespace argo-rollouts \
+        --for=condition=ready pod \
+        --selector=app.kubernetes.io/instance=argo-rollouts \
+        --timeout=300s && \
+        echo "✅ Успех: Все поды ArgoCD запущены!" || \
+        (echo "❌ Ошибка: Тайм-аут!"; exit 1)
+      }
+}
+```
+
+<br/>
+
+```
 $ kubectl get pods -n argo-rollouts
 NAME                                      READY   STATUS              RESTARTS   AGE
 argo-rollouts-6ccc9f6fb5-v4g64            0/1     Completed           0          19s
@@ -73,7 +89,7 @@ argo-rollouts-dashboard-9996f6666-qpsp5   1/1     Running             0         
 
 ```
 $ kubectl get crds | grep rollouts
-rollouts.argoproj.io                   2026-01-28T06:05:20Z
+rollouts.argoproj.io                   2026-01-28T17:15:07Z
 ```
 
 <br/>
