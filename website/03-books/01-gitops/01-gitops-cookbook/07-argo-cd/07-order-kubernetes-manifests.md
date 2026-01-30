@@ -13,7 +13,7 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/order-kubernetes-manifests/
 <br/>
 
 **Задача:**  
-С помощью Argo CD задеплоить приложение из нескольких микросервисов
+С помощью Argo CD задеплоить приложение из нескольких микросервисов в опредленном порядке
 
 <br/>
 

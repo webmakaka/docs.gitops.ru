@@ -18,13 +18,11 @@ permalink: /books/gitops/gitops-cookbook/argo-cd/image-updater/
 <br/>
 
 **Делаю:**  
-2025.12.04
+2026.01.30
 
 <br/>
 
-### Подготовительные шаги
-
-**1. Создать токен для работы с repo**
+### Создать токен для работы с repo
 
 https://github.com/settings/tokens
 
@@ -51,31 +49,21 @@ metadata:
     tekton.dev/git-0: https://github.com
 type: kubernetes.io/basic-auth
 stringData:
-  username: YOUR_USERNAME
-  password: YOUR_PASSWORD
+  username: YOUR_GITHUB_USERNAME
+  password: YOUR_GITHUB_PAT
 EOF
 ```
 
 <br/>
 
 ```
-YOUR_USERNAME - github username
-YOUR_PASSWORD - GitHub personal access token
+YOUR_GITHUB_USERNAME - github username
+YOUR_GITHUB_PAT - GitHub personal access token
 ```
 
 <br/>
 
-**2. Развернуть приложение**
-
-<!-- <br/>
-
-```
-$ kubectl --namespace argocd create secret generic git-creds \
-    --from-literal=username=<YOUR_GITHUB_USERNAME> \
-    --from-literal=password=<YOUR_GITHUB_TOKEN>
-``` -->
-
-<br/>
+### Перекладывание image с quay.io в hub.docker.com
 
 Из-за блокировок на скачивание с quay.io, перекладываю image к себе в бесплатных облаках [google-cloud-shell](/tools/clouds/google/google-cloud-shell/setup/).
 
@@ -96,6 +84,7 @@ $ docker push webmakaka/bgd:1.0.0
 <br/>
 
 ```
+В файле прописать image
 gitops-cookbook-sc/ch07/bgdui/base/bgd-deployment.yaml
 ```
 
@@ -107,6 +96,8 @@ containers:
 ```
 
 <br/>
+
+### Развернуть приложение на стенде
 
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
@@ -130,12 +121,6 @@ spec:
       prune: true
       allowEmpty: true
 EOF
-```
-
-<br/>
-
-```
-$ argocd app sync bgdk-app
 ```
 
 <br/>
@@ -186,10 +171,6 @@ $ echo http://$MINIKUBE_IP:$APP_NODE_PORT
 
 <br/>
 
-// Выполнение следующего манифеста должно прописать в файл gitops-cookbook-sc/ch07/bgdui/bgdk/.argocd-source-bgdk-app.yaml webmakaka/bgd:18.0.0
-
-<br/>
-
 ```yaml
 $ cat << 'EOF' | kubectl apply -f -
 apiVersion: argocd-image-updater.argoproj.io/v1alpha1
@@ -199,43 +180,6 @@ metadata:
   namespace: argocd
 spec:
   namespace: argocd
-  writeBackConfig:
-    method: git:secret:argocd/github-secret
-    gitConfig:
-      repository: https://github.com/wildmakaka/gitops-cookbook-sc.git
-      branch: main
-  applicationRefs:
-    - namePattern: bgdk-app
-      images:
-        - alias: bgd
-          imageName: webmakaka/bgd:18.0.0
-EOF
-```
-
-<br/>
-
-// Выполнение следующего манифеста должно прописать в файл gitops-cookbook-sc/ch07/bgdui/bgdk/.argocd-source-bgdk-app.yaml версию, которая появилась в registry
-
-<br/>
-
-```
-$ docker tag quay.io/rhdevelopers/bgd webmakaka/bgd:20.0.0
-$ docker push webmakaka/bgd:20.0.0
-```
-
-<br/>
-
-```yaml
-$ cat << 'EOF' | kubectl apply -f -
-apiVersion: argocd-image-updater.argoproj.io/v1alpha1
-kind: ImageUpdater
-metadata:
-  name: bgdk-image-updater
-  namespace: argocd
-spec:
-  namespace: argocd
-  commonUpdateSettings:
-    updateStrategy: semver
   writeBackConfig:
     method: git:secret:argocd/github-secret
     gitConfig:
@@ -251,17 +195,28 @@ EOF
 
 <br/>
 
-В результате в репо версия обновилась. Спустя 2 минут и на сервер приехала обновленна версия image.
+```
+// Нужно, чтобы новая версия была старше
+$ docker tag webmakaka/bgd:1.0.0 webmakaka/bgd:1.0.1
+$ docker push webmakaka/bgd:1.0.1
+```
 
 <br/>
 
-# Проверим созданные ресурсы
+```
+// Запустить синхронизацию, чтобы не ждать 2 минуты
+$ argocd app sync bgdk-app
+```
 
-```
-$ kubectl get secret github-secret -n argocd
-$ kubectl get application bgdk-app -n argocd
-$ kubectl get imageupdater bgdk-image-updater -n argocd
-```
+<br/>
+
+В результате в репо версия обновилась. Спустя 2 минуты и на сервер приехала обновленна версия image.
+
+Файл .argocd-source-bgdk-app.yaml удалять можно. Он автоматом должен пересоздаваться.
+
+<br/>
+
+# Проверка логов
 
 <br/>
 

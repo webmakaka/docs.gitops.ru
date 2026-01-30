@@ -11,7 +11,7 @@ permalink: /tools/gitops/ci-cd/argo/argo-cd/setup/minikube/minikube/helm/
 <br/>
 
 **Делаю:**  
-2026.01.05
+2026.01.30
 
 <br/>
 
@@ -33,6 +33,24 @@ $ echo argocd.$INGRESS_HOST.nip.io
 $ cd ~/tmp
 ```
 
+<!-- <br/>
+
+```yaml
+$ cat > argocd-values.yaml << 'EOF'
+global:
+  domain: argocd.$INGRESS_HOST.nip.io
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - argocd.$INGRESS_HOST.nip.io
+  insecure: true
+installCRDs: false
+EOF
+``` -->
+
 <br/>
 
 ```yaml
@@ -40,6 +58,7 @@ $ cat > argocd-values.yaml <<EOF
 server:
   ingress:
     enabled: true
+    ingressClassName: nginx
     hosts:
       - argocd.$INGRESS_HOST.nip.io
   extraArgs:
@@ -47,20 +66,6 @@ server:
 installCRDs: false
 EOF
 ```
-
-<!-- <br/>
-
-```yaml
-$ cat > argocd-values.yaml <<EOF
----
-server:
-  ingress:
-    enabled: true
-  extraArgs:
-    - --insecure
-installCRDs: false
-EOF
-``` -->
 
 <br/>
 
@@ -74,19 +79,19 @@ $ helm repo add argo \
 ```
 $ helm search repo argo/argo-cd
 NAME        	CHART VERSION	APP VERSION	DESCRIPTION
-argo/argo-cd	9.2.3        	v3.2.3     	A Helm chart for Argo CD, a declarative, GitOps...
+argo/argo-cd	9.3.7        	v3.2.6     	A Helm chart for Argo CD, a declarative, GitOps...
+
 ```
 
 <br/>
 
 ```
-$ helm install \
-    argocd argo/argo-cd \
-    --version 9.2.3 \
+$ helm upgrade argocd argo/argo-cd \
+    --install \
     --namespace argocd \
     --create-namespace \
-    --set "server.ingress.hosts={argocd.$INGRESS_HOST.nip.io}" \
     --values argocd-values.yaml \
+    --version 9.3.7 \
     --wait
 ```
 
@@ -164,17 +169,18 @@ argocd: v3.2.1+8c4ab63
   GoVersion: go1.25.0
   Compiler: gc
   Platform: linux/amd64
-argocd-server: v2.0.0+f5119c0
-  BuildDate: 2021-04-07T06:00:33Z
-  GitCommit: f5119c06686399134b3f296d44445bcdbc778d42
+argocd-server: v3.2.6+65b0293
+  BuildDate: 2026-01-22T19:37:41Z
+  GitCommit: 65b029342d656c03c57f0d0e14433438750c8f5d
   GitTreeState: clean
-  GoVersion: go1.16
+  GoVersion: go1.25.5
   Compiler: gc
   Platform: linux/amd64
-  Kustomize Version: v3.9.4 2021-02-09T19:22:10Z
-  Helm Version: v3.5.1+g32c2223
-  Kubectl Version: v0.20.4
-  Jsonnet Version: v0.17.0
+  Kustomize Version: v5.7.0 2025-06-28T07:00:07Z
+  Helm Version: v3.18.4+gd80839c
+  Kubectl Version: v0.34.0
+  Jsonnet Version: v0.21.0
+
 ```
 
 <br/>
