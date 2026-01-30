@@ -20,6 +20,19 @@ https://github.com/lm-academy/argo-rollouts-course/blob/main/setup-gateway-api/s
 
 <br/>
 
+**Миникуб версии v1.32.2 стартован с metallb и без ingress**
+
+```
+// minikube addons --profile ${PROFILE} enable ingress
+minikube addons --profile ${PROFILE} enable metallb
+```
+
+<br/>
+
+### [](//docs.k8s.ru/tools/containers/kubernetes/utils/metal-lb/minikube/setup/addon/)
+
+<br/>
+
 ```
 $ kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/standard-install.yaml
 ```
@@ -36,6 +49,8 @@ $ helm repo update
 ```
 $ cd ~/tmp
 ```
+
+<br/>
 
 ии добавил
 

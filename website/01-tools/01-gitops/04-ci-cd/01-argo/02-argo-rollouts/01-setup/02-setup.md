@@ -23,7 +23,7 @@ https://artifacthub.io/packages/helm/argo/argo-rollouts
 <br/>
 
 Делаю:  
-2026.01.28
+2026.01.29
 
 <br/>
 
@@ -61,7 +61,7 @@ $ helm upgrade argo-rollouts argo/argo-rollouts \
 
 ```
 $ {
-    TIMEFORMAT="⏱ Прошло времени: %R сек."
+    TIMEFORMAT="⏱  Прошло времени: %R сек."
     time {
       kubectl wait --namespace argo-rollouts \
         --for=condition=ready pod \
@@ -88,6 +88,7 @@ argo-rollouts-dashboard-9996f6666-qpsp5   1/1     Running             0         
 <br/>
 
 ```
+// Проверить CRDS
 $ kubectl get crds | grep rollouts
 rollouts.argoproj.io                   2026-01-28T17:15:07Z
 ```
@@ -95,6 +96,7 @@ rollouts.argoproj.io                   2026-01-28T17:15:07Z
 <br/>
 
 ```
+// Стартовать dashboard
 $ kubectl argo rollouts dashboard
 ```
 
