@@ -15,30 +15,30 @@ permalink: /dev/go/setup/
 <br/>
 
 **Делаю:**  
-2026.01.25
+2026.02.14
 
 <br/>
 
 ```
 $ mkdir ~/tmp
 $ cd ~/tmp/
-$ wget --no-check-certificate https://golang.org/dl/go1.24.12.linux-amd64.tar.gz
+$ wget --no-check-certificate https://golang.org/dl/go1.26.0.linux-amd64.tar.gz
 ```
 
 <br/>
 
 ```
-$ tar -xvzpf go1.24.12.linux-amd64.tar.gz
-$ sudo mkdir -p /opt/go.1.24
-$ sudo mv go/* /opt/go.1.24/
-$ sudo ln -s /opt/go.1.24/ /opt/go
+$ tar -xvzpf go1.26.0.linux-amd64.tar.gz
+$ sudo mkdir -p /opt/go.1.26
+$ sudo mv go/* /opt/go.1.26/
+$ sudo ln -s /opt/go.1.26/ /opt/go
 ```
 
-<br/>
+<!-- <br/>
 
 ```
 $ mkdir -p ~/projects/golang/
-```
+``` -->
 
 <br/>
 
@@ -49,14 +49,14 @@ $ sudo vi /etc/profile.d/golang.sh
 <br/>
 
 ```
-#### GO 1.24 ########################
+#### GO 1.26 ########################
 
 export GO_HOME=/opt/go
 export PATH=${GO_HOME}/bin:$PATH
 
 export PATH=${HOME}/go/bin:$PATH
 
-#### GO 1.24 ########################
+#### GO 1.26 ########################
 ```
 
 <br/>
@@ -70,7 +70,7 @@ $ source /etc/profile.d/golang.sh
 
 ```
 $ go version
-go version go1.24.12 linux/amd64
+go version go1.26.0 linux/amd64
 ```
 
 <br/>
