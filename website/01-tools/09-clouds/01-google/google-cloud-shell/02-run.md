@@ -15,7 +15,7 @@ permalink: /tools/clouds/google/google-cloud-shell/run/
 <br/>
 
 **Делаю:**  
-2025.12.13
+2026.04.10
 
 ```
 // 1 раз нужно залогиниться
