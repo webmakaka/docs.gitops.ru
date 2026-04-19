@@ -377,7 +377,7 @@ Error: pushing image "webmakaka/pacman-kikd:latest" to "docker://webmakaka/pacma
 
 **На хосте с ubuntu, на которой запускаю с помощью kind kubernetes:**
 
-```
+```shell
 // Помогло!
 // После перезагрузки сбрасываеются
 
