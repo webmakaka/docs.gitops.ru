@@ -1,6 +1,6 @@
 # Build layer
 # FROM ruby:latest
-FROM ruby:2.6
+FROM ruby:2.7
 
 # Install program to configure locales
 RUN apt-get update && apt-get install -y locales vim less

@@ -76,5 +76,5 @@ $ 7z a -v999m myPlaylist.zip ./myPlaylist
 
 ```shell
 // На localhost
-$ gcloud cloud-shell scp cloudshell:/home/<USER_NAME>/myPlaylist.zip localhost:/home/marley/tmp
+$ gcloud cloud-shell scp cloudshell:/home/a3333333/Downloads/myPlaylist.zip.001 localhost:/home/marley/tmp
 ```
