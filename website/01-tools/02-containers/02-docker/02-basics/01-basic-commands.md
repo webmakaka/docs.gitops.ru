@@ -267,7 +267,7 @@ $ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
 <br/>
 
-```
+```shell
 $ {
     docker system prune -af
     docker container prune -f

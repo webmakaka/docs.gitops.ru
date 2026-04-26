@@ -34,13 +34,13 @@ https://www.youtube.com/watch?v=SyRZe5YVCVk
 
 <br/>
 
-```
+```shell
 $ helm repo add external-secrets https://charts.external-secrets.io
 ```
 
 <br/>
 
-```
+```shell
 $ helm install external-secrets \
   external-secrets/external-secrets \
   -n external-secrets \
@@ -50,7 +50,7 @@ $ helm install external-secrets \
 
 <br/>
 
-```
+```shell
 $ kubectl get pods -n external-secrets
 NAME                                               READY   STATUS    RESTARTS   AGE
 external-secrets-578bcbd665-jf6vd                  1/1     Running   0          39s
@@ -60,7 +60,7 @@ external-secrets-webhook-9cdb85fd-bj4zp            1/1     Running   0          
 
 <br/>
 
-```
+```shell
 $ kubectl get crd | grep external-secrets
 acraccesstokens.generators.external-secrets.io          2025-12-09T02:01:11Z
 clusterexternalsecrets.external-secrets.io              2025-12-09T02:01:11Z
@@ -95,7 +95,7 @@ $ helm install vault hashicorp/vault -n vault --create-namespace --set server.de
 
 <br/>
 
-```
+```shell
 $ kubectl get pods -n vault
 NAME                                    READY   STATUS    RESTARTS   AGE
 vault-0                                 1/1     Running   0          7m8s
@@ -104,7 +104,7 @@ vault-agent-injector-556c5dd8fb-qgdrr   1/1     Running   0          7m8s
 
 <br/>
 
-```
+```shell
 $ kubectl logs -n vault vault-0 | grep -A 5 -B 5 "Root Token"
 
 The unseal key and root token are displayed below in case you want to
@@ -118,20 +118,20 @@ Development mode should NOT be used in production installations!
 
 <br/>
 
-```
+```shell
 $ kubectl create secret generic vault-token \
 --from-literal=token=$VAULT_TOKEN
 ```
 
 <br/>
 
-```
+```shell
 $ kubectl port-forward -n vault svc/vault 8200:8200
 ```
 
 <br/>
 
-```
+```shell
 $ export VAULT_ADDR='http://127.0.0.1:8200'
 
 $ export VAULT_TOKEN='root'
@@ -153,7 +153,7 @@ version            1
 
 <br/>
 
-```
+```shell
 // Смотрим актуальную версию API
 $ kubectl api-resources | grep SecretStore
 applications                        app,apps           argoproj.io/v1alpha1              true         Application
@@ -186,7 +186,7 @@ EOF
 
 <br/>
 
-```
+```shell
 $ kubectl get SecretStore
 NAME          AGE   STATUS   CAPABILITIES   READY
 vault-store   8s    Valid    ReadWrite      True
@@ -194,8 +194,7 @@ vault-store   8s    Valid    ReadWrite      True
 
 <br/>
 
-```
-
+```shell
 // Смотрим актуальную версию API
 $ kubectl api-resources | grep ExternalSecret$ kubectl api-resources | grep ExternalSecret
 clusterexternalsecrets ces external-secrets.io/v1beta1 false ClusterExternalSecret
@@ -228,7 +227,7 @@ EOF
 
 <br/>
 
-```
+```shell
 $ kubectl get ExternalSecret
 NAME                     STORETYPE     STORE         REFRESH INTERVAL   STATUS              READY
 pacman-external-secret   SecretStore   vault-store   15s                SecretSynced        True
@@ -236,7 +235,7 @@ pacman-external-secret   SecretStore   vault-store   15s                SecretSy
 
 <br/>
 
-```
+```shell
 $ kubectl get secret
 NAME                     TYPE     DATA   AGE
 pacman-external-secret   Opaque   1      64s
@@ -244,13 +243,13 @@ pacman-external-secret   Opaque   1      64s
 
 <br/>
 
-```
+```shell
 $ kubectl get secret pacman-external-secret -o yaml
 ```
 
 <br/>
 
-```
+```shell
 $ kubectl get secret pacman-external-secret -o jsonpath='{.data.token}' | base64 -d
 pacman2
 ```

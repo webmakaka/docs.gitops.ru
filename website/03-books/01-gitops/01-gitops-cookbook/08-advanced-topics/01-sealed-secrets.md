@@ -26,7 +26,7 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/sealed-secrets/
 
 <br/>
 
-```
+```shell
 $ kubectl create secret generic pacman-secret \
     --from-literal=user=pacman \
     --from-literal=pass=pacman
@@ -34,18 +34,18 @@ $ kubectl create secret generic pacman-secret \
 
 <br/>
 
-```
+```shell
 $ kubectl get secret pacman-secret -o yaml
 ```
 
-```
+```shell
 $ kubectl get secret pacman-secret -o yaml \
   | kubeseal -o yaml > pacman-sealedsecret.yaml
 ```
 
 <br/>
 
-```
+```shell
 $ cat pacman-sealedsecret.yaml
 ```
 
@@ -55,13 +55,13 @@ $ cat pacman-sealedsecret.yaml
 
 <br/>
 
-```
+```shell
 $ kubectl delete secret pacman-secret -n default -o yaml
 ```
 
 <br/>
 
-```
+```shell
 $ argocd app create pacman \
 --repo https://github.com/wildmakaka/pacman-kikd-manifests.git \
 --path 'k8s/sealedsecrets' \
@@ -72,13 +72,13 @@ $ argocd app create pacman \
 
 <br/>
 
-```
+```shell
 $ argocd app list
 ```
 
 <br/>
 
-```
+```shell
 $ argocd app sync pacman
 ```
 
@@ -88,6 +88,6 @@ $ argocd app sync pacman
 
 <br/>
 
-```
+```shell
 $ argocd app delete pacman
 ```
