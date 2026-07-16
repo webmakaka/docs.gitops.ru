@@ -8,8 +8,10 @@ permalink: /tools/virtual/virtualbox/setup/ubuntu/guest-additions/
 
 # Инсталляция Guest Additions в командной строке Ubuntu 22.04
 
-Делаю:  
-2024.12.08
+**Делаю:**  
+2026.07.16
+
+<br/>
 
 **Нужно устанавливать в виртуальной машине!**
 
@@ -45,7 +47,7 @@ http://www.virtualbox.org/manual/ch04.html#idp11277648
 ```
 // На хосте смотрю версию
 $ vboxmanage --version
-7.0.22r165102
+7.0.26r168464
 ```
 
 <br/>
@@ -62,11 +64,11 @@ $ sudo apt-get install -y p7zip-full bzip2 tar
 $ mkdir -p ~/tmp
 $ cd ~/tmp
 
-$ wget http://download.virtualbox.org/virtualbox/7.0.22/VBoxGuestAdditions_7.0.22.iso
+$ wget http://download.virtualbox.org/virtualbox/7.0.26/VBoxGuestAdditions_7.0.26.iso
 
-$ 7z x ./VBoxGuestAdditions_7.0.22.iso -o./VBoxGuestAdditions_7.0.22/
+$ 7z x ./VBoxGuestAdditions_7.0.26.iso -o./VBoxGuestAdditions_7.0.26/
 
-$ cd VBoxGuestAdditions_7.0.22/
+$ cd VBoxGuestAdditions_7.0.26/
 
 $ chmod +x ./VBoxLinuxAdditions.run
 
