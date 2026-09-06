@@ -50,9 +50,9 @@ $ export \
 
 <br/>
 
-### [Поднимаю Minikube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
+### [Поднимаю Minikube](https://docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
 
-### [Устанавливаю FluxCD](//docs.k8s.ru/tools/gitops/ci-cd/fluxcd/setup/)
+### [Устанавливаю FluxCD](https://docs.k8s.ru/tools/gitops/ci-cd/fluxcd/setup/)
 
 <br/>
 

@@ -19,7 +19,7 @@ https://kubernetes-tutorial.schoolofdevops.com/argo_experiments_analysis/
 
 <br/>
 
-### [Устанавливаем metrics-server](//docs.k8s.ru/tools/containers/kubernetes/utils/metrics-server/)
+### [Устанавливаем metrics-server](https://docs.k8s.ru/tools/containers/kubernetes/utils/metrics-server/)
 
 <br/>
 

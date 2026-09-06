@@ -292,7 +292,7 @@ rollout.argoproj.io "bgd-rollouts" deleted
 
 ### Пример с ISTIO
 
-Устанавливаю [argo-rollouts](//docs.k8s.ru/tools/containers/kubernetes/utils/service-mesh/istio/setup/)
+Устанавливаю [argo-rollouts](https://docs.k8s.ru/tools/containers/kubernetes/utils/service-mesh/istio/setup/)
 
 <br/>
 

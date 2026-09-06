@@ -15,10 +15,10 @@ permalink: /books/containers/kubernetes/utils/ci-cd/tekton/building-ci-cd-system
 
 <br/>
 
-### 1. Инсталляция [MiniKube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
+### 1. Инсталляция [MiniKube](https://docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
 
 **Испольновалась версия KUBERNETES_VERSION=v1.32.2**
 
-### 2. Инсталляция [Kubectl](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
+### 2. Инсталляция [Kubectl](https://docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
 ### 3. Инсталляция [ Tekton](/tools/gitops/ci-cd/tekton/)

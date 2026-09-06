@@ -22,7 +22,7 @@ permalink: /books/gitops/gitops-cookbook/advanced-topics/sealed-secrets/
 
 <br/>
 
-### [Установка kubeseal и контроллера](//docs.k8s.ru/tools/containers/kubernetes/utils/security/bitnami-seal/)
+### [Установка kubeseal и контроллера](https://docs.k8s.ru/tools/containers/kubernetes/utils/security/bitnami-seal/)
 
 <br/>
 

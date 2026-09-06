@@ -28,4 +28,4 @@ permalink: /devops/
 
 <br/>
 
-### [Kubernetes](//docs.k8s.ru/tools/containers/kubernetes/)
+### [Kubernetes](https://docs.k8s.ru/tools/containers/kubernetes/)

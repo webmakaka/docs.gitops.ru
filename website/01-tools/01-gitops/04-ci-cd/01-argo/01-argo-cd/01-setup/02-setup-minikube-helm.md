@@ -15,7 +15,7 @@ permalink: /tools/gitops/ci-cd/argo/argo-cd/setup/minikube/minikube/helm/
 
 <br/>
 
-### [Install HELM](//docs.k8s.ru/tools/containers/kubernetes/utils/helm/setup/)
+### [Install HELM](https://docs.k8s.ru/tools/containers/kubernetes/utils/helm/setup/)
 
 ### [Install Argo CD CLI](/tools/gitops/ci-cd/argo/argo-cd/setup/minikube/cli/)
 

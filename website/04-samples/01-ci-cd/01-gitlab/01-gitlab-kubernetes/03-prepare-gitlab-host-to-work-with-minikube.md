@@ -16,7 +16,7 @@ permalink: /samples/ci-cd/gitlab/kubernetes/prepare-gitlab-host-to-work-with-min
 
 Есть ошущение, что так работать не будет. Или нужно ковырять virtualbox и firewall глубже. Поэтому, наверное, лучше посмотреть вот ...
 
-**[сюда](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/remote-connection-virtualbox/)**
+**[сюда](https://docs.k8s.ru/tools/containers/kubernetes/minikube/setup/remote-connection-virtualbox/)**
 
 <br/>
 

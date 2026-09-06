@@ -15,9 +15,9 @@ permalink: /books/containers/kubernetes/tools/skaffold/setup/
 
 <br/>
 
-1. Инсталляция [MiniKube](//docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
+1. Инсталляция [MiniKube](https://docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
 
-2. Инсталляция [Kubectl](//docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
+2. Инсталляция [Kubectl](https://docs.k8s.ru/tools/containers/kubernetes/utils/kubectl/)
 
 3. Инсталляция [Skaffold](/tools/containers/kubernetes/utils/skaffold/setup/)
 

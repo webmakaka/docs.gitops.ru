@@ -29,7 +29,7 @@ minikube addons --profile ${PROFILE} enable metallb
 
 <br/>
 
-### [](//docs.k8s.ru/tools/containers/kubernetes/utils/metal-lb/minikube/setup/addon/)
+### [](https://docs.k8s.ru/tools/containers/kubernetes/utils/metal-lb/minikube/setup/addon/)
 
 <br/>
 

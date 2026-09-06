@@ -15,7 +15,7 @@ permalink: /tools/containers/kubernetes/utils/minio/
 
 <br/>
 
-[Metal LB установлен!](//docs.k8s.ru/tools/containers/kubernetes/utils/metal-lb/minikube/setup/addon/)
+[Metal LB установлен!](https://docs.k8s.ru/tools/containers/kubernetes/utils/metal-lb/minikube/setup/addon/)
 
 <br/>
 

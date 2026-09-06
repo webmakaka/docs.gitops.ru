@@ -26,7 +26,7 @@ permalink: /books/gitops/gitops-cookbook/containers/
 
 <br/>
 
-[Использовал kind](//docs.k8s.ru/tools/containers/kubernetes/kind/)
+[Использовал kind](https://docs.k8s.ru/tools/containers/kubernetes/kind/)
 
 <br/>
 
