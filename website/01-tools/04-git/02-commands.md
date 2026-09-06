@@ -12,14 +12,14 @@ permalink: /tools/git/commands/
 
 ### Глобальный конфиг
 
-```
+```shell
 // Глобальный конфиг
 $ vi ~/.gitconfig
 ```
 
 <br/>
 
-```
+```shell
 // Задать main как default branch
 $ git config --global init.defaultBranch main
 ```
@@ -28,7 +28,7 @@ $ git config --global init.defaultBranch main
 
 ### Остальные команды
 
-```
+```shell
 // Задать парамеры идентификации git глобально (лучше использовать локально, когда много git проектов с разными пользователями)
 $ git config --global user.name "your_username"
 $ git config --global user.email "your_email"
@@ -36,7 +36,7 @@ $ git config --global user.email "your_email"
 
 <br/>
 
-```
+```shell
 // Посмотреть текущие параметры
 $ git config -l  --global
 $ git config --list

@@ -6,7 +6,9 @@
 
 Инсталлируете docker и docker-compose, далее:
 
-```
+<br/>
+
+```shell
 $ cd ~
 $ mkdir -p docs.gitops.ru && cd docs.gitops.ru
 $ git clone --depth=1 https://github.com/webmakaka/docs.gitops.ru.git .
@@ -25,7 +27,7 @@ $ docker-compose up
 
 ### Запустить docs.gitops.ru на своем хосте с использованием docker контейнера:
 
-```
+```shell
 $ docker run -i -t -p 80:80 --name docs.gitops.ru marley/docs.gitops.ru
 ```
 
@@ -33,13 +35,13 @@ $ docker run -i -t -p 80:80 --name docs.gitops.ru marley/docs.gitops.ru
 
 ### Как сервис
 
-```
+```shell
 $ sudo vi /etc/systemd/system/docs.gitops.ru.service
 ```
 
 вставить содержимое файла docs.gitops.ru.service
 
-```
+```shell
 $ sudo systemctl enable docs.gitops.ru.service
 $ sudo systemctl start  docs.gitops.ru.service
 $ sudo systemctl status docs.gitops.ru.service

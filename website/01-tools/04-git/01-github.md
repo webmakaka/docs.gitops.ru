@@ -18,19 +18,19 @@ gh - консольная программа для работы с GitHub API �
 
 <br/>
 
-```
+```shell
 $ cd ~/tmp
 ```
 
 <br/>
 
-```
+```shell
 $ vi gh.sh
 ```
 
 <br/>
 
-```
+```shell
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable master" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 sudo apt update
@@ -39,21 +39,21 @@ sudo apt install gh
 
 <br/>
 
-```
+```shell
 $ chmod +x gh.sh
 $ ./gh.sh
 ```
 
 <br/>
 
-```
+```shell
 // Чтобы создавался origin на ssh а не https
 $ gh config set git_protocol ssh -h github.com
 ```
 
 <br/>
 
-```
+```shell
 $ git config --global user.name "<GITHUB_USERNAME>"
 $ git config --global user.email "<GITHUB_EMAIL>"
 ```
@@ -68,13 +68,13 @@ $ git config --global user.email "<GITHUB_EMAIL>"
 
 <br/>
 
-```
+```shell
 $ cd ~/.ssh/
 ```
 
 <br/>
 
-```
+```shell
 $ ssh-keygen \
   -t rsa \
   -b 4096 \
@@ -84,14 +84,14 @@ $ ssh-keygen \
 
 <br/>
 
-```
+```shell
 $ chmod 0600 webmakaka*
 $ eval "$(ssh-agent -s)"
 ```
 
 <br/>
 
-```
+```shell
 // Добавляем private key
 $ ssh-add ~/.ssh/webmakaka
 
@@ -101,14 +101,14 @@ $ ssh-add -l -E md5
 
 <br/>
 
-```
+```shell
 // Посмотреть public key
 $ cat ~/.ssh/webmakaka.pub
 ```
 
 <br/>
 
-```
+```shell
 // Скопировать public key в буфер
 $ cat ~/.ssh/webmakaka.pub | xclip -selection clipboard
 ```
@@ -123,7 +123,7 @@ New SSH key
 
 <br/>
 
-```
+```shell
 // Проверка возможности подключиться
 $ ssh -T git@github.com
 
@@ -141,6 +141,6 @@ MD5 должны совпадать в UI и в ssh-add
 
 <br/>
 
-```
+```shell
 $ GIT_SSH_COMMAND='ssh -i ~/.ssh/webmakaka -o IdentitiesOnly=yes' git push
 ```

@@ -1,0 +1,6 @@
+only_4xx: true
+allow_hash_href: true
+assume_extension: true
+ignore_files:
+  - /\.git/
+  - /_site\/404\.html/
