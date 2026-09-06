@@ -23,7 +23,7 @@ https://linuxforum.ru/viewtopic.php?id=38509
 
 <br/>
 
-Подготовил с помощью следующего vagrant скрипта <a href="//sysadm.ru/server/linux/virtual/vagrant/for-docker-swarm/"></a>следующее:
+Подготовил с помощью следующего vagrant скрипта <a href="https://docs.sysadm.ru/server/linux/virtual/vagrant/for-docker-swarm/"></a>следующее:
 
     192.168.56.101 client
     192.168.56.102 ca

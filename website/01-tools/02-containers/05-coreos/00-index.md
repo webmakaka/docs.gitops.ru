@@ -60,10 +60,10 @@ permalink: /devops/containers/coreos/
 
 ### Примеры запуска
 
--   Docker dev environment on laptop
--   Small cluster
--   Easy development/testing cluster
--   Production cluster with central services
+- Docker dev environment on laptop
+- Small cluster
+- Easy development/testing cluster
+- Production cluster with central services
 
 <br/>
 
@@ -132,6 +132,6 @@ https://github.com/kelseyhightower/confd
 
     <li><a href="https://www.digitalocean.com/community/tutorial_series/getting-started-with-coreos-2" rel="nofollow">Getting Started with CoreOS</a></li>
 
-    <li><a href="http://www.currah.ca/tech/2015/10/08/kubernetes-coreos.html" rel="nofollow">CoreOS w/ Kubernetes Install Guide for VirtualBox</a></li>
+    <li><a href="https://www.currah.ca/tech/2015/10/08/kubernetes-coreos.html" rel="nofollow">CoreOS w/ Kubernetes Install Guide for VirtualBox</a></li>
 
 </ul>

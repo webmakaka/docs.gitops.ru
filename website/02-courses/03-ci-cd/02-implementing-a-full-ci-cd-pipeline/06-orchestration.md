@@ -118,13 +118,13 @@ EOF
 
 <br/>
 
-Устанавливаю <a href="//javadev.org/devtools/jdk/setup/linux/">JDK8</a>
+Устанавливаю <a href="https://docs.javadev.org/devtools/jdk/setup/linux/">JDK8</a>
 
-Устанавливаю <a href="//javadev.org/devtools/build/gradle/linux/ubuntu/">Gradle</a>
+Устанавливаю <a href="https://docs.javadev.org/devtools/build/gradle/linux/ubuntu/">Gradle</a>
 
 Устанавливаю <a href="/tools/containers/docker/setup/ubuntu/">Docker</a>
 
-Устанавливаю <a href="//javadev.org/devtools/cicd/jenkins/setup/ubuntu/20.04/">Jenkins</a>
+Устанавливаю <a href="https://docs.javadev.org/devtools/cicd/jenkins/setup/ubuntu/20.04/">Jenkins</a>
 
 <br/>
 

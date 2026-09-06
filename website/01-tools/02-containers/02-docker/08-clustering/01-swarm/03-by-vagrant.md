@@ -16,7 +16,7 @@ permalink: /tools/containers/docker/clustering/swarm/by-vagrant/
 Разворачиваю в swarm вот это приложение:  
 https://github.com/webmakaka/Projects-in-Docker
 
-Делаю с помощью <a href="//sysadm.ru/server/linux/virtual/vagrant/">Vagrant</a>, т.к. при использовании docker-machine я не смог установить внутри виртуалок пакеты для поднятия NFS (Network file system).
+Делаю с помощью <a href="https://docs.sysadm.ru/server/linux/virtual/vagrant/">Vagrant</a>, т.к. при использовании docker-machine я не смог установить внутри виртуалок пакеты для поднятия NFS (Network file system).
 
 <br/>
 
