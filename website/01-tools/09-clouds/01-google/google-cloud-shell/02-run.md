@@ -62,7 +62,7 @@ $ gcloud cloud-shell scp cloudshell:/home/<USER_NAME>/telegram.tar.xz localhost:
 
 <br/>
 
-[Скачать playlist с youtube в командной строке ubuntu linux (yt-dlp)](//docs.sysadm.ru/desktop/linux/ubuntu/download-youtube-playlist/)
+[Скачать playlist с youtube в командной строке ubuntu linux (yt-dlp)](https://docs.sysadm.ru/desktop/linux/ubuntu/download-youtube-playlist/)
 
 <br/>
 

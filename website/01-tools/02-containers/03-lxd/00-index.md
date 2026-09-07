@@ -13,5 +13,3 @@ permalink: /devops/containers/lxd/
 <br/>
 
 ### [Ubuntu](/devops/containers/lxd/ubuntu/)
-
-### [Centos 6.5](/devops/containers/lxd/centos/)

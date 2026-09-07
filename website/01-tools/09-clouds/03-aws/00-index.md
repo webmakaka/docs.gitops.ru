@@ -74,4 +74,4 @@ TTL: Auto
 
 <a href="https://aws.amazon.com/ru/getting-started/serverless-web-app/" rel="nofollow">Создание бессерверного интернет-приложения</a>
 
-<a href="//jsdev.ru/schools/rs-school/nodejs/aws/" rel="nofollow">Лекции по AWS в RS School</a>
+<a href="https://docs.jsdev.ru/schools/rs-school/nodejs/aws/" rel="nofollow">Лекции по AWS в RS School</a>

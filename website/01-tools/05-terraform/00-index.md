@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=wVVycKjv8Fo&list=PLxeQ-jZjcEf2o85iLf6Jb5E8gY-sVp
 
 <br/>
 
-### [Setup Terraform](/tools/terraform/setup//)
+### [Setup Terraform](/tools/terraform/setup/)
 
 ### [Terraform Google Cloud](/tools/terraform/google-cloud/)
 

@@ -12,7 +12,7 @@ permalink: /dev/rust/neovim/
 
 <br/>
 
-Neovim пока как и [здесь](//jsdev.org/devtools/ide/neovim/)
+Neovim пока как и [здесь](https://docs.jsdev.org/devtools/ide/neovim/)
 
 <br/>
 

@@ -10,10 +10,10 @@ permalink: /tools/virtual/
 
 <br/>
 
-### [VirtualBox](/tools/virtual/virtualbox/setup/ubuntu/)
+### [VirtualBox](https://docs.sysadm.ru/tools/virtual/virtualbox/setup/ubuntu/)
 
 <br/>
 
 ### Инструменты
 
-### [Vagrant](/tools/virtual/vagrant/setup/ubuntu/)
+### [Vagrant](https://docs.sysadm.ru/tools/virtual/vagrant/setup/ubuntu/)
