@@ -10,7 +10,7 @@ permalink: /tools/virtual/
 
 <br/>
 
-### [VirtualBox](https://docs.sysadm.ru/tools/virtual/virtualbox/setup/ubuntu/)
+### [VirtualBox](https://docs.sysadm.ru/server/linux/virtual/virtualbox/setup/ubuntu/)
 
 <br/>
 
