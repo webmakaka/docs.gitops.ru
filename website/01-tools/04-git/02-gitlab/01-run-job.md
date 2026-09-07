@@ -14,7 +14,7 @@ permalink: /tools/git/gitlab/run-job/
 
 <br/>
 
-Для начала, установлю <a href="/tools/devops/tools/containers/docker/setup/ubuntu/">docker</a>
+Для начала, установлю <a href="https://docs.sysadm.ru/tools/devops/tools/containers/docker/setup/ubuntu/">docker</a>
 
     $ sudo usermod -aG docker gitlab
     $ sudo usermod -aG docker vagrant
