@@ -35,7 +35,7 @@ $ sudo service docker restart
 
 <br/>
 
-Инсталляция [MiniKube](/tools/containers/kubernetes/minikube/setup/)
+Инсталляция [MiniKube](https://docs.k8s.ru/tools/containers/kubernetes/minikube/setup/)
 
 **Испольновалась версия KUBERNETES_VERSION=v1.32**
 

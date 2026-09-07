@@ -12,4 +12,4 @@ permalink: /tools/containers/registry/
 
 ### [Docker](/tools/containers/registry/docker/)
 
-### [Harbor](/tools/containers/registry/harbor/setup/)
+### [Harbor](/tools/containers/kubernetes/utils/registries/harbor/setup/)

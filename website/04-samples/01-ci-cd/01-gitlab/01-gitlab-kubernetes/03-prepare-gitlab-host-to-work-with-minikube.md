@@ -10,7 +10,7 @@ permalink: /samples/ci-cd/gitlab/kubernetes/prepare-gitlab-host-to-work-with-min
 
 <br/>
 
-**[Upd: Можно сделать проще с использованием nginx](/tools/containers/kubernetes/minikube/setup/remote-connection-docker/)**
+**[Upd: Можно сделать проще с использованием nginx](https://docs.k8s.ru/tools/containers/kubernetes/minikube/setup/remote-connection-docker/)**
 
 <br/>
 

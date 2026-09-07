@@ -8,4 +8,4 @@ permalink: /devops/clouds/oracle/
 
 # Oracle Clouds
 
-Перенесено [сюда](/clouds/oracle/)
+Перенесено [сюда](/tools/clouds/oracle/)

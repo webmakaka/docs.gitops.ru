@@ -14,16 +14,16 @@ permalink: /courses/containers/kubernetes/service-mesh/istio/
 
 <br/>
 
-### [Подготовка окружения для тестов Istio в minikube](/containers/kubernetes/tools/service-mesh/istio/setup/)
+### [Подготовка окружения для тестов Istio в minikube](https://docs.k8s.ru/containers/kubernetes/tools/service-mesh/istio/setup/)
 
-### [Запуск демонстрационного приложения Istio - bookinfo](/containers/kubernetes/tools/service-mesh/istio/bookinfo/)
+### [Запуск демонстрационного приложения Istio - bookinfo](https://docs.k8s.ru/containers/kubernetes/tools/service-mesh/istio/bookinfo/)
 
-### [Istio Request Routing](/courses/containers/kubernetes/service-mesh/istio/request-routing/)
+### [Istio Request Routing](https://docs.k8s.ru/courses/containers/kubernetes/service-mesh/istio/request-routing/)
 
-### [Istio Traffic Management](/courses/containers/kubernetes/service-mesh/istio/traffic-management/)
+### [Istio Traffic Management](https://docs.k8s.ru/courses/containers/kubernetes/service-mesh/istio/traffic-management/)
 
-### [Istio в minikube примеры из курса "11 Steps to Awesome with Kubernetes, Istio, and Knative LiveLessons"](/courses/containers/kubernetes/service-mesh/istio/minikube/11-steps-to-awesome-with-kubernetes/)
+### [Istio в minikube примеры из курса "11 Steps to Awesome with Kubernetes, Istio, and Knative LiveLessons"](https://docs.k8s.ru/courses/containers/kubernetes/service-mesh/istio/minikube/11-steps-to-awesome-with-kubernetes/)
 
-### [Примеры из видеокурса Canary Deployments To Kubernetes Using Istio and Friends](/courses/containers/kubernetes/service-mesh/istio/canary-deployments/)
+### [Примеры из видеокурса Canary Deployments To Kubernetes Using Istio and Friends](https://docs.k8s.ru/courses/containers/kubernetes/service-mesh/istio/canary-deployments/)
 
-### [[That DevOps Guy] Istio Service mesh explained](/courses/containers/kubernetes/service-mesh/istio/istio-service-mesh-explained/)
+### [[That DevOps Guy] Istio Service mesh explained](https://docs.k8s.ru/courses/containers/kubernetes/service-mesh/istio/istio-service-mesh-explained/)

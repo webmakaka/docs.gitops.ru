@@ -30,6 +30,6 @@ permalink: /tools/git/
 
 # GitLab
 
-### [GitLab](/devops/gitops/cvs/gitlab/)
+### [GitLab](/tools/git/gitlab/)
 
 ### [GitTea Youtube](https://www.youtube.com/watch?v=dTvTBlzKqgg)

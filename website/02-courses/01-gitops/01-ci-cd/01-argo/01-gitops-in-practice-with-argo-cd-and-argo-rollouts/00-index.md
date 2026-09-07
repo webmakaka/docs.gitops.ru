@@ -32,4 +32,4 @@ https://github.com/PacktPublishing/GitOps-in-Practice-with-Argo-CD-and-Argo-Roll
 
 ### [Argo CD](/courses/gitops/ci-cd/argo/gitops-in-practice-with-argo-cd-and-argo-rollouts/argo-cd/)
 
-### [Argo Rollouts](/courses/gitops/ci-cd/argo/gitops-in-practice-with-argo-cd-and-argo-rollouts/argo-rollouts/)
+### [Argo Rollouts](/courses/gitops/ci-cd/argo/gitops-in-practice-with-argo-cd-and-argo-rollouts/argo-rollouts/first-deployment/)
