@@ -3,7 +3,7 @@ layout: page
 title: Инсталляция GIT из исходников
 description: Инсталляция GIT из исходников
 keywords: Инсталляция GIT из исходников
-permalink: /tools/git/git/setup/
+permalink: /tools/git/setup/
 ---
 
 # Инсталляция GIT из исходников

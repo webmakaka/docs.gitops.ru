@@ -10,7 +10,7 @@ permalink: /tools/git/
 
 <br/>
 
-### [Настройки git для работы с github](/cvs/git/github/)
+### [Настройки git для работы с github](/tools/git/github/)
 
 <br/>
 

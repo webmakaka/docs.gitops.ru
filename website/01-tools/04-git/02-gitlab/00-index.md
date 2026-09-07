@@ -10,13 +10,13 @@ permalink: /tools/git/gitlab/
 
 <br/>
 
-### [Инсталляция GitLab в Ubuntu 20.04](/tools/cvs/gitlab/setup/ubuntu/)
+### [Инсталляция GitLab в Ubuntu 20.04](/tools/git/gitlab/setup/ubuntu/)
 
-### [Разворачиваем Gitlab в виртуальной машине Vagrant подготовленными скриптами](/tools/cvs/gitlab/vagrant/)
+### [Разворачиваем Gitlab в виртуальной машине Vagrant подготовленными скриптами](/tools/git/gitlab/vagrant/)
 
 <br/>
 
-### [Запуск Job](/tools/cvs/gitlab/run-job/)
+### [Запуск Job](/tools/git/gitlab/run-job/)
 
 <br/>
 
@@ -28,7 +28,7 @@ permalink: /tools/git/gitlab/
 
 ## Архив
 
-### [Инсталляция GITLAB в Centos 6 из пакетов](/tools/cvs/gitlab/setup/centos/6/)
+### [Инсталляция GITLAB в Centos 6 из пакетов](/tools/git/gitlab/setup/centos/6/)
 
 <br/>
 
