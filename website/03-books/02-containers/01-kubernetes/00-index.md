@@ -26,7 +26,7 @@ permalink: /books/containers/kubernetes/
 
 <br/>
 
-[Разбор](/books/containers/kubernetes/kubernetes-in-production-best-practices/)
+[Разбор](https://docs.k8s.ru/books/containers/kubernetes/kubernetes-in-production-best-practices/)
 
 <br/>
 
@@ -34,7 +34,7 @@ permalink: /books/containers/kubernetes/
 
 <br/>
 
-[Разбор](/books/containers/kubernetes/tools/skaffold/effortless-cloud-native-development-skaffold/)
+[Разбор](https://docs.k8s.ru/books/containers/kubernetes/tools/skaffold/effortless-cloud-native-development-skaffold/)
 
 <br/>
 
