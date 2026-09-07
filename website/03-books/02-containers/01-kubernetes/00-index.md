@@ -60,4 +60,4 @@ https://www.youtube.com/channel/UCK__yS63yrSI8vavJzainEQ/videos
 
 <br/>
 
-### [[Aly Saleh, Murat Karslioglu] Kubernetes in Production Best Practices: Build and manage highly available production-ready Kubernetes clusters [ENG, 2021]](/books/containers/kubernetes/kubernetes-in-production-best-practices/)
+### [[Aly Saleh, Murat Karslioglu] Kubernetes in Production Best Practices: Build and manage highly available production-ready Kubernetes clusters [ENG, 2021]](https://docs.k8s.ru/books/containers/kubernetes/kubernetes-in-production-best-practices/)

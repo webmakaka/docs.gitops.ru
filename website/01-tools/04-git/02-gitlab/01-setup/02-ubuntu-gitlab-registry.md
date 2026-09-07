@@ -21,8 +21,10 @@
 
 И добавляем пользователя gitlab-runner:
 
-    # usermod -aG docker gitlab-runner
-    # service docker restart
+```
+# usermod -aG docker gitlab-runner
+# service docker restart
+```
 
 <br/>
 
