@@ -80,7 +80,7 @@ Docker Compose version v5.5.1
 
 ### Предоставить пользователю права для работы с docker
 
-```
+```shell
 // Добавить текущего пользоателя в группу для работы с docker
 $ sudo usermod -aG docker ${USER}
 ```
@@ -89,29 +89,17 @@ $ sudo usermod -aG docker ${USER}
 
 в группе docker должен появиться этот пользователь
 
-```
+<br/>
+
+```shell
 $ cat /etc/group | grep docker
 docker:x:999:marley
 ```
 
 <br/>
 
-Перелогиниваемся, иначе не будет работать
-
 ```
-$ logout
-```
-
-Лучше даже сделать reboot.
-
-```
-$ sudo reboot
-```
-
-<br/>
-
-```
-// Но можно и
+// Команда для обновления конфигурации групп в текущей сессии
 $ newgrp docker
 ```
 
