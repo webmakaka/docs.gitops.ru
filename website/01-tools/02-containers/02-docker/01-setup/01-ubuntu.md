@@ -8,8 +8,8 @@ permalink: /tools/containers/docker/setup/ubuntu/
 
 # Инсталляция / Upgrade Docker в Ubuntu 22.04
 
-Делаю:  
-2026.09.23
+**Делаю:**
+2026.11.06
 
 <br/>
 
@@ -70,10 +70,10 @@ $ sudo ./install-docker-and-docker-compose.sh
 
 ```shell
 $ docker -v
-Docker version 29.8.1, build 4a63305
+Docker version 29.9.3, build 5457199
 
 $ docker compose version
-Docker Compose version v5.5.1
+Docker Compose version v5.7.0
 ```
 
 <br/>
@@ -98,7 +98,7 @@ docker:x:999:marley
 
 <br/>
 
-```
+```shell
 // Команда для обновления конфигурации групп в текущей сессии
 $ newgrp docker
 ```
