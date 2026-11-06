@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Check Internal Links
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@master
